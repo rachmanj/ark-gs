@@ -20,12 +20,14 @@ class CreatePowithetasTable extends Migration
             $table->string('vendor_code')->nullable();
             $table->string('item_code')->nullable();
             $table->string('description')->nullable();
+            $table->string('uom')->nullable();
             $table->integer('qty')->nullable();
             $table->string('project_code')->nullable();
             $table->string('dept_code')->nullable();
-            $table->string('currency')->nullable();
-            $table->integer('unit_price')->nullable();
-            $table->integer('total_po_price')->nullable();
+            $table->string('po_currency')->nullable();
+            $table->double('unit_price')->nullable();
+            $table->double('item_amount')->nullable();
+            $table->double('total_po_price')->nullable();
             $table->string('po_status')->nullable();
             $table->string('po_delivery_status')->nullable();
             $table->date('po_delivery_date')->nullable();
