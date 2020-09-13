@@ -11,15 +11,15 @@
     </div>
 </div>
 
-{{-- <div class="card bg-transparent shadow-none mt-3 border border-secondary-light">
+<div class="card bg-transparent shadow-none mt-3 border border-secondary-light">
   <div class="card-content">
     <div class="row row-group m-0">
       <div class="col-12 col-lg-6 col-xl-3 border-secondary-dark">
         <div class="card-body">
           <div class="media">
             <div class="media-body text-left">
-              <h4 class="text-info">4500</h4>
-              <span class="text-dark">Total Orders</span>
+              <h4 class="text-info">{{ number_format($grpo_all_amount / $po_amount_all_this_month * 100, 2) }} %</h4>
+              <span class="text-dark">GRPO vs PO Sent</span>
             </div>
             <div class="align-self-center w-circle-icon rounded bg-info shadow-info">
               <i class="icon-basket-loaded text-white"></i></div>
@@ -30,10 +30,10 @@
         <div class="card-body">
             <div class="media">
             <div class="media-body text-left">
-              <h4 class="text-danger">7850</h4>
-              <span class="text-dark">Total Expenses</span>
+              <h4 class="text-success">{{ number_format($po_amount_all_this_month / $plant_budget_all_this_month * 100, 2) }} %</h4>
+              <span class="text-dark">PO Sent vs Plant Budget</span>
             </div>
-            <div class="align-self-center w-circle-icon rounded bg-danger shadow-danger">
+            <div class="align-self-center w-circle-icon rounded bg-success shadow-success">
               <i class="icon-wallet text-white"></i></div>
             </div>
           </div>
@@ -64,7 +64,9 @@
    </div>
  </div><!--End Row-->
   </div>
-</div><!--End Card--> --}}
+</div><!--End Card-->
+
+
 <hr>
 <div class="row">
   <div class="col-lg-6">
@@ -105,6 +107,12 @@
                 <td class="text-right">{{ number_format($po_amount_APS_this_month, 2) }}</td>
                 <td class="text-right">{{ number_format($plant_budget_APS_this_month, 2) }}</td>
                 <td class="text-right">{{ ($plant_budget_APS_this_month == 0 ? ' - ' : number_format($po_amount_APS_this_month / $plant_budget_APS_this_month * 100, 2)) }}</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td>Total</td>
+                <th class="text-right">{{ number_format($po_amount_all_this_month, 2) }}</th>
+                <th class="text-right">{{ number_format($plant_budget_all_this_month, 2) }}</th>
               </tr>
             </tbody>
           </table>

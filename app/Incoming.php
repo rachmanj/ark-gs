@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Migi extends Model
+class Incoming extends Model
 {
     protected $guarded = [];
 }

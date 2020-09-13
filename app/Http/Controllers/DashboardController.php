@@ -16,22 +16,24 @@ class DashboardController extends Controller
         $last_month = Carbon::now()->subMonths(1);
         $all_project = ['011C', '017C', 'APS'];
 
-        $po_amount_011_this_month = $this->po_sent_amount($this_month, '011C');
-        $po_amount_017_this_month = $this->po_sent_amount($this_month, '017C');
-        $po_amount_APS_this_month = $this->po_sent_amount($this_month, 'APS');
-        $po_amount_all_this_month = $this->po_sent_amount($this_month, 'APS');
+        $po_amount_011_this_month = $this->po_sent_amount($this_month, ['011C']);
+        $po_amount_017_this_month = $this->po_sent_amount($this_month, ['017C']);
+        $po_amount_APS_this_month = $this->po_sent_amount($this_month, ['APS']);
+        $po_amount_all_this_month = $this->po_sent_amount($this_month, $all_project);
 
-        $po_amount_011_last_month = $this->po_sent_amount($last_month, '011C');
-        $po_amount_017_last_month = $this->po_sent_amount($last_month, '017C');
-        $po_amount_APS_last_month = $this->po_sent_amount($last_month, 'APS');
+        $po_amount_011_last_month = $this->po_sent_amount($last_month, ['011C']);
+        $po_amount_017_last_month = $this->po_sent_amount($last_month, ['017C']);
+        $po_amount_APS_last_month = $this->po_sent_amount($last_month, ['APS']);
 
-        $plant_budget_011_this_month = $this->plant_budget($this_month, '011C');
-        $plant_budget_017_this_month = $this->plant_budget($this_month, '017C');
-        $plant_budget_APS_this_month = $this->plant_budget($this_month, 'APS');
+        $plant_budget_011_this_month = $this->plant_budget($this_month, ['011C']);
+        $plant_budget_017_this_month = $this->plant_budget($this_month, ['017C']);
+        $plant_budget_APS_this_month = $this->plant_budget($this_month, ['APS']);
+        $plant_budget_all_this_month = $this->plant_budget($this_month, $all_project);
 
-        $grpo_011_amount = $this->grpo_amount($this_month, '011C');
-        $grpo_017_amount = $this->grpo_amount($this_month, '017C');
-        $grpo_APS_amount = $this->grpo_amount($this_month, 'APS');
+        $grpo_011_amount = $this->grpo_amount($this_month, ['011C']);
+        $grpo_017_amount = $this->grpo_amount($this_month, ['017C']);
+        $grpo_APS_amount = $this->grpo_amount($this_month, ['APS']);
+        $grpo_all_amount = $this->grpo_amount($this_month, $all_project);
 
         // dd($grpo_011_amount);
 
@@ -39,12 +41,15 @@ class DashboardController extends Controller
             'po_amount_011_this_month',
             'po_amount_017_this_month',
             'po_amount_APS_this_month',
+            'po_amount_all_this_month',
             'plant_budget_011_this_month',
             'plant_budget_017_this_month',
             'plant_budget_APS_this_month',
+            'plant_budget_all_this_month',
             'grpo_011_amount',
             'grpo_017_amount',
             'grpo_APS_amount',
+            'grpo_all_amount',
         ));
     }
 
@@ -58,7 +63,7 @@ class DashboardController extends Controller
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         }
 
-        return $list->where('project_code', $project)
+        return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
             ->where('po_delivery_status', 'Delivered')
@@ -68,7 +73,7 @@ class DashboardController extends Controller
 
     public function plant_budget($month, $project)
     {
-        return Budget::where('project_code', $project)
+        return Budget::whereIn('project_code', $project)
             ->where('budgettype_id', 1)
             ->whereMonth('date', $month)
             ->sum('amount');
@@ -84,7 +89,7 @@ class DashboardController extends Controller
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         }
 
-        return $list->where('project_code', $project)
+        return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
             ->whereNotNull('grpo_no')

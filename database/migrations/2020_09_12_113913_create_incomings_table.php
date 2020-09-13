@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMigisTable extends Migration
+class CreateIncomingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateMigisTable extends Migration
      */
     public function up()
     {
-        Schema::create('migis', function (Blueprint $table) {
+        Schema::create('incomings', function (Blueprint $table) {
             $table->id();
             $table->date('posting_date')->nullable();
             $table->string('doc_type')->nullable();
             $table->string('doc_no')->nullable();
-            $table->string('order_no')->nullable();
             $table->string('project_code')->nullable();
             $table->string('dept_code')->nullable();
             $table->string('item_code')->nullable();
@@ -35,6 +34,6 @@ class CreateMigisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('migis');
+        Schema::dropIfExists('incomings');
     }
 }

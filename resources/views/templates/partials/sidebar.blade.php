@@ -20,14 +20,14 @@
      </li>   
      <li>
        <a href="javaScript:void();" class="waves-effect">
-         <i class="icon-fire"></i> <span>Tables</span>
+         <i class="icon-fire"></i> <span>Tables Upload</span>
          <i class="fa fa-angle-left float-right"></i>
        </a>
        <ul class="sidebar-submenu">
          <li><a href="{{ route('powithetas.index') }}"><i class="fa fa-circle-o"></i> PO With ETA</a></li>
-             <li><a href="icons-font-awesome.html"><i class="fa fa-circle-o"></i> Font Awesome</a></li>
-             <li><a href="icons-themify.html"><i class="fa fa-circle-o"></i> Themify Icons</a></li>
-             <li><a href="icons-simple-line-icons.html"><i class="fa fa-circle-o"></i> Line Icons</a></li>
+             <li><a href="{{ route('migis.index') }}"><i class="fa fa-circle-o"></i> MI GI</a></li>
+             <li><a href="{{ route('incomings.index') }}"><i class="fa fa-circle-o"></i> Incoming</a></li>
+             <li><a href="{{ route('progresmrs.index') }}"><i class="fa fa-circle-o"></i> Progres MR</a></li>
              <li><a href="icons-flags.html"><i class="fa fa-circle-o"></i> Flag Icons</a></li>
        </ul>
      </li>
