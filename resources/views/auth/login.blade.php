@@ -27,7 +27,7 @@
 		<div class="card-body">
 		 <div class="card-content p-2">
 		 	<div class="text-center">
-		 		<img src="assets/images/logo-icon.png">
+		 		<img src="{{ asset('assets/images/logo-icon.png') }}">
 		 	</div>
 		  <div class="card-title text-uppercase text-center py-3">ARK - GS</div>
             <form action="{{ route('login') }}" method="POST">
