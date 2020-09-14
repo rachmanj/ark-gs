@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\MigiImport;
+use App\Migi;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MigiController extends Controller
@@ -15,7 +16,8 @@ class MigiController extends Controller
      */
     public function index()
     {
-        return view('migis.index');
+        $latest_record = Migi::latest('created_at')->first();
+        return view('migis.index', compact('latest_record'));
     }
 
     public function import_excel(Request $request)

@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\PowithetaImport;
+use App\Powitheta;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PowithetaController extends Controller
 {
     public function index()
     {
-        return view('powithetas.index');
+        $latest_record = Powitheta::latest('created_at')->first();
+
+        return view('powithetas.index', compact('latest_record'));
     }
 
     public function import_excel(Request $request)

@@ -22,7 +22,9 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
     //dashboard
-    Route::get('/home', 'DashboardController@index')->name('home');
+    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
+    Route::get('/dashboard/page_2', 'DashboardController@page_2')->name('dashboard.page_2');
     Route::get('/dashboard/po_sent_by_project', 'DashboardController@po_sent_by_project')->name('dashboard.po_sent_by_project');
 
     // data ajax

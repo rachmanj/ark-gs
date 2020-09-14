@@ -11,25 +11,24 @@
     </div>
 </div>
 
-@include('dashboard.first_row')
-
 <hr>
-
 <div class="row">
-  @include('dashboard.posent_vs_plantbudget')
-
-  @include('dashboard.grpo_vs_posent')
-
+  @include('dashboard.page_2.mr_to_pr')
+  @include('dashboard.page_2.pr_to_po')
 </div>
 
 <hr>
 
 <div class="row">
-  
-  @include('dashboard.npi')
-  
-  {{-- @include('dashboard.boto') --}}
-    
+  @include('dashboard.page_2.poeta_to_grpo')
+  @include('dashboard.page_2.grpo_to_iti')
+</div>
+
+<hr>
+
+<div class="row">
+  @include('dashboard.page_2.mr_to_mi')
+  {{-- @include('dashboard.page_2.grpo_to_iti') --}}
 </div>
 
 @endsection
