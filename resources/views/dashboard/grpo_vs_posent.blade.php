@@ -38,7 +38,7 @@
                 <td class="text-center">{{ $grpo_APS_amount == 0 ? ' - ' : number_format( $grpo_APS_amount / $po_amount_APS_this_month * 100, 2) }}</td>
               </tr>
               <tr>
-                <th scope="row">3</th>
+                <th scope="row"></th>
                 <th>Total</th>
                 <th class="text-right">{{ number_format($po_amount_all_this_month / 1000, 2) }}</th>
                 <th class="text-right">{{ number_format($grpo_all_amount / 1000, 2) }}</th>

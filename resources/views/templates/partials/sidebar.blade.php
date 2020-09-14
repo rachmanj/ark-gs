@@ -39,14 +39,9 @@
          <i class="fa fa-angle-left float-right"></i>
        </a>
        <ul class="sidebar-submenu">
-             <li><a href="pages-invoice.html"><i class="fa fa-circle-o"></i> Invoice</a></li>
-             <li><a href="pages-user-profile.html"><i class="fa fa-circle-o"></i> User Profile</a></li>
-             <li><a href="pages-lock-screen.html"><i class="fa fa-circle-o"></i> Lockscreen</a></li>
-             <li><a href="pages-blank-page.html"><i class="fa fa-circle-o"></i> Blank Page</a></li>
-             <li><a href="pages-coming-soon.html"><i class="fa fa-circle-o"></i> Coming Soon</a></li>
-             <li><a href="pages-403.html"><i class="fa fa-circle-o"></i> 403 Error</a></li>
-             <li><a href="pages-404.html"><i class="fa fa-circle-o"></i> 404 Error</a></li>
-             <li><a href="pages-500.html"><i class="fa fa-circle-o"></i> 500 Error</a></li>
+             <li><a href="pages-invoice.html"><i class="fa fa-circle-o"></i> Users</a></li>
+             <li><a href="pages-user-profile.html"><i class="fa fa-circle-o"></i> Roles</a></li>
+             <li><a href="pages-lock-screen.html"><i class="fa fa-circle-o"></i> Permissions</a></li>
        </ul>
       </li>
    </ul>
