@@ -6,7 +6,7 @@
       <div> <!--Please remove the height before using this page  style="height:600px"-->
         <h3>Progres MR</h3>
         <p>Query Name: Progres MR</p>
-        <p>Record date: {{ date('d-m-Y H:i:s', strtotime($latest_record->created_at)) }} </p>
+        {{-- <p>Record date: {{ date('d-m-Y H:i:s', strtotime($latest_record->created_at)) }} </p> --}}
 
         <div class="row">
           <div class="col-lg-12">

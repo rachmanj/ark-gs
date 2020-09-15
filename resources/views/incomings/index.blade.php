@@ -6,8 +6,10 @@
       <div> <!--Please remove the height before using this page  style="height:600px"-->
         <h3>Incoming Inventory</h3>
         <p>Query Name: List GRPO, GR, MRet</p>
-        <p>Record date: {{ date('d-m-Y H:i:s', strtotime($latest_record->created_at)) }} </p>
-
+        {{-- @if ($latest_record->created_at) {
+          <p>Record date: {{ date('d-m-Y H:i:s', strtotime($latest_record->created_at)) }} </p>
+        }
+        @endif --}}
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
