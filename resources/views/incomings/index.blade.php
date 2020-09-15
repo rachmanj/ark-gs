@@ -5,15 +5,18 @@
     <div class="col-lg-12">
       <div> <!--Please remove the height before using this page  style="height:600px"-->
         <h3>Incoming Inventory</h3>
-        <h4>GRPO, GR, MRet</h4>
+        <p>Query Name: List GRPO, GR, MRet</p>
+        <p>Record date: {{ date('d-m-Y H:i:s', strtotime($latest_record->created_at)) }} </p>
 
         <div class="row">
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
-                  <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importExcel">
+                @role(['superadmin', 'admin'])
+                  <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#importExcel">
                       <i class="fa fa-upload"></i> Upload Excel
                   </button>
+                  @endrole
               </div>
               <div class="card-body">
                 <div class="table-responsive">

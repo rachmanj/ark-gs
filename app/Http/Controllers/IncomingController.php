@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\IncomingImport;
+use App\Incoming;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -10,7 +11,8 @@ class IncomingController extends Controller
 {
     public function index()
     {
-        return view('incomings.index');
+        $latest_record = Incoming::latest('created_at')->first();
+        return view('incomings.index', compact('latest_record'));
     }
 
     public function import_excel(Request $request)

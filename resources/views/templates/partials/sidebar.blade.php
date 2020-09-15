@@ -32,6 +32,7 @@
              <li><a href="icons-flags.html"><i class="fa fa-circle-o"></i> Flag Icons</a></li>
        </ul>
      </li>
+     @role(['superadmin', 'admin'])
      <li class="sidebar-header">ADMIN AREA</li>
     <li>
        <a href="javaScript:void();" class="waves-effect">
@@ -39,11 +40,12 @@
          <i class="fa fa-angle-left float-right"></i>
        </a>
        <ul class="sidebar-submenu">
-             <li><a href="pages-invoice.html"><i class="fa fa-circle-o"></i> Users</a></li>
-             <li><a href="pages-user-profile.html"><i class="fa fa-circle-o"></i> Roles</a></li>
-             <li><a href="pages-lock-screen.html"><i class="fa fa-circle-o"></i> Permissions</a></li>
+             <li><a href="{{ route('admin.user.index') }}"><i class="fa fa-circle-o"></i> Users</a></li>
+             <li><a href="{{ route('admin.role.index') }}"><i class="fa fa-circle-o"></i> Roles</a></li>
+             <li><a href="{{ route('admin.permission.index') }}"><i class="fa fa-circle-o"></i> Permissions</a></li>
        </ul>
       </li>
+      @endrole
    </ul>
     
   </div>

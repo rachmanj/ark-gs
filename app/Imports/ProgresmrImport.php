@@ -73,7 +73,7 @@ class ProgresmrImport implements ToModel, WithHeadingRow
             'item_code' => $row['item_code'],
             'description' => $row['description'],
             'group' => $row['group'],
-            'mi_qty' => $row['mi_qty'],
+            'mr_qty' => $row['mr_qty'],
             'open_qty' => $row['open_qty'],
             'stock_wh' => $row['stock_wh'],
         ]);

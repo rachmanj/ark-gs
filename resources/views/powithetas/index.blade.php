@@ -12,9 +12,11 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-header">
-                <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#importExcel">
+              @role(['superadmin', 'admin'])
+                <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#importExcel">
                     <i class="fa fa-upload"></i> Upload Excel
                 </button>
+                @endrole
             </div>
             <div class="card-body">
               <div class="table-responsive">

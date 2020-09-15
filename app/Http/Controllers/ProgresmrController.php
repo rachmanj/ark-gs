@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\ProgresmrImport;
+use App\Progresmr;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 
@@ -10,7 +11,8 @@ class ProgresmrController extends Controller
 {
     public function index()
     {
-        return view('progresmrs.index');
+        $latest_record = Progresmr::latest('created_at')->first();
+        return view('progresmrs.index', compact('latest_record'));
     }
 
     public function import_excel(Request $request)

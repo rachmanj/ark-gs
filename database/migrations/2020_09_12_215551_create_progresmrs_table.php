@@ -72,7 +72,7 @@ class CreateProgresmrsTable extends Migration
             $table->string('item_code')->nullable();
             $table->string('description')->nullable();
             $table->string('group')->nullable();
-            $table->integer('mi_qty')->nullable();
+            $table->integer('mr_qty')->nullable();
             $table->integer('open_qty')->nullable();
             $table->integer('stock_wh')->nullable();
             $table->timestamps();

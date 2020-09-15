@@ -22,7 +22,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-        return view('pages.admin.user.index', compact('users'));
+        return view('admin.user.index', compact('users'));
     }
 
     /**
@@ -33,7 +33,7 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('pages.admin.user.create', compact('roles'));
+        return view('admin.user.create', compact('roles'));
     }
 
     /**
@@ -46,6 +46,7 @@ class UserController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:100'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'role_id' => ['required']
@@ -53,6 +54,7 @@ class UserController extends Controller
 
         $user = User::create([
             'name' => $request->name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
@@ -87,7 +89,7 @@ class UserController extends Controller
             $user = User::findOrFail($id);
             $roles = Role::all();
 
-            return view('pages.admin.user.edit', compact('user', 'roles'));
+            return view('admin.user.edit', compact('user', 'roles'));
         } catch (ModelNotFoundException $e) {
             return redirect()->route('admin.user.index')->with($this->alertNotFound());
         }
