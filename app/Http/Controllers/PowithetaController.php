@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\PowithetaImport;
 use App\Powitheta;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PowithetaController extends Controller
 {
     public function index()
     {
-        $latest_record = Powitheta::latest('created_at')->first();
+        try {
+            $latest_record = Powitheta::latest('created_at')->first();
 
-        return view('powithetas.index', compact('latest_record'));
+            return view('powithetas.index', compact('latest_record'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('home')->with($this->alertNotFound());
+        }
     }
 
     public function import_excel(Request $request)

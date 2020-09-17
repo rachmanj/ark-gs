@@ -54,6 +54,7 @@ class DashboardController extends Controller
         // dd($npi_outgoing);
 
         return view('dashboard.index', compact(
+            'last_month',
             'latest_record',
             'po_amount_011_this_month',
             'po_amount_017_this_month',
@@ -125,6 +126,38 @@ class DashboardController extends Controller
             'mr_to_mi_011',
             'mr_to_mi_017',
             'mr_to_mi_all',
+        ));
+    }
+
+    public function page_3()
+    {
+        $this_month = Carbon::now();
+        $last_month = Carbon::now()->subMonths(1);
+        $all_project = ['011C', '017C', 'APS'];
+
+        $npi_incoming_011 = $this->incoming_qty($last_month, ['011C']);
+        $npi_incoming_017 = $this->incoming_qty($last_month, ['017C']);
+        $npi_incoming_APS = $this->incoming_qty($last_month, ['APS']);
+        $npi_incoming_all = $this->incoming_qty($last_month, $all_project);
+
+        $npi_outgoing_011 = $this->outgoing_qty($last_month, ['011C']);
+        $npi_outgoing_017 = $this->outgoing_qty($last_month, ['017C']);
+        $npi_outgoing_APS = $this->outgoing_qty($last_month, ['APS']);
+        $npi_outgoing_all = $this->outgoing_qty($last_month, $all_project);
+
+        $outs_mr_011 = $this->outs_mr(['011C']);
+
+        // dd($outs_mr_011->groupBy('days')); //
+
+        return view('dashboard.page_3', compact(
+            'npi_incoming_011',
+            'npi_incoming_017',
+            'npi_incoming_APS',
+            'npi_incoming_all',
+            'npi_outgoing_011',
+            'npi_outgoing_017',
+            'npi_outgoing_APS',
+            'npi_outgoing_all',
         ));
     }
 
@@ -257,6 +290,16 @@ class DashboardController extends Controller
     {
         $list = DB::table('progresmrs')->selectRaw('project_code, mr_date, mi_date, datediff(mi_date, mr_date) as days')
             ->whereIn('project_code', $project)
+            ->get();
+
+        return $list;
+    }
+
+    public function outs_mr($project)
+    {
+        $list = DB::table('progresmrs')->selectRaw('project_code, mr_date, datediff(now(), mr_date) as days')
+            ->whereIn('project_code', $project)
+            ->whereNull('po_no')
             ->get();
 
         return $list;

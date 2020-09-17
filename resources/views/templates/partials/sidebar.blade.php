@@ -9,32 +9,33 @@
     <ul class="sidebar-menu do-nicescrol">
      <li class="sidebar-header">MAIN NAVIGATION</li>
      <li>
-       <a href="index.html" class="waves-effect">
-         <i class="icon-home"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
+       <a href="javaScript:void();" class="waves-effect">
+         <i class="icon-home"></i> <span>Dashboard</span>
+         <i class="fa fa-angle-left pull-right"></i>
        </a>
        <ul class="sidebar-submenu">
          <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
          <li><a href="{{ route('dashboard.page_2') }}"><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
-         {{-- <li><a href="index3.html"><i class="fa fa-circle-o"></i> Dashboard v3</a></li>
-         <li><a href="index4.html"><i class="fa fa-circle-o"></i> Dashboard v4</a></li> --}}
+         <li><a href="{{ route('dashboard.page_3') }}"><i class="fa fa-circle-o"></i> Agustus 2020</a></li>
+         {{-- <li><a href="index4.html"><i class="fa fa-circle-o"></i> Dashboard v4</a></li> --}}
        </ul>
      </li>   
-     <li>
-       <a href="javaScript:void();" class="waves-effect">
-         <i class="icon-fire"></i> <span>Tables Upload</span>
-         <i class="fa fa-angle-left float-right"></i>
-       </a>
+      <li>
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="icon-fire"></i> <span>Tables Upload</span>
+          <i class="fa fa-angle-left float-right"></i>
+        </a>
        <ul class="sidebar-submenu">
-         <li><a href="{{ route('powithetas.index') }}"><i class="fa fa-circle-o"></i> PO With ETA</a></li>
-             <li><a href="{{ route('migis.index') }}"><i class="fa fa-circle-o"></i> MI GI</a></li>
-             <li><a href="{{ route('incomings.index') }}"><i class="fa fa-circle-o"></i> Incoming</a></li>
-             <li><a href="{{ route('progresmrs.index') }}"><i class="fa fa-circle-o"></i> Progres MR</a></li>
-             <li><a href="icons-flags.html"><i class="fa fa-circle-o"></i> Flag Icons</a></li>
+          <li><a href="{{ route('powithetas.index') }}"><i class="fa fa-circle-o"></i> PO With ETA</a></li>
+          <li><a href="{{ route('migis.index') }}"><i class="fa fa-circle-o"></i> MI GI</a></li>
+          <li><a href="{{ route('incomings.index') }}"><i class="fa fa-circle-o"></i> Incoming</a></li>
+          <li><a href="{{ route('progresmrs.index') }}"><i class="fa fa-circle-o"></i> Progres MR</a></li>
+          <li><a href="icons-flags.html"><i class="fa fa-circle-o"></i> Flag Icons</a></li>
        </ul>
-     </li>
+      </li>
      @role(['superadmin', 'admin'])
-     <li class="sidebar-header">ADMIN AREA</li>
-    <li>
+      <li class="sidebar-header">ADMIN AREA</li>
+      <li>
        <a href="javaScript:void();" class="waves-effect">
          <i class="fa fa-users"></i> <span>User Management</span>
          <i class="fa fa-angle-left float-right"></i>

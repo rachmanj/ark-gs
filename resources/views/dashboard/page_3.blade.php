@@ -5,20 +5,20 @@
 <div class="row">
     <div class="col-lg-12">
       <div> <!--Please remove the height before using this page-->
-          <h3>Dashboard</h3>
-          <h5>Last Posting date: {{ date('d-m-Y', strtotime($latest_record->posting_date)) }}</h5>
+          <h3>Dashboard 3</h3>
+          <h5>Last Month </h5>
       </div>
     </div>
 </div>
 
-@include('dashboard.page_1.first_row')
+{{-- @include('dashboard.first_row') --}}
 
 <hr>
 
 <div class="row">
-  @include('dashboard.page_1.posent_vs_plantbudget')
+  {{-- @include('dashboard.posent_vs_plantbudget') --}}
 
-  @include('dashboard.page_1.grpo_vs_posent')
+  {{-- @include('dashboard.grpo_vs_posent') --}}
 
 </div>
 
@@ -26,10 +26,8 @@
 
 <div class="row">
   
-  @include('dashboard.page_1.npi')
+  @include('dashboard.page_3.npi')
   
-  {{-- @include('dashboard.boto') --}}
-    
 </div>
 
 @endsection
