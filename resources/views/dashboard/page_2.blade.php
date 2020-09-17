@@ -28,6 +28,7 @@
 
 <div class="row">
   @include('dashboard.page_2.mr_to_mi')
+  @include('dashboard.page_2.outs_mr')
   {{-- @include('dashboard.page_2.grpo_to_iti') --}}
 </div>
 

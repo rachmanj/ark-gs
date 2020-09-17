@@ -107,6 +107,9 @@ class DashboardController extends Controller
         $mr_to_mi_017 = $this->mr_to_mi(['017C']);
         $mr_to_mi_all = $this->mr_to_mi($all_project);
 
+        $outs_mr_011 = $this->outs_mr(['011C']);
+        $outs_mr_017 = $this->outs_mr(['017C']);
+
         // dd($mr_to_pr);
 
         return view('dashboard.page_2', compact(
@@ -126,6 +129,8 @@ class DashboardController extends Controller
             'mr_to_mi_011',
             'mr_to_mi_017',
             'mr_to_mi_all',
+            'outs_mr_011',
+            'outs_mr_017',
         ));
     }
 
@@ -145,9 +150,7 @@ class DashboardController extends Controller
         $npi_outgoing_APS = $this->outgoing_qty($last_month, ['APS']);
         $npi_outgoing_all = $this->outgoing_qty($last_month, $all_project);
 
-        $outs_mr_011 = $this->outs_mr(['011C']);
-
-        // dd($outs_mr_011->groupBy('days')); //
+        // dd($outs_mr_011); //
 
         return view('dashboard.page_3', compact(
             'npi_incoming_011',
@@ -297,9 +300,30 @@ class DashboardController extends Controller
 
     public function outs_mr($project)
     {
-        $list = DB::table('progresmrs')->selectRaw('project_code, mr_date, datediff(now(), mr_date) as days')
+        // $list = DB::table('progresmrs')->selectRaw('datediff(now(), mr_date) as days')
+        //     ->whereIn('project_code', $project)
+        //     ->whereNull('po_no')
+        //     ->groupBy('days')
+        //     ->get();
+
+        // $list = DB::table('progresmrs')->selectRaw('mr_date, datediff(now(), mr_date) as days')
+        //     ->whereIn('project_code', $project)
+        //     ->whereNull('po_no')
+        //     ->groupBy('mr_date')
+        //     ->orderBy('days')
+        //     ->get();
+
+        // $list = Progresmr::selectRaw('mr_date, datediff(now(), mr_date) as days')
+        //     ->whereIn('project_code', $project)
+        //     ->whereNull('po_no')
+        //     ->groupBy('mr_date')
+        //     ->get();
+
+        $list = DB::table('progresmrs')
+            ->select(DB::raw('mr_date'), DB::raw('count(*) as record_count'), DB::raw('datediff(now(), mr_date) as days'))
             ->whereIn('project_code', $project)
-            ->whereNull('po_no')
+            ->where('mr_status', 'Open')
+            ->groupBy('mr_date')
             ->get();
 
         return $list;
