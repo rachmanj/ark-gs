@@ -110,7 +110,7 @@ class DashboardController extends Controller
         $outs_mr_011 = $this->outs_mr(['011C']);
         $outs_mr_017 = $this->outs_mr(['017C']);
 
-        // dd($mr_to_pr);
+        // dd($grpo_to_iti_017->whereIn('days', [0, 1, 2]));
 
         return view('dashboard.page_2', compact(
             'latest_record',
@@ -329,6 +329,16 @@ class DashboardController extends Controller
             ->whereIn('project_code', $project)
             ->where('mr_status', 'Open')
             ->groupBy('mr_date')
+            ->get();
+
+        return $list;
+    }
+
+    public function test()
+    {
+        $list = DB::table('progresmrs')->selectRaw('*, datediff(iti_date, grpo_date) as days')
+            ->whereIn('project_code', ['017C'])
+            ->whereNotNull('iti_no')
             ->get();
 
         return $list;
