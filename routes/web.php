@@ -25,6 +25,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard.index');
     Route::get('/dashboard/page_2', 'DashboardController@page_2')->name('dashboard.page_2');
     Route::get('/dashboard/page_3', 'DashboardController@page_3')->name('dashboard.page_3');
+    Route::get('/dashboard/page_4', 'DashboardController@page_4')->name('dashboard.page_4');
     Route::get('/dashboard/po_sent_by_project', 'DashboardController@po_sent_by_project')->name('dashboard.po_sent_by_project');
 
     // data ajax

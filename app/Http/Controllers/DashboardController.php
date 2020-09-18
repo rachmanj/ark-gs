@@ -257,6 +257,7 @@ class DashboardController extends Controller
     {
         $list = DB::table('progresmrs')->selectRaw('project_code, mr_creation, pr_creation, datediff(pr_creation, mr_creation) as days')
             ->whereIn('project_code', $project)
+            ->whereNotNull('pr_no')
             ->get();
 
         return $list;
@@ -266,6 +267,7 @@ class DashboardController extends Controller
     {
         $list = DB::table('progresmrs')->selectRaw('project_code, pr_creation, po_creation, datediff(po_creation, pr_creation) as days')
             ->whereIn('project_code', $project)
+            ->whereNotNull('po_no')
             ->get();
 
         return $list;
@@ -275,6 +277,7 @@ class DashboardController extends Controller
     {
         $list = DB::table('progresmrs')->selectRaw('project_code, po_eta, grpo_date, datediff(grpo_date, po_eta) as days')
             ->whereIn('project_code', $project)
+            ->whereNotNull('grpo_no')
             ->get();
 
         return $list;
@@ -284,6 +287,7 @@ class DashboardController extends Controller
     {
         $list = DB::table('progresmrs')->selectRaw('project_code, grpo_date, iti_date, datediff(iti_date, grpo_date) as days')
             ->whereIn('project_code', $project)
+            ->whereNotNull('iti_no')
             ->get();
 
         return $list;
@@ -293,6 +297,7 @@ class DashboardController extends Controller
     {
         $list = DB::table('progresmrs')->selectRaw('project_code, mr_date, mi_date, datediff(mi_date, mr_date) as days')
             ->whereIn('project_code', $project)
+            ->whereNotNull('mi_no')
             ->get();
 
         return $list;

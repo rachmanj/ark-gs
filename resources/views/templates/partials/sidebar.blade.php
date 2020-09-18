@@ -17,6 +17,7 @@
          <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
          <li><a href="{{ route('dashboard.page_2') }}"><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
          <li><a href="{{ route('dashboard.page_3') }}"><i class="fa fa-circle-o"></i> Agustus 2020</a></li>
+         <li><a href="#"><i class="fa fa-circle-o"></i> Detail Agustus 2020</a></li>
          {{-- <li><a href="index4.html"><i class="fa fa-circle-o"></i> Dashboard v4</a></li> --}}
        </ul>
      </li>   
