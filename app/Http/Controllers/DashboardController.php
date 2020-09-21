@@ -110,6 +110,9 @@ class DashboardController extends Controller
         $outs_mr_011 = $this->outs_mr(['011C']);
         $outs_mr_017 = $this->outs_mr(['017C']);
 
+        $mr_belum_iti_011 = $this->mr_belum_iti(['011C']);
+        $mr_belum_iti_017 = $this->mr_belum_iti(['017C']);
+
         // dd($grpo_to_iti_017->whereIn('days', [0, 1, 2]));
 
         return view('dashboard.page_2', compact(
@@ -131,6 +134,8 @@ class DashboardController extends Controller
             'mr_to_mi_all',
             'outs_mr_011',
             'outs_mr_017',
+            'mr_belum_iti_011',
+            'mr_belum_iti_017',
         ));
     }
 
@@ -305,25 +310,6 @@ class DashboardController extends Controller
 
     public function outs_mr($project)
     {
-        // $list = DB::table('progresmrs')->selectRaw('datediff(now(), mr_date) as days')
-        //     ->whereIn('project_code', $project)
-        //     ->whereNull('po_no')
-        //     ->groupBy('days')
-        //     ->get();
-
-        // $list = DB::table('progresmrs')->selectRaw('mr_date, datediff(now(), mr_date) as days')
-        //     ->whereIn('project_code', $project)
-        //     ->whereNull('po_no')
-        //     ->groupBy('mr_date')
-        //     ->orderBy('days')
-        //     ->get();
-
-        // $list = Progresmr::selectRaw('mr_date, datediff(now(), mr_date) as days')
-        //     ->whereIn('project_code', $project)
-        //     ->whereNull('po_no')
-        //     ->groupBy('mr_date')
-        //     ->get();
-
         $list = DB::table('progresmrs')
             ->select(DB::raw('mr_date'), DB::raw('count(*) as record_count'), DB::raw('datediff(now(), mr_date) as days'))
             ->whereIn('project_code', $project)
@@ -336,9 +322,30 @@ class DashboardController extends Controller
 
     public function test()
     {
-        $list = DB::table('progresmrs')->selectRaw('*, datediff(iti_date, grpo_date) as days')
-            ->whereIn('project_code', ['017C'])
-            ->whereNotNull('iti_no')
+        // $list = DB::table('progresmrs')
+        //     ->select(DB::raw('mr_creation'), DB::raw('count(*) as record_count'), DB::raw('datediff(now(), mr_creation) as days'))
+        //     ->whereIn('project_code', ['011C'])
+        //     ->whereNotNull('grpo_no')
+        //     ->whereNull('iti_no')
+        //     ->groupBy('mr_creation')
+        //     ->get();
+
+        // $list = DB::table('progresmrs')->selectRaw('*, datediff(iti_date, grpo_date) as days')
+        //     ->whereIn('project_code', ['017C'])
+        //     ->whereNotNull('iti_no')
+        //     ->get();
+
+        return $list;
+    }
+
+    public function mr_belum_iti($project)    //MR yg sduah grpo namun belum ITI
+    {
+        $list = DB::table('progresmrs')
+            ->select(DB::raw('mr_creation'), DB::raw('count(*) as record_count'), DB::raw('datediff(now(), mr_creation) as days'))
+            ->whereIn('project_code', $project)
+            ->whereNotNull('grpo_no')
+            ->whereNull('iti_no')
+            ->groupBy('mr_creation')
             ->get();
 
         return $list;
