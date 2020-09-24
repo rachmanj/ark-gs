@@ -1,6 +1,6 @@
 <div class="col-lg-12">
-    <h4 class="text-uppercase">MR Sudah GRPO Belum ITI</h4>
-    <p>This to show MR have GRPO with no ITI</p>
+    <h4 class="text-uppercase">MR Sudah GRPO Belum MI</h4>
+    <p>This to show MR have GRPO with no MI</p>
     <hr>
     <div class="card">
         <div class="card-header">
