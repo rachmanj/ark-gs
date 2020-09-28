@@ -18,7 +18,7 @@ class DashboardController extends Controller
         $this_month = Carbon::now();
         $last_month = Carbon::now()->subMonths(1);
         $all_project = ['011C', '017C', 'APS'];
-        $latest_record = Powitheta::latest('posting_date')->first();
+        $latest_record = Progresmr::latest('wo_created')->first();
 
         $po_amount_011_this_month = $this->po_sent_amount($this_month, ['011C']);
         $po_amount_017_this_month = $this->po_sent_amount($this_month, ['017C']);
