@@ -117,6 +117,14 @@
             processing: true,
             serverSide: true,
             ajax: '{{ route('migis.data') }}',
+            dom: 'Bfrtip',
+            button: [
+              {
+                extend: 'pdf',
+                oriented: 'portrait'
+              },
+              'csv', 'excel', 'print', 'copy'
+            ],
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'posting_date'},

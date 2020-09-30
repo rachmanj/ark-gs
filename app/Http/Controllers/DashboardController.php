@@ -197,8 +197,7 @@ class DashboardController extends Controller
 
     public function grpo_amount($month, $project)
     {
-        $list = Powitheta::whereMonth('grpo_date', '=', $month)->whereMonth('posting_date', '=', $month);
-        // $list = Powitheta::whereMonth('grpo_date', '=', $month)->whereMonth('po_delivery_date', '=', $month);
+        $list = Powitheta::whereMonth('posting_date', $month)->whereMonth('grpo_date', $month);
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
@@ -209,9 +208,9 @@ class DashboardController extends Controller
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->whereNotNull('grpo_no')
-            // ->where('po_delivery_status', 'Delivered')
-            // ->where('po_status', '!=', 'Cancelled')
+            ->where('po_delivery_status', 'Delivered')
+            ->where('po_status', '!=', 'Cancelled')
+            // ->whereNotNull('grpo_no')
             ->sum('item_amount');
     }
 
