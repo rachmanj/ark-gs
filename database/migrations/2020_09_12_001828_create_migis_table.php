@@ -18,7 +18,7 @@ class CreateMigisTable extends Migration
             $table->date('posting_date')->nullable();
             $table->string('doc_type')->nullable();
             $table->string('doc_no')->nullable();
-            $table->string('order_no')->nullable();
+            // $table->string('order_no')->nullable();
             $table->string('project_code')->nullable();
             $table->string('dept_code')->nullable();
             $table->string('item_code')->nullable();

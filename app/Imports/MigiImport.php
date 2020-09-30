@@ -19,7 +19,7 @@ class MigiImport implements ToModel, WithHeadingRow
             'posting_date' => $row['posting_date'],
             'doc_type' => $row['doc_type'],
             'doc_no' => $row['doc_no'],
-            'order_no' => $row['order_no'],
+            // 'order_no' => $row['order_no'],
             'project_code' => $row['project_code'],
             'dept_code' => $row['dept_code'],
             'item_code' => $row['item_code'],

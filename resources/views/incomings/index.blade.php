@@ -94,24 +94,6 @@
   <script src="{{ asset('assets/plugins/bootstrap-datatable/js/buttons.print.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/bootstrap-datatable/js/buttons.colVis.min.js') }}"></script>
 
-    {{-- <script>
-     $(document).ready(function() {
-      //Default data table
-       $('#default-datatable').DataTable();
-
-
-       var table = $('#datatable-powitheta').DataTable( {
-        lengthChange: false,
-        buttons: [ 'copy', 'excel', 'pdf', 'print', 'colvis' ]
-      } );
- 
-     table.buttons().container()
-        .appendTo( '#example_wrapper .col-md-6:eq(0)' );
-      
-      } );
-
-    </script> --}}
-
 <script>
     $(function() {
         
@@ -119,6 +101,14 @@
             processing: true,
             serverSide: true,
             ajax: '{{ route('incomings.data') }}',
+            dom: 'Bfrtip',
+            button: [
+              {
+                extend: 'pdf',
+                oriented: 'portrait'
+              },
+              'csv', 'excel', 'print', 'copy'
+            ],
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'posting_date'},

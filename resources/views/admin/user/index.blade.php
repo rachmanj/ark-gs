@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     Users
-                    <a href="{{ route('admin.user.create') }}" class="btn btn-sm btn-outline-primary float-right">Create</a>
+                    <a href="{{ route('admin.user.create') }}" class="btn btn-sm btn-outline-primary float-right"><i class="fa fa-plus"></i> User</a>
                 </div>
 
                 <div class="card-body">
