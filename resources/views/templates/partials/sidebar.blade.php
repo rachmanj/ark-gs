@@ -16,8 +16,8 @@
        <ul class="sidebar-submenu">
          <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
          <li><a href="{{ route('dashboard.page_2') }}"><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
-         <li><a href="{{ route('dashboard.page_3') }}"><i class="fa fa-circle-o"></i> Agustus 2020</a></li>
-         <li><a href="#"><i class="fa fa-circle-o"></i> Detail Agustus 2020</a></li>
+         <li><a href="{{ route('dashboard.page_3') }}"><i class="fa fa-circle-o"></i> Last Month</a></li>
+         {{-- <li><a href="#"><i class="fa fa-circle-o"></i> Last Month</a></li> --}}
          {{-- <li><a href="index4.html"><i class="fa fa-circle-o"></i> Dashboard v4</a></li> --}}
        </ul>
      </li>   
@@ -31,7 +31,7 @@
           <li><a href="{{ route('migis.index') }}"><i class="fa fa-circle-o"></i> MI GI</a></li>
           <li><a href="{{ route('incomings.index') }}"><i class="fa fa-circle-o"></i> Incoming</a></li>
           <li><a href="{{ route('progresmrs.index') }}"><i class="fa fa-circle-o"></i> Progres MR</a></li>
-          <li><a href="icons-flags.html"><i class="fa fa-circle-o"></i> Flag Icons</a></li>
+          {{-- <li><a href="icons-flags.html"><i class="fa fa-circle-o"></i> Flag Icons</a></li> --}}
        </ul>
       </li>
      @role(['superadmin', 'admin'])

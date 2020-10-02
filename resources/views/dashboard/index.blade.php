@@ -11,7 +11,11 @@
     </div>
 </div>
 
-{{-- @include('dashboard.page_1.first_row') --}}
+@if ($grpo_all_amount && $po_amount_all_this_month))
+  @include('dashboard.page_1.first_row')
+@else
+  <h4>Data Not Found</h4>  
+@endif
 
 <hr>
 
