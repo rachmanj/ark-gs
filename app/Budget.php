@@ -8,6 +8,6 @@ class Budget extends Model
 {
     public function budgettype()
     {
-        return $this->belongsTo(Budget::class);
+        return $this->belongsTo(Budgettype::class);
     }
 }

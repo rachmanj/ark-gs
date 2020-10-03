@@ -7,8 +7,8 @@
       </a>
     </div>
     <ul class="sidebar-menu do-nicescrol">
-     <li class="sidebar-header">MAIN NAVIGATION</li>
-     <li>
+      <li class="sidebar-header">MAIN NAVIGATION</li>
+      <li>
        <a href="javaScript:void();" class="waves-effect">
          <i class="icon-home"></i> <span>Dashboard</span>
          <i class="fa fa-angle-left pull-right"></i>
@@ -16,11 +16,10 @@
        <ul class="sidebar-submenu">
          <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
          <li><a href="{{ route('dashboard.page_2') }}"><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
-         <li><a href="{{ route('dashboard.page_3') }}"><i class="fa fa-circle-o"></i> Last Month</a></li>
-         {{-- <li><a href="#"><i class="fa fa-circle-o"></i> Last Month</a></li> --}}
-         {{-- <li><a href="index4.html"><i class="fa fa-circle-o"></i> Dashboard v4</a></li> --}}
+         {{-- <li><a href="{{ route('dashboard.page_3') }}"><i class="fa fa-circle-o"></i> Last Month</a></li> --}}
+         <li><a href="{{ route('dashboard.last_month') }}"><i class="fa fa-circle-o"></i> Last Month</a></li>
        </ul>
-     </li>   
+      </li>   
       <li>
         <a href="javaScript:void();" class="waves-effect">
           <i class="icon-fire"></i> <span>Tables Upload</span>
@@ -32,6 +31,16 @@
           <li><a href="{{ route('incomings.index') }}"><i class="fa fa-circle-o"></i> Incoming</a></li>
           <li><a href="{{ route('progresmrs.index') }}"><i class="fa fa-circle-o"></i> Progres MR</a></li>
           {{-- <li><a href="icons-flags.html"><i class="fa fa-circle-o"></i> Flag Icons</a></li> --}}
+       </ul>
+      </li>
+      <li>
+        <a href="javaScript:void();" class="waves-effect">
+          <i class="icon-note"></i> <span>Data Input</span>
+          <i class="fa fa-angle-left float-right"></i>
+        </a>
+       <ul class="sidebar-submenu">
+          <li><a href="{{ route('budget.index') }}"><i class="fa fa-circle-o"></i> Budget</a></li>
+          <li><a href="{{ route('budgettype.index') }}"><i class="fa fa-circle-o"></i> Budget Type</a></li>
        </ul>
       </li>
      @role(['superadmin', 'admin'])

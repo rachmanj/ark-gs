@@ -47,6 +47,14 @@ trait FlashAlert
         ];
     }
 
+    public function alertImport()
+    {
+        return [
+            'type' => 'success',
+            'message' => 'Data successfuly Imported!'
+        ];
+    }
+
     public function permissionDenied()
     {
         return [

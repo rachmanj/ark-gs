@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/page_2', 'DashboardController@page_2')->name('dashboard.page_2');
     Route::get('/dashboard/page_3', 'DashboardController@page_3')->name('dashboard.page_3');
     Route::get('/dashboard/page_4', 'DashboardController@page_4')->name('dashboard.page_4');
+    Route::get('/dashboard/last_month', 'DashboardController@last_month')->name('dashboard.last_month');
     Route::get('/dashboard/po_sent_by_project', 'DashboardController@po_sent_by_project')->name('dashboard.po_sent_by_project');
     Route::get('/dashboard/test', 'DashboardController@test')->name('dashboard.test');
 
@@ -46,4 +47,8 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/progresmrs', 'ProgresmrController@index')->name('progresmrs.index');
     Route::post('/progresmrs/import_excel', 'ProgresmrController@import_excel')->name('progresmrs.import_excel');
+
+    //budget
+    Route::resource('budgettype', 'BudgettypeController');
+    Route::resource('budget', 'BudgetController');
 });

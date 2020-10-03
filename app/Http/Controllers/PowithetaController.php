@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Imports\PowithetaImport;
 use App\Powitheta;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Traits\FlashAlert;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PowithetaController extends Controller
 {
+    use FlashAlert;
+
     public function index()
     {
         try {
@@ -44,6 +47,6 @@ class PowithetaController extends Controller
         // Session::flash('sukses', 'Data Berhasil Diimport!');
 
         // alihkan halaman kembali
-        return redirect()->route('powithetas.index');
+        return redirect()->route('powithetas.index')->with($this->alertImport());
     }
 }
