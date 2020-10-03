@@ -32,7 +32,7 @@
   
   @include('dashboard.page_1.npi')
   
-  @include('dashboard.boto')
+  {{-- @include('dashboard.boto') --}}
     
 </div>
 

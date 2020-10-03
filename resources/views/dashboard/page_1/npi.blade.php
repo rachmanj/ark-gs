@@ -18,7 +18,7 @@
               <tr>
                 <th scope="row">1</th>
                 <td>011C</td>
-                <td class="text-right">@if ($npi_incoming_011 <> 0 | $npi_outgoing_011 <> 0)
+                <td class="text-right">@if ($npi_incoming_011 <> 0 && $npi_outgoing_011 <> 0)
                     {{ number_format($npi_incoming_011 / $npi_outgoing_011, 2) }}
                 @endif</td>
                 <td></td>
@@ -26,7 +26,7 @@
               <tr>
                 <th scope="row">2</th>
                 <td>017C</td>
-                <td class="text-right">@if ($npi_incoming_017 <> 0 | $npi_outgoing_017 <> 0)
+                <td class="text-right">@if ($npi_incoming_017 <> 0 && $npi_outgoing_017 <> 0)
                     {{ number_format($npi_incoming_017 / $npi_outgoing_017, 2) }}
                 @endif</td>
                 <td></td>
@@ -34,7 +34,7 @@
               <tr>
                 <th scope="row">3</th>
                 <td>APS</td>
-                <td class="text-right">@if ($npi_incoming_APS <> 0 | $npi_outgoing_APS <> 0)
+                <td class="text-right">@if ($npi_incoming_APS <> 0 && $npi_outgoing_APS <> 0)
                     {{ number_format($npi_incoming_APS / $npi_outgoing_APS, 2) }}
                 @endif</td>
                 <td></td>
