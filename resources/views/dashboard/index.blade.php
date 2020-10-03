@@ -20,9 +20,9 @@
 <hr>
 
 <div class="row">
-  {{-- @include('dashboard.page_1.posent_vs_plantbudget') --}}
+  @include('dashboard.page_1.posent_vs_plantbudget')
 
-  {{-- @include('dashboard.page_1.grpo_vs_posent') --}}
+  @include('dashboard.page_1.grpo_vs_posent')
 
 </div>
 
@@ -30,9 +30,9 @@
 
 <div class="row">
   
-  {{-- @include('dashboard.page_1.npi') --}}
+  @include('dashboard.page_1.npi')
   
-  {{-- @include('dashboard.boto') --}}
+  @include('dashboard.boto')
     
 </div>
 
