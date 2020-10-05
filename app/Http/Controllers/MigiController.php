@@ -6,14 +6,13 @@ use Illuminate\Http\Request;
 use App\Imports\MigiImport;
 use App\Migi;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Traits\FlashAlert;
 
 class MigiController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    use FlashAlert;
+
     public function index()
     {
         $latest_record = Migi::latest('created_at')->first();
@@ -43,6 +42,13 @@ class MigiController extends Controller
         // Session::flash('sukses', 'Data Berhasil Diimport!');
 
         // alihkan halaman kembali
-        return redirect()->route('migis.index');
+        return redirect()->route('migis.index')->with($this->alertImport());;;
+    }
+
+    public function truncate()
+    {
+        Migi::truncate();
+
+        return redirect()->route('migis.index')->with($this->alertTruncated());
     }
 }

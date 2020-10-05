@@ -12,4 +12,4 @@
 <!-- Custom scripts -->
 <script src="{{ asset('assets/js/app-script.js') }}"></script>
 
-@stack('script')
+@stack('scripts')

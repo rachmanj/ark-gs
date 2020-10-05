@@ -6,9 +6,13 @@ use App\Imports\IncomingImport;
 use App\Incoming;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Traits\FlashAlert;
 
 class IncomingController extends Controller
 {
+    use FlashAlert;
+
     public function index()
     {
         $latest_record = Incoming::latest('created_at')->first();
@@ -38,6 +42,13 @@ class IncomingController extends Controller
         // Session::flash('sukses', 'Data Berhasil Diimport!');
 
         // alihkan halaman kembali
-        return redirect()->route('incomings.index');
+        return redirect()->route('incomings.index')->with($this->alertImport());;
+    }
+
+    public function truncate()
+    {
+        Incoming::truncate();
+
+        return redirect()->route('incomings.index')->with($this->alertTruncated());
     }
 }

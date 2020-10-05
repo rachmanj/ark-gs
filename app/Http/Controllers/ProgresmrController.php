@@ -5,10 +5,14 @@ namespace App\Http\Controllers;
 use App\Imports\ProgresmrImport;
 use App\Progresmr;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Traits\FlashAlert;
 use Maatwebsite\Excel\Facades\Excel;
 
 class ProgresmrController extends Controller
 {
+    use FlashAlert;
+
     public function index()
     {
         $latest_record = Progresmr::latest('created_at')->first();
@@ -38,6 +42,13 @@ class ProgresmrController extends Controller
         // Session::flash('sukses', 'Data Berhasil Diimport!');
 
         // alihkan halaman kembali
-        return redirect()->route('progresmrs.index');
+        return redirect()->route('progresmrs.index')->with($this->alertImport());
+    }
+
+    public function truncate()
+    {
+        Progresmr::truncate();
+
+        return redirect()->route('progresmrs.index')->with($this->alertTruncated());
     }
 }

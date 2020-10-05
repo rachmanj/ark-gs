@@ -12,10 +12,14 @@
           <div class="col-lg-12">
             <div class="card">
               <div class="card-header">
+                @if (session('message'))
+                  <x-alert :type="session('type')" :message="session('message')"/>
+                @endif
                 @role('superadmin', 'admin')
-                  <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#importExcel">
+                  <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#importExcel">
                       <i class="fa fa-upload"></i> Upload Excel
                   </button>
+                  <a href="{{ route('progresmrs.truncate') }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete all records?')"><i class="icon-trash"></i> Truncate Table</a>
                   @endrole
               </div>
               <div class="card-body">
@@ -76,7 +80,7 @@
   <link href="{{ asset('assets/plugins/bootstrap-datatable/css/buttons.bootstrap4.min.css') }}" rel="stylesheet" type="text/css">
 @endpush
 
-@push('script')
+@push('scripts')
     <!--Data Tables js-->
   <script src="{{ asset('assets/plugins/bootstrap-datatable/js/jquery.dataTables.min.js') }}"></script>
   <script src="{{ asset('assets/plugins/bootstrap-datatable/js/dataTables.bootstrap4.min.js') }}"></script>

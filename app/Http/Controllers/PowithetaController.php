@@ -49,4 +49,11 @@ class PowithetaController extends Controller
         // alihkan halaman kembali
         return redirect()->route('powithetas.index')->with($this->alertImport());
     }
+
+    public function truncate()
+    {
+        Powitheta::truncate();
+
+        return redirect()->route('incomings.index')->with($this->alertTruncated());
+    }
 }

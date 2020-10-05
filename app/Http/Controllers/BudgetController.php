@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Budget;
+use App\Budgettype;
 use Illuminate\Http\Request;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Traits\FlashAlert;
 
 class BudgetController extends Controller
 {
+    use FlashAlert;
     /**
      * Display a listing of the resource.
      *
@@ -13,7 +18,7 @@ class BudgetController extends Controller
      */
     public function index()
     {
-        //
+        return view('budget.index');
     }
 
     /**
@@ -23,7 +28,9 @@ class BudgetController extends Controller
      */
     public function create()
     {
-        //
+        $budgettypes = Budgettype::orderBy('name')->get();
+
+        return view('budget.create', compact('budgettypes'));
     }
 
     /**
@@ -34,7 +41,16 @@ class BudgetController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $this->validate($request, [
+            'date'          => ['required'],
+            'budgettype_id' => ['required'],
+            'project_code'  => ['required'],
+            'amount'        => ['required'],
+        ]);
+
+        Budget::create($data);
+
+        return redirect()->route('budgets.index')->with($this->alertCreated());
     }
 
     /**
@@ -56,7 +72,14 @@ class BudgetController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $budget = Budget::findOrFail($id);
+            $budgettypes = Budgettype::orderBy('name')->get();
+
+            return view('budget.edit', compact('budget', 'budgettypes'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('budgets.index')->with($this->alertNotFound());
+        }
     }
 
     /**
@@ -68,7 +91,22 @@ class BudgetController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $budget = Budget::findOrFail($id);
+
+            $data = $this->validate($request, [
+                'date'          => ['required'],
+                'budgettype_id' => ['required'],
+                'project_code'  => ['required'],
+                'amount'        => ['required'],
+            ]);
+
+            $budget->update($data);
+
+            return redirect()->route('budgets.index')->with($this->alertUpdated());
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('budgets.index')->with($this->alertNotFound());
+        }
     }
 
     /**
@@ -79,6 +117,14 @@ class BudgetController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $budget = Budget::findOrFail($id);
+
+            $budget->delete();
+
+            return redirect()->route('budgets.index')->with($this->alertDeleted());
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('budgets.index')->with($this->alertNotFound());
+        }
     }
 }

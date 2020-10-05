@@ -41,12 +41,13 @@ class BudgettypeController extends Controller
     public function store(Request $request)
     {
         $data = $this->validate($request, [
-            'name'  => ['required']
+            'name'  => ['required'],
+            'display_name'  => ['required']
         ]);
 
         Budgettype::create($data);
 
-        return redirect()->route('budgettype.index')->with($this->alertCreated());
+        return redirect()->route('budgettypes.index')->with($this->alertCreated());
     }
 
     /**
@@ -68,7 +69,13 @@ class BudgettypeController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $budgettype = Budgettype::findOrFail($id);
+
+            return view('budgettype.edit', compact('budgettype'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('budgettypes.index')->with($this->alertNotFound());
+        }
     }
 
     /**
@@ -80,7 +87,20 @@ class BudgettypeController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $budgettype = Budgettype::findOrFail($id);
+
+            $data = $this->validate($request, [
+                'name'  => ['required'],
+                'display_name'  => ['required']
+            ]);
+
+            $budgettype->update($data);
+
+            return redirect()->route('budgettypes.index')->with($this->alertUpdated());
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('budgettypes.index')->with($this->alertNotFound());
+        }
     }
 
     /**
@@ -91,6 +111,14 @@ class BudgettypeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $budgettype = Budgettype::findOrFail($id);
+
+            $budgettype->delete();
+
+            return redirect()->route('budgettypes.index')->with($this->alertDeleted());
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('budgettypes.index')->with($this->alertNotFound());
+        }
     }
 }

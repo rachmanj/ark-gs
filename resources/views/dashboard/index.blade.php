@@ -11,7 +11,7 @@
     </div>
 </div>
 
-@if ($grpo_all_amount && $po_amount_all_this_month))
+@if ($grpo_all_amount && $po_amount_all_this_month)
   @include('dashboard.page_1.first_row')
 @else
   <h4>Data Not Found</h4>  
@@ -19,8 +19,14 @@
 
 <hr>
 
+{{-- <div class="row">
+  @include('dashboard.page_1.011_budget')
+</div> --}}
+
 <div class="row">
-  @include('dashboard.page_1.posent_vs_plantbudget')
+  @if ($po_amount_011_this_month && $plant_budget_011_this_month)
+    @include('dashboard.page_1.posent_vs_plantbudget')
+  @endif
 
   @include('dashboard.page_1.grpo_vs_posent')
 

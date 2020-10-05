@@ -62,4 +62,12 @@ trait FlashAlert
             'message' => 'you don’t have permission to access!'
         ];
     }
+
+    public function alertTruncated()
+    {
+        return [
+            'type' => 'success',
+            'message' => 'Table successfuly truncated!'
+        ];
+    }
 }

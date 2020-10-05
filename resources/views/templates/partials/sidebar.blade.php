@@ -39,15 +39,15 @@
           <i class="fa fa-angle-left float-right"></i>
         </a>
        <ul class="sidebar-submenu">
-          <li><a href="{{ route('budget.index') }}"><i class="fa fa-circle-o"></i> Budget</a></li>
-          <li><a href="{{ route('budgettype.index') }}"><i class="fa fa-circle-o"></i> Budget Type</a></li>
+          <li><a href="{{ route('budgets.index') }}"><i class="fa fa-circle-o"></i> Budget</a></li>
+          <li><a href="{{ route('budgettypes.index') }}"><i class="fa fa-circle-o"></i> Budget Type</a></li>
        </ul>
       </li>
      @role(['superadmin', 'admin'])
       <li class="sidebar-header">ADMIN AREA</li>
       <li>
        <a href="javaScript:void();" class="waves-effect">
-         <i class="fa fa-users"></i> <span>User Management</span>
+         <i class="icon-people"></i> <span>User Management</span>
          <i class="fa fa-angle-left float-right"></i>
        </a>
        <ul class="sidebar-submenu">

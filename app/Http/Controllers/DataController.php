@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Budget;
 use App\Incoming;
 use App\Migi;
 use App\Powitheta;
@@ -43,6 +44,26 @@ class DataController extends Controller
 
         return datatables()->of($progresmrs)
             ->addIndexColumn()
+            ->toJson();
+    }
+
+    public function budgets()
+    {
+        $budgets = Budget::with('budgettype')->orderBy('date', 'desc')->orderBy('project_code', 'asc')->get();
+
+        return datatables()->of($budgets)
+            ->addColumn('budget_type', function (Budget $model) {
+                return $model->budgettype->display_name;
+            })
+            ->editColumn('amount', function (Budget $model) {
+                return number_format($model->amount, 2);
+            })
+            ->editColumn('date', function (Budget $model) {
+                return date('F Y', strtotime($model->date));
+            })
+            ->addIndexColumn()
+            ->addColumn('action', 'budget.action')
+            ->rawColumns(['action'])
             ->toJson();
     }
 }

@@ -13,7 +13,7 @@
                 @if (session('message'))
                     <x-alert :type="session('type')" :message="session('message')"/>
                 @endif
-                  <a href="{{ route('budgettype.create') }}" class="btn btn-sm btn-outline-primary"><i class="fa fa-plus"></i> Budget Type</a>
+                  <a href="{{ route('budgettypes.create') }}" class="btn btn-sm btn-outline-primary"><i class="fa fa-plus"></i> Budget Type</a>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -22,6 +22,7 @@
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
+                                <th>Display Name</th>
                                 <th>action</th>
                             </tr>
                         </thead>
@@ -30,9 +31,11 @@
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $budgettype->name }}</td>
+                                    <td>{{ $budgettype->display_name }}</td>
                                     <td>
-                                        <form action="{{ route('budgettype.destroy', $budgettype->id) }}">
-                                            <a href="{{ route('budgettype.edit', $budgettype->id) }}" class="btn btn-sm btn-outline-info"><i class="icon-pencil"></i></a>
+                                        <form action="{{ route('budgettypes.destroy', $budgettype->id) }}" method="POST">
+                                          @csrf @method('DELETE')
+                                            <a href="{{ route('budgettypes.edit', $budgettype->id) }}" class="btn btn-sm btn-outline-info"><i class="icon-pencil"></i></a>
                                             <button type="submit" class="btn btn-sm btn-outline-danger" onclick="return confirm('Are you sure?')"><i class="icon-trash"></i></button>
                                         </form>
                                     </td>
