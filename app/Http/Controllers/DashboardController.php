@@ -16,6 +16,7 @@ class DashboardController extends Controller
     public function index()
     {
         $this_month = Carbon::now();
+        $report_date = Carbon::now()->subDays(1);
         $last_month = Carbon::now()->subMonths(1);
         $all_project = ['011C', '017C', 'APS'];
         $latest_record = Progresmr::latest('wo_created')->first();
@@ -56,6 +57,7 @@ class DashboardController extends Controller
         return view('dashboard.index', compact(
             'last_month',
             'latest_record',
+            'report_date',
             'po_amount_011_this_month',
             'po_amount_017_this_month',
             'po_amount_APS_this_month',
@@ -245,7 +247,7 @@ class DashboardController extends Controller
     public function plant_budget($month, $project)
     {
         return Budget::whereIn('project_code', $project)
-            ->where('budgettype_id', 1)
+            ->where('budgettype_id', 2)
             ->whereMonth('date', $month)
             ->sum('amount');
     }

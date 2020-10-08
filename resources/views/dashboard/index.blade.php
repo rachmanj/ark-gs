@@ -6,7 +6,7 @@
     <div class="col-lg-12">
       <div> <!--Please remove the height before using this page-->
           <h3>Dashboard</h3>
-          <h5>Last Posting date: {{ date('d-m-Y', strtotime($latest_record->wo_created)) }}</h5>
+          <h5>Report date: {{ date('d-m-Y', strtotime($report_date)) }}</h5>
       </div>
     </div>
 </div>
