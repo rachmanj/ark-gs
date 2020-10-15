@@ -241,6 +241,8 @@ class DashboardController extends Controller
             ->where($excl_itemcode_arr)
             ->where('po_delivery_status', 'Delivered')
             ->where('po_status', '!=', 'Cancelled')
+            // ->distinct('po_no')
+            // ->sum('total_po_price');
             ->sum('item_amount');
     }
 
