@@ -24,6 +24,7 @@
                   <td class="text-right">{{ number_format($plant_budget_011_this_month / 1000, 2) }}</td>
                   <td class="text-right">{{ number_format($po_amount_011_this_month / $plant_budget_011_this_month * 100, 2) }}</td>
                 </tr>
+                @if($po_amount_017_this_month && $plant_budget_017_this_month)
                 <tr>
                   <td>2</td>
                   <td>017C</td>
@@ -31,6 +32,7 @@
                   <td class="text-right">{{ number_format($plant_budget_017_this_month / 1000, 2) }}</td>
                   <td class="text-right">{{ number_format($po_amount_017_this_month / $plant_budget_017_this_month * 100, 2) }}</td>
                 </tr>
+                @endif
                 <tr>
                   <td>3</td>
                   <td>APS</td>
