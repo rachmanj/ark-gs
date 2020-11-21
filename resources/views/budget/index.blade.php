@@ -1,7 +1,7 @@
 @extends('templates.default')
 
 @section('content')
-<h3>Budget</h3>
+<h4>Budget</h4>
 <div class="row">
   <div class="col-lg-12">
     <div class="card">
@@ -9,7 +9,7 @@
         @if (session('message'))
             <x-alert :type="session('type')" :message="session('message')"/>
         @endif
-          <a href="{{ route('budgets.create') }}" class="btn btn-sm btn-outline-primary"><i class="icon-plus"></i> Budget</a>
+          <a href="{{ route('budgets.create') }}" class="btn btn-square btn-outline-primary"><i class="icon-plus"></i> Budget</a>
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -21,6 +21,7 @@
                   <th>Budget Name</th>
                   <th>Project</th>
                   <th class="text-center">Amount</th>
+                  <th>Remarks</th>
                   <th>Action</th>
               </tr>
           </thead>
@@ -56,6 +57,7 @@
                 {data: 'budget_type'},
                 {data: 'project_code'},
                 {data: 'amount'},
+                {data: 'remarks'},
                 {data: 'action'},
             ],
             columnDefs: [

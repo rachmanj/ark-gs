@@ -19,6 +19,7 @@ class CreateBudgetsTable extends Migration
             $table->unsignedBigInteger('budgettype_id');
             $table->string('project_code');
             $table->double('amount');
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

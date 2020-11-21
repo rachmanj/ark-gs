@@ -46,6 +46,7 @@ class BudgetController extends Controller
             'budgettype_id' => ['required'],
             'project_code'  => ['required'],
             'amount'        => ['required'],
+            'remarks'       => '',
         ]);
 
         Budget::create($data);
@@ -99,6 +100,7 @@ class BudgetController extends Controller
                 'budgettype_id' => ['required'],
                 'project_code'  => ['required'],
                 'amount'        => ['required'],
+                'remarks'       => '',
             ]);
 
             $budget->update($data);
