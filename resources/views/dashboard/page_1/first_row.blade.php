@@ -5,7 +5,11 @@
           <div class="card-body">
             <div class="media">
               <div class="media-body text-left">
+                @if ($grpo_all_amount && $po_amount_all_this_month)
                 <h4 class="text-info">{{ number_format($grpo_all_amount / $po_amount_all_this_month * 100, 2) }} %</h4>
+                @else
+                <h4 class="text-info">- na -</h4>
+                @endif
                 <span class="text-dark">GRPO vs PO Sent</span>
               </div>
               <div class="align-self-center w-circle-icon rounded bg-info shadow-info">
@@ -17,7 +21,11 @@
           <div class="card-body">
               <div class="media">
               <div class="media-body text-left">
+                @if ($po_amount_all_this_month && $plant_budget_all_this_month)
                 <h4 class="text-success">{{ number_format($po_amount_all_this_month / $plant_budget_all_this_month * 100, 2) }} %</h4>
+                @else
+                <h4 class="text-success">- na -</h4>
+                @endif
                 <span class="text-dark">PO Sent vs Plant Budget</span>
               </div>
               <div class="align-self-center w-circle-icon rounded bg-success shadow-success">
@@ -29,9 +37,11 @@
         <div class="card-body">
             <div class="media">
             <div class="media-body text-left">
-              <h4 class="text-info">@if ($npi_incoming_all <> 0 | $npi_outgoing_all <> 0)
-                {{ number_format($npi_incoming_all / $npi_outgoing_all, 2) }}
-            @endif</h4>
+              @if ($npi_incoming_all && $npi_outgoing_all)
+              <h4 class="text-info">{{ number_format($npi_incoming_all / $npi_outgoing_all, 2) }}</h4>
+              @else
+              <h4 class="text-info">- na -</h4>
+              @endif
               <span class="text-dark">NPI</span>
             </div>
             <div class="align-self-center w-circle-icon rounded bg-warning shadow-warning">

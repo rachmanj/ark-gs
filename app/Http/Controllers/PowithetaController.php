@@ -54,6 +54,6 @@ class PowithetaController extends Controller
     {
         Powitheta::truncate();
 
-        return redirect()->route('incomings.index')->with($this->alertTruncated());
+        return redirect()->route('powithetas.index')->with($this->alertTruncated());
     }
 }
