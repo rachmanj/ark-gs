@@ -16,34 +16,34 @@ class DashboardController extends Controller
     public function index()
     {
         $report_date = Carbon::now()->subDays(1);
-        $rangeDate = ['2020-11-15', $report_date];
+        $po_post_rangeDate = ['2020-12-15', $report_date];
         $this_month = Carbon::now();
         $last_month_delivery = Carbon::now()->subMonth();
-        $last_month = ['2020-10-15', '2020-11-30'];
+        $last_month = ['2020-11-15', '2020-12-31'];
         $all_project = ['011C', '017C', 'APS'];
         $latest_record = Progresmr::latest('wo_created')->first();
 
         // return $last_month_delivery;
         // die;
 
-        $po_amount_011_this_month = $this->po_sent_amount($rangeDate, $this_month, ['011C']);
-        $po_amount_017_this_month = $this->po_sent_amount($rangeDate, $this_month, ['017C']);
-        $po_amount_APS_this_month = $this->po_sent_amount($rangeDate, $this_month, ['APS']);
-        $po_amount_all_this_month = $this->po_sent_amount($rangeDate, $this_month, $all_project);
+        $po_amount_011_this_month = $this->po_sent_amount($po_post_rangeDate, $this_month, ['011C']);
+        $po_amount_017_this_month = $this->po_sent_amount($po_post_rangeDate, $this_month, ['017C']);
+        $po_amount_APS_this_month = $this->po_sent_amount($po_post_rangeDate, $this_month, ['APS']);
+        $po_amount_all_this_month = $this->po_sent_amount($po_post_rangeDate, $this_month, $all_project);
 
-        $po_amount_011_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['011C']);
-        $po_amount_017_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['017C']);
-        $po_amount_APS_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['APS']);
+        // $po_amount_011_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['011C']);
+        // $po_amount_017_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['017C']);
+        // $po_amount_APS_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['APS']);
 
         $plant_budget_011_this_month = $this->plant_budget($this_month, ['011C']);
         $plant_budget_017_this_month = $this->plant_budget($this_month, ['017C']);
         $plant_budget_APS_this_month = $this->plant_budget($this_month, ['APS']);
         $plant_budget_all_this_month = $this->plant_budget($this_month, $all_project);
 
-        $grpo_011_amount = $this->grpo_amount($rangeDate, ['011C']);
-        $grpo_017_amount = $this->grpo_amount($rangeDate, ['017C']);
-        $grpo_APS_amount = $this->grpo_amount($rangeDate, ['APS']);
-        $grpo_all_amount = $this->grpo_amount($rangeDate, $all_project);
+        $grpo_011_amount = $this->grpo_amount($po_post_rangeDate, $this_month, ['011C']);
+        $grpo_017_amount = $this->grpo_amount($po_post_rangeDate, $this_month, ['017C']);
+        $grpo_APS_amount = $this->grpo_amount($po_post_rangeDate, $this_month, ['APS']);
+        $grpo_all_amount = $this->grpo_amount($po_post_rangeDate, $this_month, $all_project);
 
         $npi_incoming_011 = $this->incoming_qty($this_month, ['011C']);
         $npi_incoming_017 = $this->incoming_qty($this_month, ['017C']);
@@ -179,24 +179,24 @@ class DashboardController extends Controller
     public function last_month()
     {
         // $last_month = Carbon::now()->subMonths(1);
-        $last_month = ['2020-10-15', '2020-11-30'];
+        $last_month_po_range = ['2020-11-15', '2020-12-31'];
         $last_month_carbon = Carbon::now()->subMonths(1);
         $all_project = ['011C', '017C', 'APS'];
 
-        $po_amount_011_last_month = $this->po_sent_amount($last_month, $last_month_carbon, ['011C']);
-        $po_amount_017_last_month = $this->po_sent_amount($last_month, $last_month_carbon, ['017C']);
-        $po_amount_APS_last_month = $this->po_sent_amount($last_month, $last_month_carbon, ['APS']);
-        $po_amount_all_last_month = $this->po_sent_amount($last_month, $last_month_carbon, $all_project);
+        $po_amount_011_last_month = $this->po_sent_amount($last_month_po_range, $last_month_carbon, ['011C']);
+        $po_amount_017_last_month = $this->po_sent_amount($last_month_po_range, $last_month_carbon, ['017C']);
+        $po_amount_APS_last_month = $this->po_sent_amount($last_month_po_range, $last_month_carbon, ['APS']);
+        $po_amount_all_last_month = $this->po_sent_amount($last_month_po_range, $last_month_carbon, $all_project);
 
         $plant_budget_011_last_month = $this->plant_budget($last_month_carbon, ['011C']);
         $plant_budget_017_last_month = $this->plant_budget($last_month_carbon, ['017C']);
         $plant_budget_APS_last_month = $this->plant_budget($last_month_carbon, ['APS']);
         $plant_budget_all_last_month = $this->plant_budget($last_month_carbon, $all_project);
 
-        $grpo_011_amount = $this->grpo_amount($last_month, ['011C']);
-        $grpo_017_amount = $this->grpo_amount($last_month, ['017C']);
-        $grpo_APS_amount = $this->grpo_amount($last_month, ['APS']);
-        $grpo_all_amount = $this->grpo_amount($last_month, $all_project);
+        $grpo_011_amount = $this->grpo_amount($last_month_po_range, $last_month_carbon, ['011C']);
+        $grpo_017_amount = $this->grpo_amount($last_month_po_range, $last_month_carbon, ['017C']);
+        $grpo_APS_amount = $this->grpo_amount($last_month_po_range, $last_month_carbon, ['APS']);
+        $grpo_all_amount = $this->grpo_amount($last_month_po_range, $last_month_carbon, $all_project);
 
         $npi_incoming_011 = $this->incoming_qty($last_month_carbon, ['011C']);
         $npi_incoming_017 = $this->incoming_qty($last_month_carbon, ['017C']);
@@ -262,11 +262,11 @@ class DashboardController extends Controller
             ->sum('amount');
     }
 
-    public function grpo_amount($rangeDate, $project)
+    public function grpo_amount($po_rangeDate, $grpo_month, $project)
     {
         // $list = Powitheta::whereMonth('posting_date', $month)->whereMonth('grpo_date', $month);
-        $list = Powitheta::whereBetween('posting_date', $rangeDate)
-            ->whereBetween('grpo_date', $rangeDate);
+        $list = Powitheta::whereBetween('posting_date', $po_rangeDate)
+            ->whereMonth('grpo_date', $grpo_month);
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
