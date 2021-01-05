@@ -33,6 +33,7 @@
                         <th>Item</th>
                         <th>Qty</th>
                         <th>Project</th>
+                        <th>Unit No</th>
                         <th>GRPO</th>
                     </tr>
                 </thead>
@@ -136,6 +137,7 @@
                 {data: 'item_code'},
                 {data: 'qty'},
                 {data: 'project_code'},
+                {data: 'unit_no'},
                 {data: 'grpo_no'},
             ]
         });

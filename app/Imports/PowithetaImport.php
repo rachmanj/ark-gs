@@ -19,6 +19,7 @@ class PowithetaImport implements ToModel, WithHeadingRow
             'po_no' => $row['po_no'],
             'posting_date' => $row['posting_date'],
             'vendor_code' => $row['vendor_code'],
+            'unit_no' => $row['unit_no'],
             'item_code' => $row['item_code'],
             'uom' => $row['uom'],
             'description' => $row['description'],
