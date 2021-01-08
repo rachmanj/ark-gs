@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Budget;
 use App\Incoming;
+use App\Incoming20;
 use App\Migi;
+use App\Migi20;
 use App\Powitheta;
+use App\Po20witheta;
 use App\Progresmr;
 use Illuminate\Http\Request;
 
@@ -64,6 +67,33 @@ class DataController extends Controller
             ->addIndexColumn()
             ->addColumn('action', 'budget.action')
             ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function po20withetas()
+    {
+        $po20withetas = Po20witheta::all();
+
+        return datatables()->of($po20withetas)
+            ->addIndexColumn()
+            ->toJson();
+    }
+
+    public function migi20s()
+    {
+        $migi20s = Migi20::all();
+
+        return datatables()->of($migi20s)
+            ->addIndexColumn()
+            ->toJson();
+    }
+
+    public function incoming20s()
+    {
+        $incoming20s = Incoming20::all();
+
+        return datatables()->of($incoming20s)
+            ->addIndexColumn()
             ->toJson();
     }
 }

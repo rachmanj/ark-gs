@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Budget;
 use App\Incoming;
+use App\Incoming20;
 use App\Migi;
+use App\Migi20;
 use App\Powitheta;
+use App\Po20witheta;
 use App\Progresmr;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -239,45 +242,45 @@ class DashboardController extends Controller
         $last_year = Carbon::now()->subYear();
         $all_project = ['011C', '017C', 'APS'];
 
-        $po_sent_011_this_year = $this->po_sent_yearly($this_year, ['011C']);
-        $po_sent_017_this_year = $this->po_sent_yearly($this_year, ['017C']);
-        $po_sent_APS_this_year = $this->po_sent_yearly($this_year, ['APS']);
-        $po_sent_all_this_year = $this->po_sent_yearly($this_year, $all_project);
+        $po_sent_011_this_year = $this->po_sent_yearly($this_year, ['011C'], 'ty');
+        $po_sent_017_this_year = $this->po_sent_yearly($this_year, ['017C'], 'ty');
+        $po_sent_APS_this_year = $this->po_sent_yearly($this_year, ['APS'], 'ty');
+        $po_sent_all_this_year = $this->po_sent_yearly($this_year, $all_project, 'ty');
 
         $plant_budget_011_this_year = $this->plant_budget_yearly($this_year, ['011C']);
         $plant_budget_017_this_year = $this->plant_budget_yearly($this_year, ['017C']);
         $plant_budget_APS_this_year = $this->plant_budget_yearly($this_year, ['APS']);
         $plant_budget_all_this_year = $this->plant_budget_yearly($this_year, $all_project);
 
-        $po_sent_011_last_year = $this->po_sent_yearly($last_year, ['011C']);
-        $po_sent_017_last_year = $this->po_sent_yearly($last_year, ['017C']);
-        $po_sent_APS_last_year = $this->po_sent_yearly($last_year, ['APS']);
-        $po_sent_all_last_year = $this->po_sent_yearly($last_year, $all_project);
+        $po_sent_011_last_year = $this->po_sent_yearly($last_year, ['011C'], 'ly');
+        $po_sent_017_last_year = $this->po_sent_yearly($last_year, ['017C'], 'ly');
+        $po_sent_APS_last_year = $this->po_sent_yearly($last_year, ['APS'], 'ly');
+        $po_sent_all_last_year = $this->po_sent_yearly($last_year, $all_project, 'ly');
 
         $plant_budget_011_last_year = $this->plant_budget_yearly($last_year, ['011C']);
         $plant_budget_017_last_year = $this->plant_budget_yearly($last_year, ['017C']);
         $plant_budget_APS_last_year = $this->plant_budget_yearly($last_year, ['APS']);
         $plant_budget_all_last_year = $this->plant_budget_yearly($last_year, $all_project);
 
-        $npi_incoming_011_this_year = $this->incoming_qty_yearly($this_year, ['011C']);
-        $npi_incoming_017_this_year = $this->incoming_qty_yearly($this_year, ['017C']);
-        $npi_incoming_APS_this_year = $this->incoming_qty_yearly($this_year, ['APS']);
-        $npi_incoming_all_this_year = $this->incoming_qty_yearly($this_year, $all_project);
+        $npi_incoming_011_this_year = $this->incoming_qty_yearly($this_year, ['011C'], 'ty');
+        $npi_incoming_017_this_year = $this->incoming_qty_yearly($this_year, ['017C'], 'ty');
+        $npi_incoming_APS_this_year = $this->incoming_qty_yearly($this_year, ['APS'], 'ty');
+        $npi_incoming_all_this_year = $this->incoming_qty_yearly($this_year, $all_project, 'ty');
 
-        $npi_outgoing_011_this_year = $this->outgoing_qty_yearly($this_year, ['011C']);
-        $npi_outgoing_017_this_year = $this->outgoing_qty_yearly($this_year, ['017C']);
-        $npi_outgoing_APS_this_year = $this->outgoing_qty_yearly($this_year, ['APS']);
-        $npi_outgoing_all_this_year = $this->outgoing_qty_yearly($this_year, $all_project);
+        $npi_outgoing_011_this_year = $this->outgoing_qty_yearly($this_year, ['011C'], 'ty');
+        $npi_outgoing_017_this_year = $this->outgoing_qty_yearly($this_year, ['017C'], 'ty');
+        $npi_outgoing_APS_this_year = $this->outgoing_qty_yearly($this_year, ['APS'], 'ty');
+        $npi_outgoing_all_this_year = $this->outgoing_qty_yearly($this_year, $all_project, 'ty');
 
-        $npi_incoming_011_last_year = $this->incoming_qty_yearly($last_year, ['011C']);
-        $npi_incoming_017_last_year = $this->incoming_qty_yearly($last_year, ['017C']);
-        $npi_incoming_APS_last_year = $this->incoming_qty_yearly($last_year, ['APS']);
-        $npi_incoming_all_last_year = $this->incoming_qty_yearly($last_year, $all_project);
+        $npi_incoming_011_last_year = $this->incoming_qty_yearly($last_year, ['011C'], 'ly');
+        $npi_incoming_017_last_year = $this->incoming_qty_yearly($last_year, ['017C'], 'ly');
+        $npi_incoming_APS_last_year = $this->incoming_qty_yearly($last_year, ['APS'], 'ly');
+        $npi_incoming_all_last_year = $this->incoming_qty_yearly($last_year, $all_project, 'ly');
 
-        $npi_outgoing_011_last_year = $this->outgoing_qty_yearly($last_year, ['011C']);
-        $npi_outgoing_017_last_year = $this->outgoing_qty_yearly($last_year, ['017C']);
-        $npi_outgoing_APS_last_year = $this->outgoing_qty_yearly($last_year, ['APS']);
-        $npi_outgoing_all_last_year = $this->outgoing_qty_yearly($last_year, $all_project);
+        $npi_outgoing_011_last_year = $this->outgoing_qty_yearly($last_year, ['011C'], 'ly');
+        $npi_outgoing_017_last_year = $this->outgoing_qty_yearly($last_year, ['017C'], 'ly');
+        $npi_outgoing_APS_last_year = $this->outgoing_qty_yearly($last_year, ['APS'], 'ly');
+        $npi_outgoing_all_last_year = $this->outgoing_qty_yearly($last_year, $all_project, 'ly');
 
         return view('dashboard.yearly', compact(
             'this_year',
@@ -317,9 +320,12 @@ class DashboardController extends Controller
         ));
     }
 
-    public function po_sent_yearly($year, $project)
+    public function po_sent_yearly($year, $project, $t) // ty is this year
     {
-        $list = Powitheta::whereYear('po_delivery_date', $year);
+        if ($t == 'ty') {
+            $list = Powitheta::whereYear('po_delivery_date', $year);
+        }
+        $list = Po20witheta::whereYear('po_delivery_date', $year);
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
@@ -343,9 +349,12 @@ class DashboardController extends Controller
             ->sum('amount');
     }
 
-    public function incoming_qty_yearly($year, $project)
+    public function incoming_qty_yearly($year, $project, $t) // ty is This Year
     {
-        $list = Incoming::whereYear('posting_date', $year);
+        if ($t == 'ty') {
+            $list = Incoming::whereYear('posting_date', $year);
+        }
+        $list = Incoming20::whereYear('posting_date', $year);
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%', '%SV-%', '%CONS%']; // , 
@@ -365,9 +374,12 @@ class DashboardController extends Controller
             ->sum('qty');
     }
 
-    public function outgoing_qty_yearly($year, $project)
+    public function outgoing_qty_yearly($year, $project, $t) // ty is This Year
     {
-        $list = Migi::whereYear('posting_date', $year);;
+        if ($t == 'ty') {
+            $list = Migi::whereYear('posting_date', $year);;
+        }
+        $list = Migi20::whereYear('posting_date', $year);;
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%', '%SV-%', '%CONS%']; // , 

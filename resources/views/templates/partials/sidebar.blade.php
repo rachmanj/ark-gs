@@ -31,7 +31,9 @@
           <li><a href="{{ route('migis.index') }}"><i class="fa fa-circle-o"></i> MI GI</a></li>
           <li><a href="{{ route('incomings.index') }}"><i class="fa fa-circle-o"></i> Incoming</a></li>
           <li><a href="{{ route('progresmrs.index') }}"><i class="fa fa-circle-o"></i> Progres MR</a></li>
-          {{-- <li><a href="icons-flags.html"><i class="fa fa-circle-o"></i> Flag Icons</a></li> --}}
+          <li><a href="{{ route('po20withetas.index') }}"><i class="fa fa-circle-o"></i> YEARLY - PO With ETA</a></li>
+          <li><a href="{{ route('migi20s.index') }}"><i class="fa fa-circle-o"></i> YEARLY - MIGI</a></li>
+          <li><a href="{{ route('incoming20s.index') }}"><i class="fa fa-circle-o"></i> YEARLY - Incoiming</a></li>
        </ul>
       </li>
       <li>
