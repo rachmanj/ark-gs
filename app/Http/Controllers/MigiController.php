@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Imports\MigiImport;
+use App\Exports\MigiExport;
 use App\Migi;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -50,5 +51,10 @@ class MigiController extends Controller
         Migi::truncate();
 
         return redirect()->route('migis.index')->with($this->alertTruncated());
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new MigiExport(), 'list_mi_gi.xlsx');
     }
 }

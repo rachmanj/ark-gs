@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/progresmrs/data', 'DataController@progresmrs')->name('progresmrs.data');
     Route::get('/budgets/data', 'DataController@budgets')->name('budgets.data');
 
+    Route::get('/powithetas/export_excel', 'PowithetaController@export_excel')->name('powithetas.export_excel');
     Route::get('/powithetas', 'PowithetaController@index')->name('powithetas.index');
     Route::get('/powithetas/truncate', 'PowithetaController@truncate')->name('powithetas.truncate');
     Route::post('/powithetas/import_excel', 'PowithetaController@import_excel')->name('powithetas.import_excel');
@@ -49,6 +50,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/po20withetas/truncate', 'Po20withetaController@truncate')->name('po20withetas.truncate');
     Route::post('/po20withetas/import_excel', 'Po20withetaController@import_excel')->name('po20withetas.import_excel');
 
+    Route::get('/migis/export_excel', 'MigiController@export_excel')->name('migis.export_excel');
     Route::get('/migis', 'MigiController@index')->name('migis.index');
     Route::get('/migis/truncate', 'MigiController@truncate')->name('migis.truncate');
     Route::post('/migis/import_excel', 'MigiController@import_excel')->name('migis.import_excel');
@@ -57,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/migi20s/truncate', 'Migi20Controller@truncate')->name('migi20s.truncate');
     Route::post('/migi20s/import_excel', 'Migi20Controller@import_excel')->name('migi20s.import_excel');
 
+    Route::get('/incomings/export_excel', 'IncomingController@export_excel')->name('incomings.export_excel');
     Route::get('/incomings', 'IncomingController@index')->name('incomings.index');
     Route::get('/incomings/truncate', 'IncomingController@truncate')->name('incomings.truncate');
     Route::post('/incomings/import_excel', 'IncomingController@import_excel')->name('incomings.import_excel');

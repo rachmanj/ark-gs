@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Imports\IncomingImport;
+use App\Exports\IncomingExport;
 use App\Incoming;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -50,5 +51,10 @@ class IncomingController extends Controller
         Incoming::truncate();
 
         return redirect()->route('incomings.index')->with($this->alertTruncated());
+    }
+
+    public function export_excel()
+    {
+        return Excel::download(new IncomingExport(), 'incoming_inventory.xlsx');
     }
 }

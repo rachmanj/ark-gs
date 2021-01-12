@@ -23,6 +23,7 @@
                   </button>
                     <a href="{{ route('incomings.truncate') }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete all records?')"><i class="icon-trash"></i> Truncate Table</a>
                   @endrole
+                  <a href="{{ route('incomings.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
               </div>
               <div class="card-body">
                 <div class="table-responsive">
