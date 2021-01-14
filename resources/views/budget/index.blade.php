@@ -9,7 +9,9 @@
         @if (session('message'))
             <x-alert :type="session('type')" :message="session('message')"/>
         @endif
+        @role(['superadmin', 'admin'])
           <a href="{{ route('budgets.create') }}" class="btn btn-square btn-outline-primary"><i class="icon-plus"></i> Budget</a>
+        @endrole
       </div>
       <div class="card-body">
         <div class="table-responsive">
@@ -20,7 +22,7 @@
                   <th>Date</th>
                   <th>Budget Name</th>
                   <th>Project</th>
-                  <th class="text-center">Amount</th>
+                  <th class="text-right">Amount</th>
                   <th>Remarks</th>
                   <th>Action</th>
               </tr>

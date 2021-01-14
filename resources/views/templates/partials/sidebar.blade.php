@@ -43,7 +43,9 @@
         </a>
        <ul class="sidebar-submenu">
           <li><a href="{{ route('budgets.index') }}"><i class="fa fa-circle-o"></i> Budget</a></li>
+          @role(['superadmin', 'admin'])
           <li><a href="{{ route('budgettypes.index') }}"><i class="fa fa-circle-o"></i> Budget Type</a></li>
+          @endrole
        </ul>
       </li>
      @role(['superadmin', 'admin'])
