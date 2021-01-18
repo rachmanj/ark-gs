@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\PowithetaImport;
 use App\Exports\PowithetaExport;
+use App\Exports\PowithetathismonthExport;
 use App\Powitheta;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Traits\FlashAlert;
@@ -61,5 +62,10 @@ class PowithetaController extends Controller
     public function export_excel()
     {
         return Excel::download(new PowithetaExport(), 'powitheta.xlsx');
+    }
+
+    public function export_excel_this_month()
+    {
+        return Excel::download(new PowithetathismonthExport(), 'powithetathismonth.xlsx');
     }
 }

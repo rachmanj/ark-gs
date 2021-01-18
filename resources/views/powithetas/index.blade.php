@@ -22,6 +22,7 @@
                 <a href="{{ route('powithetas.truncate') }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete all records?')"><i class="icon-trash"></i> Truncate Table</a>
                 @endrole
                 <a href="{{ route('powithetas.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
+                <a href="{{ route('powithetas.export_excel_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export This Month Data</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -123,14 +124,14 @@
             processing: true,
             serverSide: true,
             ajax: '{{ route('powithetas.data') }}',
-            dom: 'Bfrtip',
-            button: [
-              {
-                extend: 'pdf',
-                oriented: 'portrait'
-              },
-              'csv', 'excel', 'print', 'copy'
-            ],
+            // dom: 'Bfrtip',
+            // button: [
+            //   {
+            //     extend: 'pdf',
+            //     oriented: 'portrait'
+            //   },
+            //   'csv', 'exce', 'print', 'copy'
+            // ],
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'po_no'},

@@ -19,7 +19,10 @@ class DashboardController extends Controller
     public function index()
     {
         $report_date = Carbon::now()->subDays(1);
-        $po_post_rangeDate = ['2020-12-15', $report_date];
+        $month = Carbon::now()->subMonth()->format('m'); //->month;
+        $year = Carbon::now()->submonth()->format('Y');
+        $start_date = $year . '-' . $month . '-' . '15';
+        $po_post_rangeDate = [$start_date, $report_date];
         $this_month = Carbon::now();
         $last_month_delivery = Carbon::now()->subMonth();
         $last_month = ['2020-11-15', '2020-12-31'];
@@ -557,20 +560,14 @@ class DashboardController extends Controller
 
     public function test()
     {
-        // $list = DB::table('progresmrs')
-        //     ->select(DB::raw('mr_creation'), DB::raw('count(*) as record_count'), DB::raw('datediff(now(), mr_creation) as days'))
-        //     ->whereIn('project_code', ['011C'])
-        //     ->whereNotNull('grpo_no')
-        //     ->whereNull('iti_no')
-        //     ->groupBy('mr_creation')
-        //     ->get();
 
-        // $list = DB::table('progresmrs')->selectRaw('*, datediff(iti_date, grpo_date) as days')
-        //     ->whereIn('project_code', ['017C'])
-        //     ->whereNotNull('iti_no')
-        //     ->get();
-
-        // return $list;
+        // $lastDayThisMonth = Carbon::now()->endOfMonth()->toDateString();
+        // return $lastDayThisMonth;
+        $month = Carbon::now()->subMonth()->format('m'); //->month;
+        $year = Carbon::now()->submonth()->format('Y');
+        $start_date = $year . '-' . $month . '-' . '15';
+        return $start_date;
+        die;
     }
 
     public function mr_belum_iti($project)    //MR yg sduah grpo namun belum ITI
