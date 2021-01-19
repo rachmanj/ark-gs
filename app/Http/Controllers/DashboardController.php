@@ -327,8 +327,9 @@ class DashboardController extends Controller
     {
         if ($t == 'ty') {
             $list = Powitheta::whereYear('po_delivery_date', $year);
+        } else {
+            $list = Po20witheta::whereYear('po_delivery_date', $year);
         }
-        $list = Po20witheta::whereYear('po_delivery_date', $year);
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
