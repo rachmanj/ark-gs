@@ -15,14 +15,16 @@
               @if (session('message'))
                   <x-alert :type="session('type')" :message="session('message')"/>
                 @endif
+                <a href="{{ route('powithetas.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
+                <a href="{{ route('powithetas.export_excel_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export PO This Month</a>
+                <a href="{{ route('powithetas.export_grpo_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export GRPO This Month</a>
+                <hr>
                 @role(['superadmin', 'admin'])
                 <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#importExcel">
                     <i class="fa fa-upload"></i> Upload Excel
                 </button>
                 <a href="{{ route('powithetas.truncate') }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete all records?')"><i class="icon-trash"></i> Truncate Table</a>
                 @endrole
-                <a href="{{ route('powithetas.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
-                <a href="{{ route('powithetas.export_excel_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export This Month Data</a>
             </div>
             <div class="card-body">
               <div class="table-responsive">

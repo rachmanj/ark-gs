@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/powithetas/export_excel', 'PowithetaController@export_excel')->name('powithetas.export_excel');
     Route::get('/powithetas/export_excel_this_month', 'PowithetaController@export_excel_this_month')->name('powithetas.export_excel_this_month');
+    Route::get('/powithetas/export_grpo_this_month', 'PowithetaController@export_grpo_this_month')->name('powithetas.export_grpo_this_month');
     Route::get('/powithetas', 'PowithetaController@index')->name('powithetas.index');
     Route::get('/powithetas/truncate', 'PowithetaController@truncate')->name('powithetas.truncate');
     Route::post('/powithetas/import_excel', 'PowithetaController@import_excel')->name('powithetas.import_excel');
