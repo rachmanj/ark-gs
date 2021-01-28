@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/po20withetas/import_excel', 'Po20withetaController@import_excel')->name('po20withetas.import_excel');
 
     Route::get('/migis/export_excel', 'MigiController@export_excel')->name('migis.export_excel');
+    Route::get('/migis/export_this_month', 'MigiController@export_this_month')->name('migis.export_this_month');
     Route::get('/migis', 'MigiController@index')->name('migis.index');
     Route::get('/migis/truncate', 'MigiController@truncate')->name('migis.truncate');
     Route::post('/migis/import_excel', 'MigiController@import_excel')->name('migis.import_excel');
@@ -62,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/migi20s/import_excel', 'Migi20Controller@import_excel')->name('migi20s.import_excel');
 
     Route::get('/incomings/export_excel', 'IncomingController@export_excel')->name('incomings.export_excel');
+    Route::get('/incomings/export_this_month', 'IncomingController@export_this_month')->name('incomings.export_this_month');
     Route::get('/incomings', 'IncomingController@index')->name('incomings.index');
     Route::get('/incomings/truncate', 'IncomingController@truncate')->name('incomings.truncate');
     Route::post('/incomings/import_excel', 'IncomingController@import_excel')->name('incomings.import_excel');

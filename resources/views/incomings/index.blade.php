@@ -17,13 +17,15 @@
               @if (session('message'))
                 <x-alert :type="session('type')" :message="session('message')"/>
               @endif
+              <a href="{{ route('incomings.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
+              <a href="{{ route('incomings.export_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export This Month</a>
+              <hr>
                 @role(['superadmin', 'admin'])
                   <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#importExcel">
                       <i class="fa fa-upload"></i> Upload Excel
                   </button>
                     <a href="{{ route('incomings.truncate') }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete all records?')"><i class="icon-trash"></i> Truncate Table</a>
-                  @endrole
-                  <a href="{{ route('incomings.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
+                  @endrole                 
               </div>
               <div class="card-body">
                 <div class="table-responsive">

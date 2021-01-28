@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Imports\IncomingImport;
 use App\Exports\IncomingExport;
+use App\Exports\IncomingthismonthExport;
 use App\Incoming;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -56,5 +57,10 @@ class IncomingController extends Controller
     public function export_excel()
     {
         return Excel::download(new IncomingExport(), 'incoming_inventory.xlsx');
+    }
+
+    public function export_this_month()
+    {
+        return Excel::download(new IncomingthismonthExport(), 'incoming_inventory_this_month.xlsx');
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Imports\MigiImport;
 use App\Exports\MigiExport;
+use App\Exports\MigithismonthExport;
 use App\Migi;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -56,5 +57,10 @@ class MigiController extends Controller
     public function export_excel()
     {
         return Excel::download(new MigiExport(), 'list_mi_gi.xlsx');
+    }
+
+    public function export_this_month()
+    {
+        return Excel::download(new MigithismonthExport(), 'list_migi_thismonth.xlsx');
     }
 }

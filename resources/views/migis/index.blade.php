@@ -15,13 +15,15 @@
                 @if (session('message'))
                   <x-alert :type="session('type')" :message="session('message')"/>
                 @endif
+                <a href="{{ route('migis.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
+                <a href="{{ route('migis.export_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export This Month</a>
+                <hr>
                 @role(['superadmin', 'admin'])
                   <button type="button" class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#importExcel">
                       <i class="fa fa-upload"></i> Upload Excel
                   </button>
                   <a href="{{ route('migis.truncate') }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete all records?')"><i class="icon-trash"></i> Truncate Table</a>
-                  @endrole
-                  <a href="{{ route('migis.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
+                @endrole
               </div>
               <div class="card-body">
                 <div class="table-responsive">
@@ -122,14 +124,14 @@
             processing: true,
             serverSide: true,
             ajax: '{{ route('migis.data') }}',
-            dom: 'Bfrtip',
-            button: [
-              {
-                extend: 'pdf',
-                oriented: 'portrait'
-              },
-              'csv', 'excel', 'print', 'copy'
-            ],
+            // dom: 'Bfrtip',
+            // button: [
+            //   {
+            //     extend: 'pdf',
+            //     oriented: 'portrait'
+            //   },
+            //   'csv', 'excel', 'print', 'copy'
+            // ],
             columns: [
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'posting_date'},
