@@ -27,6 +27,17 @@ class PowithetaController extends Controller
         }
     }
 
+    public function show($id)
+    {
+        try {
+            $powitheta = Powitheta::findOrFail($id);
+
+            return view('powithetas.show', compact('powitheta'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('powithetas.index')->with($this->alertNotFound());
+        }
+    }
+
     public function import_excel(Request $request)
     {
         // validasi

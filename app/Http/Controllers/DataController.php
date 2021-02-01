@@ -20,6 +20,7 @@ class DataController extends Controller
 
         return datatables()->of($powithetas)
             ->addIndexColumn()
+            ->addColumn('action', 'powithetas.action')
             ->toJson();
     }
 

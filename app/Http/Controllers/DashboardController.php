@@ -25,7 +25,7 @@ class DashboardController extends Controller
         $po_post_rangeDate = [$start_date, $report_date];
         $this_month = Carbon::now();
         $last_month_delivery = Carbon::now()->subMonth();
-        $last_month = ['2020-11-15', '2020-12-31'];
+        $last_month = ['2020-12-15', '2021-01-31'];
         $all_project = ['011C', '017C', 'APS'];
         $latest_record = Progresmr::latest('wo_created')->first();
 
@@ -185,7 +185,7 @@ class DashboardController extends Controller
     public function last_month()
     {
         // $last_month = Carbon::now()->subMonths(1);
-        $last_month_po_range = ['2020-11-15', '2020-12-31'];
+        $last_month_po_range = ['2020-12-15', '2021-01-31'];
         $last_month_carbon = Carbon::now()->subMonths(1);
         $all_project = ['011C', '017C', 'APS'];
 

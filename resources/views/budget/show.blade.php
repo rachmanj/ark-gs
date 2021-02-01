@@ -1,13 +1,12 @@
 @extends('templates.default')
 
 @section('content')
-<h4>Budget</h4>
+<h4>Budget Detail</h4>
 <div class="row">
     <div class="col-lg-12">
       <div class="card">
         <div class="card-header">
-          Edit Data
-          <a href="{{ route('budgets.index') }}" class="btn btn-outline-info btn-square pull-right"><i class="icon-action-undo"></i> Back</a>
+          <a href="{{ route('budgets.index') }}" class="btn btn-outline-info btn-square pull-left"><i class="icon-action-undo"></i> Back</a>
          </div>
          <div class="card-body">
          <form action="{{ route('budgets.update', $budget->id) }}" method="POST">
@@ -16,51 +15,41 @@
             <div class="form-group row">
               <label for="date" class="col-sm-3 col-form-label">Date</label>
               <div class="col-sm-4">
-                <input type="date" id="date" name="date" value="{{ old('date', $budget->date) }}" class="form-control">
-              </div>
-            </div>
-            
-            <div class="form-group row">
-              <label for="budgettype_id" class="col-sm-3 col-form-label">Budget Type</label>
-              <div class="col-sm-9">
-                <select id="budgettype_id" name="budgettype_id" class="form-control single-select">
-                    @foreach ($budgettypes as $budgettype)
-                        <option value="{{ $budgettype->id }}" @if ($budgettype->id == $budget->budgettype_id)
-                            selected
-                        @endif>{{ $budgettype->display_name }}</option>
-                    @endforeach
-                </select>
+                <input type="date" id="date" name="date" value="{{ old('date', $budget->date) }}" class="form-control" readonly>
               </div>
             </div>
 
             <div class="form-group row">
+              <label for="budgettype" class="col-sm-3 col-form-label">Budget Type</label>
+              <div class="col-sm-4">
+                <input type="text" id="budgettype" name="budgettype" value="{{ $budgettype->display_name }}" class="form-control" readonly>
+              </div>
+            </div>
+            
+            <div class="form-group row">
                 <label for="project_code" class="col-sm-3 col-form-label">Project Code</label>
-                <div class="col-sm-9">
-                  <select name="project_code" id="project_code" class="form-control single-select">
-                    <option value="011C" @if ($budget->project_code == '011C') selected @endif>011C</option>
-                    <option value="017C" @if ($budget->project_code == '017C') selected @endif>017C</option>
-                    <option value="APS" @if ($budget->project_code == 'APS') selected @endif>APS</option>
-                  </select>
+                <div class="col-sm-4">
+                  <input type="text" id="project_code" name="project_code" value="{{ $budget->project_code }}" class="form-control" readonly>
                 </div>
               </div>
                        
             <div class="form-group row">
-              <label for="amount" class="col-sm-3 col-form-label">Amount</label>
+              <label for="amount" class="col-sm-3 col-form-label">Amount IDR</label>
               <div class="col-sm-9">
-                <input type="text" id="amount" name="amount" value="{{ old('amount', $budget->amount) }}" class="form-control form-control-square">
+                <input type="text" id="amount" name="amount" value="{{ number_format($budget->amount, 2) }}" class="form-control form-control-square" readonly>
               </div>
             </div>
 
             <div class="form-group row">
               <label for="remarks" class="col-sm-3 col-form-label">Remarks</label>
               <div class="col-sm-9">
-              <textarea rows="4" class="form-control" name="remarks" id="remarks">{{ old('remarks', $budget->remarks) }}</textarea>
+              <textarea rows="4" class="form-control" name="remarks" id="remarks" readonly>{{ $budget->remarks }}</textarea>
               </div>
             </div>
             
             <div class="card-footer">
               <div class="form-group row">
-                <button type="submit" class="btn btn-primary shadow-primary"><i class="icon-cup"></i> Save</button>
+                {{-- <button type="submit" class="btn btn-primary shadow-primary"><i class="icon-cup"></i> Save</button> --}}
               </div>
             </div>
          </form>

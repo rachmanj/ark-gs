@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <div> <!--Please remove the height before using this page  style="height:600px"-->
           <h3>PO With ETA</h3>
-          <p>Query Name: po with time arrival</p>
+          <p><strong>All Data</strong> | This Month Data</p>
           {{-- <p>Record date: {{ date('d-m-Y H:i:s', strtotime($latest_record->created_at)) }} </p> --}}
 
       <div class="row">
@@ -29,7 +29,7 @@
             <div class="card-body">
               <div class="table-responsive">
               <table id="datatable-powitheta" class="table table-bordered">
-                <thead>
+                <thead class="thead-primary">
                     <tr>
                         <th>#</th>
                         <th>PO</th>
@@ -39,6 +39,7 @@
                         <th>Project</th>
                         <th>Unit No</th>
                         <th>GRPO</th>
+                        <th>action</th>
                     </tr>
                 </thead>
             </table>
@@ -143,6 +144,7 @@
                 {data: 'project_code'},
                 {data: 'unit_no'},
                 {data: 'grpo_no'},
+                {data: 'action'},
             ]
         });
     });

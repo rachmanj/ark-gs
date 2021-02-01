@@ -62,7 +62,14 @@ class BudgetController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $budget = Budget::findOrFail($id);
+            $budgettype = Budgettype::where('id', $budget->budgettype_id)->first();
+
+            return view('budget.show', compact('budget', 'budgettype'));
+        } catch (ModelNotFoundException $e) {
+            return redirect()->route('budgets.index')->with($this->alertNotFound());
+        }
     }
 
     /**

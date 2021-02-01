@@ -38,11 +38,11 @@
       </li>
       <li>
         <a href="javaScript:void();" class="waves-effect">
-          <i class="icon-note"></i> <span>Data Input</span>
+          <i class="icon-note"></i> <span>Budget</span>
           <i class="fa fa-angle-left float-right"></i>
         </a>
        <ul class="sidebar-submenu">
-          <li><a href="{{ route('budgets.index') }}"><i class="fa fa-circle-o"></i> Budget</a></li>
+          <li><a href="{{ route('budgets.index') }}"><i class="fa fa-circle-o"></i> Input Budget</a></li>
           @role(['superadmin', 'admin'])
           <li><a href="{{ route('budgettypes.index') }}"><i class="fa fa-circle-o"></i> Budget Type</a></li>
           @endrole

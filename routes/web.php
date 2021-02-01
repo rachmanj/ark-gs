@@ -47,6 +47,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/powithetas', 'PowithetaController@index')->name('powithetas.index');
     Route::get('/powithetas/truncate', 'PowithetaController@truncate')->name('powithetas.truncate');
     Route::post('/powithetas/import_excel', 'PowithetaController@import_excel')->name('powithetas.import_excel');
+    Route::get('/powithetas/{powithetas}', 'PowithetaController@show')->name('powithetas.show');
 
     Route::get('/po20withetas', 'Po20withetaController@index')->name('po20withetas.index');
     Route::get('/po20withetas/truncate', 'Po20withetaController@truncate')->name('po20withetas.truncate');
