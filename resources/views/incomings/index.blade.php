@@ -30,7 +30,7 @@
               <div class="card-body">
                 <div class="table-responsive">
                 <table id="datatable-incoming" class="table table-bordered">
-                  <thead>
+                  <thead class="thead-primary">
                       <tr>
                           <th>#</th>
                           <th>PostingD</th>
@@ -58,7 +58,7 @@
     <div class="modal-dialog">
       <div class="modal-content animated rollIn">
         <div class="modal-header">
-          <h5 class="modal-title"><i class="fa fa-star"></i> Upload File</h5>
+          <h5 class="modal-title"><i class="fa fa-star"></i> Incoming Upload</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>

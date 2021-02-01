@@ -10,6 +10,7 @@ use App\Migi20;
 use App\Powitheta;
 use App\Po20witheta;
 use App\Progresmr;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class DataController extends Controller
@@ -19,6 +20,23 @@ class DataController extends Controller
         $powithetas = Powitheta::all();
 
         return datatables()->of($powithetas)
+            ->addIndexColumn()
+            ->addColumn('action', 'powithetas.action')
+            ->toJson();
+    }
+
+    public function powithetas_this_month()
+    {
+        $report_date = Carbon::now()->subDays(1);
+        $month = Carbon::now()->subMonth()->format('m'); //->month;
+        $year = Carbon::now()->submonth()->format('Y');
+        $start_date = $year . '-' . $month . '-' . '15';
+        $po_post_rangeDate = [$start_date, $report_date];
+        $this_month = Carbon::now();
+        $all_project = ['011C', '017C', 'APS'];
+        $powitheta_thismonth = $this->po_sent_amount($po_post_rangeDate, $this_month, $all_project);
+
+        return datatables()->of($powitheta_thismonth)
             ->addIndexColumn()
             ->addColumn('action', 'powithetas.action')
             ->toJson();
@@ -96,5 +114,23 @@ class DataController extends Controller
         return datatables()->of($incoming20s)
             ->addIndexColumn()
             ->toJson();
+    }
+
+    public function po_sent_amount($rangeDate, $month, $project)
+    {
+        $list = Powitheta::whereBetween('posting_date', $rangeDate)->whereMonth('po_delivery_date', $month);
+        $incl_deptcode = ['40', '50', '60', '140'];
+
+        $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
+        foreach ($excl_itemcode as $e) {
+            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
+        }
+
+        return $list->whereIn('project_code', $project)
+            ->whereIn('dept_code', $incl_deptcode)
+            ->where($excl_itemcode_arr)
+            ->where('po_delivery_status', 'Delivered')
+            ->where('po_status', '!=', 'Cancelled')
+            ->get();
     }
 }

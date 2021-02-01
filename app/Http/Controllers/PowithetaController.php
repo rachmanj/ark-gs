@@ -27,6 +27,11 @@ class PowithetaController extends Controller
         }
     }
 
+    public function this_month_index()
+    {
+        return view('powithetas.this_month_index');
+    }
+
     public function show($id)
     {
         try {

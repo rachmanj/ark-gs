@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
 
     // data ajax
     Route::get('/powithetas/data', 'DataController@powithetas')->name('powithetas.data');
+    Route::get('/powithetas/this_month/data', 'DataController@powithetas_this_month')->name('powithetas_this_month.data');
     Route::get('/po20withetas/data', 'DataController@po20withetas')->name('po20withetas.data');  //yearly
     Route::get('/migis/data', 'DataController@migis')->name('migis.data');
     Route::get('/migi20s/data', 'DataController@migi20s')->name('migi20s.data'); // yearly
@@ -45,6 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/powithetas/export_excel_this_month', 'PowithetaController@export_excel_this_month')->name('powithetas.export_excel_this_month');
     Route::get('/powithetas/export_grpo_this_month', 'PowithetaController@export_grpo_this_month')->name('powithetas.export_grpo_this_month');
     Route::get('/powithetas', 'PowithetaController@index')->name('powithetas.index');
+    Route::get('/powithetas/this_month', 'PowithetaController@this_month_index')->name('powithetas.this_month_index');
     Route::get('/powithetas/truncate', 'PowithetaController@truncate')->name('powithetas.truncate');
     Route::post('/powithetas/import_excel', 'PowithetaController@import_excel')->name('powithetas.import_excel');
     Route::get('/powithetas/{powithetas}', 'PowithetaController@show')->name('powithetas.show');

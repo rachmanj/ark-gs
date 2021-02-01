@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <div> <!--Please remove the height before using this page  style="height:600px"-->
           <h3>PO With ETA</h3>
-          <p><strong>All Data</strong> | <a href="{{ route('powithetas.this_month_index') }}">This Month Data</a> </p>
+          <p><a href="{{ route('powithetas.index') }}">All Data</a> | <strong>This Month Data</strong></p>
           {{-- <p>Record date: {{ date('d-m-Y H:i:s', strtotime($latest_record->created_at)) }} </p> --}}
 
       <div class="row">
@@ -15,16 +15,6 @@
               @if (session('message'))
                   <x-alert :type="session('type')" :message="session('message')"/>
                 @endif
-                <a href="{{ route('powithetas.export_excel') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export Table</a>
-                <a href="{{ route('powithetas.export_excel_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export PO This Month</a>
-                <a href="{{ route('powithetas.export_grpo_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export GRPO This Month</a>
-                <hr>
-                @role(['superadmin', 'admin'])
-                <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal" data-target="#importExcel">
-                    <i class="fa fa-upload"></i> Upload Excel
-                </button>
-                <a href="{{ route('powithetas.truncate') }}" class="btn btn-outline-danger btn-sm" onclick="return confirm('Are you sure you want to delete all records?')"><i class="icon-trash"></i> Truncate Table</a>
-                @endrole
             </div>
             <div class="card-body">
               <div class="table-responsive">
@@ -53,34 +43,6 @@
     </div>
   </div>
 
-  <!-- Import Excel -->
-
-  <div class="modal fade" id="importExcel">
-    <div class="modal-dialog">
-      <div class="modal-content animated rollIn">
-        <div class="modal-header">
-          <h5 class="modal-title"><i class="fa fa-star"></i> PO With Eta Upload</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <form method="post" action="{{ route('powithetas.import_excel') }}" enctype="multipart/form-data">
-                {{ csrf_field() }}
-                    <label>Pilih file excel</label>
-                    <div class="form-group">
-                        <input type="file" name="file" required="required">
-                    </div>
-          
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="fa fa-times"></i> Close</button>
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-check-square-o"></i> Import</button>
-                    </div>
-            </form>
-        </div>
-      </div>
-    </div>
-  </div>
 @endsection
 
 @push('styles')
@@ -126,7 +88,7 @@
     $('#datatable-powitheta').DataTable({
             processing: true,
             serverSide: true,
-            ajax: '{{ route('powithetas.data') }}',
+            ajax: '{{ route('powithetas_this_month.data') }}',
             // dom: 'Bfrtip',
             // button: [
             //   {
