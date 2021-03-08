@@ -4,9 +4,9 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-      <div> <!--Please remove the height before using this page-->
+      <div> 
           <h3>Dashboard</h3>
-          <h5>Report date: {{ date('d-m-Y', strtotime($report_date)) }}</h5>
+          <h5>Report date: {{ date('d-m-Y', strtotime($data_date)) }}</h5>
       </div>
     </div>
 </div>

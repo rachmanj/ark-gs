@@ -82,4 +82,5 @@ Route::middleware(['auth'])->group(function () {
     //budget
     Route::resource('budgettypes', 'BudgettypeController');
     Route::resource('budgets', 'BudgetController');
+
 });

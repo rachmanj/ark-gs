@@ -11,64 +11,47 @@ use App\Powitheta;
 use App\Po20witheta;
 use App\Progresmr;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-        $report_date = Carbon::now()->subDays(1);
-        $month = Carbon::now()->subMonth()->format('m'); //->month;
-        $year = Carbon::now()->submonth()->format('Y');
-        $start_date = $year . '-' . $month . '-' . '15';
-        $po_post_rangeDate = [$start_date, $report_date];
-        $this_month = Carbon::now();
-        $last_month_delivery = Carbon::now()->subMonth();
-        $last_month = ['2021-01-15', '2021-02-28'];
+        $now = Carbon::now();
+        $year = $now->year;
+        $month = $now->month;
         $all_project = ['011C', '017C', 'APS'];
-        $latest_record = Progresmr::latest('wo_created')->first();
+        $data_date = $now->subDay();
 
-        // return $last_month_delivery;
-        // die;
+        $po_amount_011_this_month = $this->po_sent_amount($year, $month, ['011C']);
+        $po_amount_017_this_month = $this->po_sent_amount($year, $month, ['017C']);
+        $po_amount_APS_this_month = $this->po_sent_amount($year, $month, ['APS']);
+        $po_amount_all_this_month = $this->po_sent_amount($year, $month, $all_project);
 
-        $po_amount_011_this_month = $this->po_sent_amount($po_post_rangeDate, $this_month, ['011C']);
-        $po_amount_017_this_month = $this->po_sent_amount($po_post_rangeDate, $this_month, ['017C']);
-        $po_amount_APS_this_month = $this->po_sent_amount($po_post_rangeDate, $this_month, ['APS']);
-        $po_amount_all_this_month = $this->po_sent_amount($po_post_rangeDate, $this_month, $all_project);
+        $plant_budget_011_this_month = $this->plant_budget($now, ['011C']);
+        $plant_budget_017_this_month = $this->plant_budget($now, ['017C']);
+        $plant_budget_APS_this_month = $this->plant_budget($now, ['APS']);
+        $plant_budget_all_this_month = $this->plant_budget($now, $all_project);
 
-        // $po_amount_011_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['011C']);
-        // $po_amount_017_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['017C']);
-        // $po_amount_APS_last_month = $this->po_sent_amount($last_month, $last_month_delivery, ['APS']);
+        $grpo_011_amount = $this->grpo_amount($now, $now, ['011C']);
+        $grpo_017_amount = $this->grpo_amount($now, $now, ['017C']);
+        $grpo_APS_amount = $this->grpo_amount($now, $now, ['APS']);
+        $grpo_all_amount = $this->grpo_amount($now, $now, $all_project);
 
-        $plant_budget_011_this_month = $this->plant_budget($this_month, ['011C']);
-        $plant_budget_017_this_month = $this->plant_budget($this_month, ['017C']);
-        $plant_budget_APS_this_month = $this->plant_budget($this_month, ['APS']);
-        $plant_budget_all_this_month = $this->plant_budget($this_month, $all_project);
+        $npi_incoming_011 = $this->incoming_qty($now, ['011C']);
+        $npi_incoming_017 = $this->incoming_qty($now, ['017C']);
+        $npi_incoming_APS = $this->incoming_qty($now, ['APS']);
+        $npi_incoming_all = $this->incoming_qty($now, $all_project);
 
-        $grpo_011_amount = $this->grpo_amount($po_post_rangeDate, $this_month, ['011C']);
-        $grpo_017_amount = $this->grpo_amount($po_post_rangeDate, $this_month, ['017C']);
-        $grpo_APS_amount = $this->grpo_amount($po_post_rangeDate, $this_month, ['APS']);
-        $grpo_all_amount = $this->grpo_amount($po_post_rangeDate, $this_month, $all_project);
-
-        $npi_incoming_011 = $this->incoming_qty($this_month, ['011C']);
-        $npi_incoming_017 = $this->incoming_qty($this_month, ['017C']);
-        $npi_incoming_APS = $this->incoming_qty($this_month, ['APS']);
-        $npi_incoming_all = $this->incoming_qty($this_month, $all_project);
-
-        $npi_outgoing_011 = $this->outgoing_qty($this_month, ['011C']);
-        $npi_outgoing_017 = $this->outgoing_qty($this_month, ['017C']);
-        $npi_outgoing_APS = $this->outgoing_qty($this_month, ['APS']);
-        $npi_outgoing_all = $this->outgoing_qty($this_month, $all_project);
+        $npi_outgoing_011 = $this->outgoing_qty($now, ['011C']);
+        $npi_outgoing_017 = $this->outgoing_qty($now, ['017C']);
+        $npi_outgoing_APS = $this->outgoing_qty($now, ['APS']);
+        $npi_outgoing_all = $this->outgoing_qty($now, $all_project);
 
         $mr_to_mi_all = $this->mr_to_mi($all_project);
 
-        // dd($npi_outgoing);
-
         return view('dashboard.index', compact(
-            'last_month',
-            'latest_record',
-            'report_date',
+            'data_date',
             'po_amount_011_this_month',
             'po_amount_017_this_month',
             'po_amount_APS_this_month',
@@ -184,38 +167,41 @@ class DashboardController extends Controller
 
     public function last_month()
     {
-        // $last_month = Carbon::now()->subMonths(1);
-        $last_month_po_range = ['2021-01-15', '2021-02-28'];
-        $last_month_carbon = Carbon::now()->subMonths(1);
+        $last_month = Carbon::now()->subMonth();
+        $year = $last_month->year;
+        $month = $last_month->month;
         $all_project = ['011C', '017C', 'APS'];
 
-        $po_amount_011_last_month = $this->po_sent_amount($last_month_po_range, $last_month_carbon, ['011C']);
-        $po_amount_017_last_month = $this->po_sent_amount($last_month_po_range, $last_month_carbon, ['017C']);
-        $po_amount_APS_last_month = $this->po_sent_amount($last_month_po_range, $last_month_carbon, ['APS']);
-        $po_amount_all_last_month = $this->po_sent_amount($last_month_po_range, $last_month_carbon, $all_project);
+        // $last_month_po_range = ['2021-01-15', '2021-02-28'];
+        // $last_month_carbon = Carbon::now()->subMonths(1);
 
-        $plant_budget_011_last_month = $this->plant_budget($last_month_carbon, ['011C']);
-        $plant_budget_017_last_month = $this->plant_budget($last_month_carbon, ['017C']);
-        $plant_budget_APS_last_month = $this->plant_budget($last_month_carbon, ['APS']);
-        $plant_budget_all_last_month = $this->plant_budget($last_month_carbon, $all_project);
+        $po_amount_011_last_month = $this->po_sent_amount($year, $month, ['011C']);
+        $po_amount_017_last_month = $this->po_sent_amount($year, $month, ['017C']);
+        $po_amount_APS_last_month = $this->po_sent_amount($year, $month, ['APS']);
+        $po_amount_all_last_month = $this->po_sent_amount($year, $month, $all_project);
 
-        $grpo_011_amount = $this->grpo_amount($last_month_po_range, $last_month_carbon, ['011C']);
-        $grpo_017_amount = $this->grpo_amount($last_month_po_range, $last_month_carbon, ['017C']);
-        $grpo_APS_amount = $this->grpo_amount($last_month_po_range, $last_month_carbon, ['APS']);
-        $grpo_all_amount = $this->grpo_amount($last_month_po_range, $last_month_carbon, $all_project);
+        $plant_budget_011_last_month = $this->plant_budget($last_month, ['011C']);
+        $plant_budget_017_last_month = $this->plant_budget($last_month, ['017C']);
+        $plant_budget_APS_last_month = $this->plant_budget($last_month, ['APS']);
+        $plant_budget_all_last_month = $this->plant_budget($last_month, $all_project);
 
-        $npi_incoming_011 = $this->incoming_qty($last_month_carbon, ['011C']);
-        $npi_incoming_017 = $this->incoming_qty($last_month_carbon, ['017C']);
-        $npi_incoming_APS = $this->incoming_qty($last_month_carbon, ['APS']);
-        $npi_incoming_all = $this->incoming_qty($last_month_carbon, $all_project);
+        $grpo_011_amount = $this->grpo_amount($last_month, $last_month, ['011C']);
+        $grpo_017_amount = $this->grpo_amount($last_month, $last_month, ['017C']);
+        $grpo_APS_amount = $this->grpo_amount($last_month, $last_month, ['APS']);
+        $grpo_all_amount = $this->grpo_amount($last_month, $last_month, $all_project);
 
-        $npi_outgoing_011 = $this->outgoing_qty($last_month_carbon, ['011C']);
-        $npi_outgoing_017 = $this->outgoing_qty($last_month_carbon, ['017C']);
-        $npi_outgoing_APS = $this->outgoing_qty($last_month_carbon, ['APS']);
-        $npi_outgoing_all = $this->outgoing_qty($last_month_carbon, $all_project);
+        $npi_incoming_011 = $this->incoming_qty($last_month, ['011C']);
+        $npi_incoming_017 = $this->incoming_qty($last_month, ['017C']);
+        $npi_incoming_APS = $this->incoming_qty($last_month, ['APS']);
+        $npi_incoming_all = $this->incoming_qty($last_month, $all_project);
+
+        $npi_outgoing_011 = $this->outgoing_qty($last_month, ['011C']);
+        $npi_outgoing_017 = $this->outgoing_qty($last_month, ['017C']);
+        $npi_outgoing_APS = $this->outgoing_qty($last_month, ['APS']);
+        $npi_outgoing_all = $this->outgoing_qty($last_month, $all_project);
 
         return view('dashboard.last_month', compact(
-            'last_month_carbon',
+            'last_month',
             'po_amount_011_last_month',
             'po_amount_017_last_month',
             'po_amount_APS_last_month',
@@ -403,10 +389,8 @@ class DashboardController extends Controller
             ->sum('qty');
     }
 
-    public function po_sent_amount($rangeDate, $month, $project)
-    {
-        $list = Powitheta::whereBetween('posting_date', $rangeDate)->whereMonth('po_delivery_date', $month);
-        // $list = Powitheta::whereMonth('posting_date', '=', $month);
+    public function po_sent_amount($year, $month, $project)
+    {        
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
@@ -414,14 +398,16 @@ class DashboardController extends Controller
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         }
 
-        return $list->whereIn('project_code', $project)
+        $list = DB::table('powithetas')
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->where('po_delivery_status', 'Delivered')
-            ->where('po_status', '!=', 'Cancelled')
-            // ->distinct('po_no')
-            // ->sum('total_po_price');
-            ->sum('item_amount');
+            ->whereYear('po_delivery_date', $year)
+            ->whereMonth('po_delivery_date', $month)
+            ->distinct('po_no')
+            ->whereIn('project_code', $project)
+            ->where('po_status', '!=', 'Cancelled');
+
+        return $list->sum('item_amount');
     }
 
     public function plant_budget($month, $project)
@@ -432,25 +418,24 @@ class DashboardController extends Controller
             ->sum('amount');
     }
 
-    public function grpo_amount($po_rangeDate, $grpo_month, $project)
+    public function grpo_amount($po_delivery_month, $grpo_month, $project)
     {
-        // $list = Powitheta::whereMonth('posting_date', $month)->whereMonth('grpo_date', $month);
-        $list = Powitheta::whereBetween('posting_date', $po_rangeDate)
-            ->whereMonth('grpo_date', $grpo_month);
         $incl_deptcode = ['40', '50', '60', '140'];
-
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         }
 
-        return $list->whereIn('project_code', $project)
-            ->whereIn('dept_code', $incl_deptcode)
-            ->where($excl_itemcode_arr)
+        $list = Powitheta::whereMonth('po_delivery_date', $po_delivery_month)
+            ->whereMonth('grpo_date', $grpo_month)
             ->where('po_delivery_status', 'Delivered')
             ->where('po_status', '!=', 'Cancelled')
-            ->whereNotNull('grpo_no')
-            ->sum('item_amount');
+            ->whereIn('project_code', $project)
+            ->whereIn('dept_code', $incl_deptcode)
+            ->where($excl_itemcode_arr);
+
+        return $list->sum('item_amount');
+        // return $list->get();
     }
 
     public function incoming_qty($month, $project)
@@ -559,15 +544,61 @@ class DashboardController extends Controller
         return $list;
     }
 
+    
+
     public function test()
     {
+        $now = Carbon::now();
+        $year = $now->year;
+        $month = $now->month;
+        // $report_date = $now->subDay();
+        $report_date = $year . '-' . $month . '-' . $now->subDay()->day;
+        $start_date = $year . '-' . $month . '-' . '1';
+        $rangeDate = [$start_date, $report_date];
 
-        // $lastDayThisMonth = Carbon::now()->endOfMonth()->toDateString();
-        // return $lastDayThisMonth;
-        $month = Carbon::now()->subMonth()->format('m'); //->month;
-        $year = Carbon::now()->submonth()->format('Y');
-        $start_date = $year . '-' . $month . '-' . '15';
-        return $start_date;
+        $po_amount = $this->po_sent_amount($year, $now, ['APS']);
+        $amount = $this->grpo_amount($now, $now, ['APS']);
+        // return number_format($amount, 2);
+        // return $amount;
+        return $po_amount;
+
+
+
+        // $now = Carbon::now();
+        // $year = $now->year;
+        // $month = $now->month;
+
+        // $incl_deptcode = ['40', '50', '60', '140'];
+
+        // $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
+        // foreach ($excl_itemcode as $e) {
+        //     $excl_itemcode_arr[] = ['item_code', 'not like', $e];
+        // }
+
+        /*
+        return $list->whereIn('project_code', $project)
+            ->whereIn('dept_code', $incl_deptcode)
+            ->where($excl_itemcode_arr)
+            ->where('po_delivery_status', 'Delivered')
+            ->where('po_status', '!=', 'Cancelled')
+            ->whereNotNull('grpo_no')
+            ->sum('item_amount');
+        */
+
+        
+
+        // $list = Powitheta::whereBetween('po_delivery_date', ['2021-02-15', '2021-03-07'])
+        //     ->whereMonth('grpo_date', $month)
+        //     ->where('po_delivery_status', 'Delivered')
+        //     ->where('po_status', '!=', 'Cancelled')
+        //     ->whereIn('project_code', ['011C'])
+        //     ->whereIn('dept_code', $incl_deptcode)
+        //     ->where($excl_itemcode_arr)
+        //     ->get();
+        //     // ->sum('item_amount');
+
+        // return $list;
+        
         die;
     }
 
