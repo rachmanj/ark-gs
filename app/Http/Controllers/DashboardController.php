@@ -360,7 +360,7 @@ class DashboardController extends Controller
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->where($excl_uom_arr)
+            // ->where($excl_uom_arr)
             ->sum('qty');
     }
 
@@ -385,12 +385,12 @@ class DashboardController extends Controller
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->where($excl_uom_arr)
+            // ->where($excl_uom_arr)
             ->sum('qty');
     }
 
     public function po_sent_amount($year, $month, $project)
-    {        
+    {
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
@@ -456,7 +456,7 @@ class DashboardController extends Controller
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->where($excl_uom_arr)
+            // ->where($excl_uom_arr)
             ->sum('qty');
     }
 
@@ -478,7 +478,7 @@ class DashboardController extends Controller
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->where($excl_uom_arr)
+            // ->where($excl_uom_arr)
             ->sum('qty');
     }
 
@@ -544,7 +544,7 @@ class DashboardController extends Controller
         return $list;
     }
 
-    
+
 
     public function test()
     {
@@ -585,7 +585,7 @@ class DashboardController extends Controller
             ->sum('item_amount');
         */
 
-        
+
 
         // $list = Powitheta::whereBetween('po_delivery_date', ['2021-02-15', '2021-03-07'])
         //     ->whereMonth('grpo_date', $month)
@@ -598,7 +598,7 @@ class DashboardController extends Controller
         //     // ->sum('item_amount');
 
         // return $list;
-        
+
         die;
     }
 

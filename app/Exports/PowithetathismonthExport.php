@@ -6,6 +6,7 @@ use App\Powitheta;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class PowithetathismonthExport implements FromCollection, WithHeadings
 {
@@ -45,6 +46,7 @@ class PowithetathismonthExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
+        /** 
         $report_date = Carbon::now()->subDays(1);
         $month = Carbon::now()->subMonth()->format('m'); //->month;
         $year = Carbon::now()->submonth()->format('Y');
@@ -54,9 +56,18 @@ class PowithetathismonthExport implements FromCollection, WithHeadings
         $all_project = ['011C', '017C', 'APS'];
 
         return $this->po_sent_amount($po_post_rangeDate, $this_month, $all_project);
+         **/
+
+        $now = Carbon::now();
+        $year = $now->year;
+        $month = $now->month;
+        $all_project = ['011C', '017C', 'APS'];
+        $data_date = $now->subDay();
+
+        return $this->po_sent_amount($year, $month, $all_project);
     }
 
-    public function po_sent_amount($rangeDate, $month, $project)
+    /**public function po_sent_amount($rangeDate, $month, $project)
     {
         $list = Powitheta::whereBetween('posting_date', $rangeDate)->whereMonth('po_delivery_date', $month);
         $incl_deptcode = ['40', '50', '60', '140'];
@@ -72,5 +83,26 @@ class PowithetathismonthExport implements FromCollection, WithHeadings
             ->where('po_delivery_status', 'Delivered')
             ->where('po_status', '!=', 'Cancelled')
             ->get();
+    } **/
+
+    public function po_sent_amount($year, $month, $project)
+    {
+        $incl_deptcode = ['40', '50', '60', '140'];
+
+        $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
+        foreach ($excl_itemcode as $e) {
+            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
+        }
+
+        $list = DB::table('powithetas')
+            ->whereIn('dept_code', $incl_deptcode)
+            ->where($excl_itemcode_arr)
+            ->whereYear('po_delivery_date', $year)
+            ->whereMonth('po_delivery_date', $month)
+            // ->distinct('po_no')
+            ->whereIn('project_code', $project)
+            ->where('po_status', '!=', 'Cancelled');
+
+        return $list->get();
     }
 }
