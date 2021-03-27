@@ -405,9 +405,10 @@ class DashboardController extends Controller
             ->whereMonth('po_delivery_date', $month)
             ->distinct('po_no')
             ->whereIn('project_code', $project)
-            ->where('po_status', '!=', 'Cancelled');
+            ->where('po_status', '!=', 'Cancelled')
+            ->where('po_delivery_status', '=', 'Delivered');
 
-        return $list->sum('item_amount');
+        return $list->sum('total_po_price');
     }
 
     public function plant_budget($month, $project)
