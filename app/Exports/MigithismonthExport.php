@@ -55,7 +55,7 @@ class MigithismonthExport implements FromCollection, WithHeadings
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->where($excl_uom_arr)
+            // ->where($excl_uom_arr)
             ->get();
     }
 }
