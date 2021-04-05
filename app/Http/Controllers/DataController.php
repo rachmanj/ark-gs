@@ -10,8 +10,8 @@ use App\Migi20;
 use App\Powitheta;
 use App\Po20witheta;
 use App\Progresmr;
+use App\History;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class DataController extends Controller
 {
@@ -133,4 +133,41 @@ class DataController extends Controller
             ->where('po_status', '!=', 'Cancelled')
             ->get();
     }
+
+    public function histories()
+    {
+        $histories = History::orderBy('date', 'desc')->orderBy('project_code', 'asc')->get();
+
+        return datatables()->of($histories)
+            ->editColumn('amount', function (History $model) {
+                return number_format($model->amount, 2);
+            })
+            ->editColumn('date', function (History $model) {
+                return date('F Y', strtotime($model->date));
+            })
+            ->addIndexColumn()
+            ->addColumn('action', 'history.action')
+            ->rawColumns(['action'])
+            ->toJson();
+    }
+
+    public function test()
+    {
+        $last_month = Carbon::now()->subMonth();
+        $year = $last_month->year;
+        $month = $last_month->month;
+        $all_project = ['011C', '017C', 'APS'];
+
+        $histories = History::whereMonth('date', $last_month)->where('periode', 'monthly')->get();
+
+        $po_amount_011_last_month = $histories->where('project_code', '011C')->where('gs_type', 'po_sent')->first()->amount;
+        $po_amount_017_last_month = $histories->where('project_code', '017C')->where('gs_type', 'po_sent')->first()->amount;
+        $po_amount_APS_last_month = $histories->where('project_code', 'APS')->where('gs_type', 'po_sent')->first()->amount;
+        // $po_amount_all_last_month = $histories->where('gs_type', 'po_sent')->get();  //->sum('amount');
+        // $amount = $histories->get()->sum('amount');
+        $amount = History::whereMonth('date', $last_month)->where('periode', 'monthly')->sum('amount');
+        
+        return $po_amount_011_last_month;
+    }
+
 }

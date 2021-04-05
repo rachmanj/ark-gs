@@ -11,6 +11,8 @@
     </div>
 </div>
 
+{{-- {{ $po_amount_APS_last_month }} --}}
+
 {{-- @include('dashboard.last_month.first_row') --}}
 
 <hr>

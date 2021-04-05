@@ -9,6 +9,7 @@ use App\Migi;
 use App\Migi20;
 use App\Powitheta;
 use App\Po20witheta;
+use App\History;
 use App\Progresmr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -172,13 +173,15 @@ class DashboardController extends Controller
         $month = $last_month->month;
         $all_project = ['011C', '017C', 'APS'];
 
+        $history = History::whereMonth('date', $last_month)->where('periode', 'monthly');
+
         // $last_month_po_range = ['2021-01-15', '2021-02-28'];
         // $last_month_carbon = Carbon::now()->subMonths(1);
 
-        $po_amount_011_last_month = $this->po_sent_amount($year, $month, ['011C']);
-        $po_amount_017_last_month = $this->po_sent_amount($year, $month, ['017C']);
-        $po_amount_APS_last_month = $this->po_sent_amount($year, $month, ['APS']);
-        $po_amount_all_last_month = $this->po_sent_amount($year, $month, $all_project);
+        $po_amount_011_last_month = $history->where('project_code', '011C')->where('gs_type', 'po_sent')->first();
+        $po_amount_017_last_month = $history->where('project_code', '017C')->where('gs_type', 'po_sent')->first();
+        $po_amount_APS_last_month = $history->where('project_code', 'APS')->where('gs_type', 'po_sent')->first();
+        $po_amount_all_last_month = $history->where('gs_type', 'po_sent')->sum('amount');
 
         $plant_budget_011_last_month = $this->plant_budget($last_month, ['011C']);
         $plant_budget_017_last_month = $this->plant_budget($last_month, ['017C']);

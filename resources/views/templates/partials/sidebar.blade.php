@@ -45,6 +45,7 @@
           <li><a href="{{ route('budgets.index') }}"><i class="fa fa-circle-o"></i> Input Budget</a></li>
           @role(['superadmin', 'admin'])
           <li><a href="{{ route('budgettypes.index') }}"><i class="fa fa-circle-o"></i> Budget Type</a></li>
+          <li><a href="{{ route('history.index') }}"><i class="fa fa-circle-o"></i> History</a></li>
           @endrole
        </ul>
       </li>

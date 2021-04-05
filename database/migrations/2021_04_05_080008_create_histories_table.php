@@ -18,8 +18,9 @@ class CreateHistoriesTable extends Migration
             $table->date('date');
             $table->string('periode')->nullable(); // monthly, yearly
             $table->string('gs_type')->nullable(); // po Sent, grpo, incoming qty, outgoing qty
-            $table->string('project')->nullable();
+            $table->string('project_code')->nullable();
             $table->double('amount')->nullable();
+            $table->text('remarks')->nullable();
             $table->timestamps();
         });
     }

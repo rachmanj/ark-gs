@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/page_2', 'DashboardController@page_2')->name('dashboard.page_2');
     Route::get('/dashboard/page_3', 'DashboardController@page_3')->name('dashboard.page_3');
     Route::get('/dashboard/page_4', 'DashboardController@page_4')->name('dashboard.page_4');
-    Route::get('/dashboard/last_month', 'DashboardController@last_month')->name('dashboard.last_month');
+    Route::get('/dashboard/last_month', 'DashboardlastmonthController@index')->name('dashboard.last_month');
     Route::get('/dashboard/yearly', 'DashboardController@yearly')->name('dashboard.yearly');
     Route::get('/dashboard/po_sent_by_project', 'DashboardController@po_sent_by_project')->name('dashboard.po_sent_by_project');
     Route::get('/dashboard/test', 'DashboardController@test')->name('dashboard.test');
@@ -41,6 +41,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/incoming20s/data', 'DataController@incoming20s')->name('incoming20s.data'); // Yearly
     Route::get('/progresmrs/data', 'DataController@progresmrs')->name('progresmrs.data');
     Route::get('/budgets/data', 'DataController@budgets')->name('budgets.data');
+    Route::get('/history/data', 'DataController@histories')->name('history.data');
 
     Route::get('/powithetas/export_excel', 'PowithetaController@export_excel')->name('powithetas.export_excel');
     Route::get('/powithetas/export_excel_this_month', 'PowithetaController@export_excel_this_month')->name('powithetas.export_excel_this_month');
@@ -79,8 +80,14 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/progresmrs/truncate', 'ProgresmrController@truncate')->name('progresmrs.truncate');
     Route::post('/progresmrs/import_excel', 'ProgresmrController@import_excel')->name('progresmrs.import_excel');
 
+    // history
+    Route::resource('history', 'HistoryController');
+
     //budget
     Route::resource('budgettypes', 'BudgettypeController');
     Route::resource('budgets', 'BudgetController');
+
+    // test
+    Route::get('/test', 'DataController@test');
 
 });
