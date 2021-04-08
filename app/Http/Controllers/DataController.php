@@ -17,7 +17,7 @@ class DataController extends Controller
 {
     public function powithetas()
     {
-        $powithetas = Powitheta::all();
+        $powithetas = Powitheta::orderBy('posting_date', 'desc')->get();
 
         return datatables()->of($powithetas)
             ->addIndexColumn()
@@ -118,7 +118,7 @@ class DataController extends Controller
 
     public function po_sent_amount($rangeDate, $month, $project)
     {
-        $list = Powitheta::whereBetween('posting_date', $rangeDate)->whereMonth('po_delivery_date', $month);
+        $list = Powitheta::whereBetween('posting_date', $rangeDate)->whereMonth('po_delivery_date', $month)->orderBy('posting_date', 'desc');
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];

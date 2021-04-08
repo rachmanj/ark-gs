@@ -27,7 +27,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/page_3', 'DashboardController@page_3')->name('dashboard.page_3');
     Route::get('/dashboard/page_4', 'DashboardController@page_4')->name('dashboard.page_4');
     Route::get('/dashboard/last_month', 'DashboardlastmonthController@index')->name('dashboard.last_month');
-    Route::get('/dashboard/yearly', 'DashboardController@yearly')->name('dashboard.yearly');
+    Route::get('/dashboard/yearly', 'DashboardyearlyController@index')->name('dashboard.yearly.index');
     Route::get('/dashboard/po_sent_by_project', 'DashboardController@po_sent_by_project')->name('dashboard.po_sent_by_project');
     Route::get('/dashboard/test', 'DashboardController@test')->name('dashboard.test');
 
@@ -88,6 +88,9 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('budgets', 'BudgetController');
 
     // test
-    Route::get('/test', 'DataController@test');
+    Route::get('/test', 'TestController@index');
+    Route::get('/test2', 'TestController@test2');
+    Route::get('/test3', 'TestController@test3');
+    Route::get('/test_api', 'TestController@test_api');
 
 });

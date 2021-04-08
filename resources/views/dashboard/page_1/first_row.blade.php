@@ -37,8 +37,8 @@
         <div class="card-body">
             <div class="media">
             <div class="media-body text-left">
-              @if ($npi_incoming_all && $npi_outgoing_all)
-              <h4 class="text-info">{{ number_format($npi_incoming_all / $npi_outgoing_all, 2) }}</h4>
+              @if ($npi_in_all && $npi_out_all)
+              <h4 class="text-info">{{ number_format($npi_in_all / $npi_out_all, 2) }}</h4>
               @else
               <h4 class="text-info">- na -</h4>
               @endif
