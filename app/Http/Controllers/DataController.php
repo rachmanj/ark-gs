@@ -20,6 +20,9 @@ class DataController extends Controller
         $powithetas = Powitheta::orderBy('posting_date', 'desc')->get();
 
         return datatables()->of($powithetas)
+            ->editColumn('item_amount', function (Powitheta $model) {
+                return number_format($model->item_amount, 0);
+            })
             ->addIndexColumn()
             ->addColumn('action', 'powithetas.action')
             ->toJson();
@@ -45,6 +48,9 @@ class DataController extends Controller
             ->get();
 
         return datatables()->of($powitheta_thismonth)
+            ->editColumn('item_amount', function (Powitheta $model) {
+                return number_format($model->item_amount, 0);
+            })
             ->addIndexColumn()
             ->addColumn('action', 'powithetas.action')
             ->toJson();

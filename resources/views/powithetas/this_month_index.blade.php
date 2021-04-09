@@ -111,6 +111,12 @@
                 {data: 'item_amount'},
                 {data: 'grpo_no'},
                 {data: 'action'},
+            ],
+            columnDefs: [
+              {
+                "targets": [7, 8],
+                "className": "text-right"
+              }
             ]
         });
     });
