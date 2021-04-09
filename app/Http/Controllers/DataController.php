@@ -27,14 +27,22 @@ class DataController extends Controller
 
     public function powithetas_this_month()
     {
-        $report_date = Carbon::now()->subDays(1);
-        $month = Carbon::now()->subMonth()->format('m'); //->month;
-        $year = Carbon::now()->submonth()->format('Y');
-        $start_date = $year . '-' . $month . '-' . '15';
-        $po_post_rangeDate = [$start_date, $report_date];
-        $this_month = Carbon::now();
-        $all_project = ['011C', '017C', 'APS'];
-        $powitheta_thismonth = $this->po_sent_amount($po_post_rangeDate, $this_month, $all_project);
+        $date = Carbon::now();
+
+        $incl_deptcode = ['40', '50', '60', '140'];
+
+        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
+        foreach ($excl_itemcode as $e) {
+            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
+        };
+
+        $list = Powitheta::whereYear('po_delivery_date', $date->year)->whereMonth('po_delivery_date', $date->month)->orderBy('po_delivery_date', 'desc');
+        $powitheta_thismonth = $list->whereIn('project_code', ['011C', '017C', 'APS'])
+            ->whereIn('dept_code', $incl_deptcode)
+            ->where($excl_itemcode_arr)
+            ->where('po_delivery_status', 'Delivered')
+            ->where('po_status', '!=', 'Cancelled')
+            ->get();
 
         return datatables()->of($powitheta_thismonth)
             ->addIndexColumn()

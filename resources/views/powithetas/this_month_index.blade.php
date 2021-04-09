@@ -23,7 +23,8 @@
                     <tr>
                         <th>#</th>
                         <th>PO</th>
-                        <th>PostingD</th>
+                        <th>PostD</th>
+                        <th>DelivD</th>
                         <th>Project</th>
                         <th>Unit No</th>
                         <th>Item</th>
@@ -102,6 +103,7 @@
                 {data: 'DT_RowIndex', orderable: false, searchable: false},
                 {data: 'po_no'},
                 {data: 'posting_date'},
+                {data: 'po_delivery_date'},
                 {data: 'project_code'},
                 {data: 'unit_no'},
                 {data: 'item_code'},

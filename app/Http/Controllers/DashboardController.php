@@ -19,16 +19,14 @@ class DashboardController extends Controller
     public function index()
     {
         $now = Carbon::now();
-        $year = $now->year;
         $last_month = Carbon::now()->subMonth();
-        $month = $last_month->month;
         $all_project = ['011C', '017C', 'APS'];
         $data_date = $now->subDay();
 
-        $po_amount_011_this_month = $this->po_sent_amount($year, $month, ['011C']);
-        $po_amount_017_this_month = $this->po_sent_amount($year, $month, ['017C']);
-        $po_amount_APS_this_month = $this->po_sent_amount($year, $month, ['APS']);
-        $po_amount_all_this_month = $this->po_sent_amount($year, $month, $all_project);
+        $po_amount_011_this_month = $this->po_sent_amount($now->year, $now->month, ['011C']);
+        $po_amount_017_this_month = $this->po_sent_amount($now->year, $now->month, ['017C']);
+        $po_amount_APS_this_month = $this->po_sent_amount($now->year, $now->month, ['APS']);
+        $po_amount_all_this_month = $this->po_sent_amount($now->year, $now->month, $all_project);
 
         $plant_budget_011_this_month = $this->plant_budget($now, ['011C']);
         $plant_budget_017_this_month = $this->plant_budget($now, ['017C']);
@@ -249,102 +247,24 @@ class DashboardController extends Controller
         ));
     }
 
-    public function po_sent_yearly($year, $project, $t) // ty is this year
-    {
-        if ($t == 'ty') {
-            $list = Powitheta::whereYear('po_delivery_date', $year);
-        } else {
-            $list = Po20witheta::whereYear('po_delivery_date', $year);
-        }
-        $incl_deptcode = ['40', '50', '60', '140'];
-
-        $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
-        foreach ($excl_itemcode as $e) {
-            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
-        }
-
-        return $list->whereIn('project_code', $project)
-            ->whereIn('dept_code', $incl_deptcode) //
-            ->where($excl_itemcode_arr)
-            ->where('po_delivery_status', 'Delivered')
-            ->where('po_status', '!=', 'Cancelled')
-            ->sum('item_amount');
-    }
-
-    public function plant_budget_yearly($year, $project)
-    {
-        return Budget::whereIn('project_code', $project)
-            ->where('budgettype_id', 2)
-            ->whereYear('date', $year)
-            ->sum('amount');
-    }
-
-    public function incoming_qty_yearly($year, $project, $t) // ty is This Year
-    {
-        if ($t == 'ty') {
-            $list = Incoming::whereYear('posting_date', $year);
-        }
-        $list = Incoming20::whereYear('posting_date', $year);
-        $incl_deptcode = ['40', '50', '60', '140'];
-
-        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
-        foreach ($excl_itemcode as $e) {
-            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
-        };
-
-        $excl_uom = ['%L%', '%M%', '%CM%'];
-        foreach ($excl_uom as $e) {
-            $excl_uom_arr[] = ['uom', 'not like', $e];
-        }
-
-        return $list->whereIn('project_code', $project)
-            ->whereIn('dept_code', $incl_deptcode)
-            ->where($excl_itemcode_arr)
-            ->sum('qty');
-    }
-
-    public function outgoing_qty_yearly($year, $project, $t) // ty is This Year
-    {
-        if ($t == 'ty') {
-            $list = Migi::whereYear('posting_date', $year);;
-        }
-        $list = Migi20::whereYear('posting_date', $year);;
-        $incl_deptcode = ['40', '50', '60', '140'];
-
-        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
-        foreach ($excl_itemcode as $e) {
-            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
-        };
-
-        $excl_uom = ['%L%', '%M%', '%CM%'];
-        foreach ($excl_uom as $e) {
-            $excl_uom_arr[] = ['uom', 'not like', $e];
-        }
-
-        return $list->whereIn('project_code', $project)
-            ->whereIn('dept_code', $incl_deptcode)
-            ->where($excl_itemcode_arr)
-            ->sum('qty');
-    }
-
     public function po_sent_amount($year, $month, $project)
     {
         $incl_deptcode = ['40', '50', '60', '140'];
 
-        $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
+        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
-        }
+        };
 
         $list = DB::table('powithetas')
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
             ->whereYear('po_delivery_date', $year)
             ->whereMonth('po_delivery_date', $month)
-            ->distinct('po_no')
             ->whereIn('project_code', $project)
             ->where('po_status', '!=', 'Cancelled')
-            ->where('po_delivery_status', '=', 'Delivered');
+            ->where('po_delivery_status', '=', 'Delivered')
+            ->distinct('po_no');
 
         return $list->sum('total_po_price');
     }
@@ -360,10 +280,10 @@ class DashboardController extends Controller
     public function grpo_amount($po_delivery_month, $grpo_month, $project)
     {
         $incl_deptcode = ['40', '50', '60', '140'];
-        $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
+        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
-        }
+        };
 
         $list = Powitheta::whereMonth('po_delivery_date', $po_delivery_month)
             ->whereMonth('grpo_date', $grpo_month)
