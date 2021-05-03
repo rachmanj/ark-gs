@@ -5,7 +5,7 @@
     <div class="col-lg-12">
       <div> <!--Please remove the height before using this page  style="height:600px"-->
           <h3>PO With ETA</h3>
-          <p><a href="{{ route('powithetas.index') }}">All Data</a> | <strong>This Month Data</strong></p>
+          <p><a href="{{ route('powithetas.index') }}">All Data</a> | <strong>PO Sent This Month</strong> | <a href="{{ route('powithetas.grpo_this_month') }}">GRPO This Month</a></p>
           {{-- <p>Record date: {{ date('d-m-Y H:i:s', strtotime($latest_record->created_at)) }} </p> --}}
 
       <div class="row">
@@ -15,6 +15,8 @@
               @if (session('message'))
                   <x-alert :type="session('type')" :message="session('message')"/>
                 @endif
+                <a href="{{ route('powithetas.export_excel_this_month') }}" class="btn btn-outline-success btn-sm"><i class="fa fa-download"></i> Export PO This Month</a>
+                
             </div>
             <div class="card-body">
               <div class="table-responsive">

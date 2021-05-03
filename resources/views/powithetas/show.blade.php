@@ -115,7 +115,7 @@
                   </tr>
                   <tr>
                     <th class="text-right">GRPO Date</th>
-                    <td>{{ date('d M Y', strtotime($powitheta->grpo_date)) }}</td>
+                    <td>{{ $powitheta->grpo_date ? date('d M Y', strtotime($powitheta->grpo_date)) : '' }}</td>
                   </tr>
                   {{-- <tr>
                     <th class="text-right">Upload at</th>

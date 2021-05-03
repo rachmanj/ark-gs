@@ -61,10 +61,10 @@ class GrpothismonthExport implements FromCollection, WithHeadings
             ->whereMonth('grpo_date', $grpo_month);
         $incl_deptcode = ['40', '50', '60', '140'];
 
-        $excl_itemcode = ['%EX-FUEL%', '%OLA%', '%EX-%', '%SA-%'];
+        $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
-        }
+        };
 
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)

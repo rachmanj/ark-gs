@@ -32,6 +32,11 @@ class PowithetaController extends Controller
         return view('powithetas.this_month_index');
     }
 
+    public function grpo_this_month()
+    {
+        return view('powithetas.grpo_this_month');
+    }
+
     public function show($id)
     {
         try {

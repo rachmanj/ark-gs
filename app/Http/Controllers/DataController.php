@@ -33,8 +33,7 @@ class DataController extends Controller
         $date = Carbon::now();
 
         $incl_deptcode = ['40', '50', '60', '140'];
-
-        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
+        $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
@@ -54,6 +53,33 @@ class DataController extends Controller
             ->addIndexColumn()
             ->addColumn('action', 'powithetas.action')
             ->toJson();
+    }
+
+    public function grpo_this_month()
+    {
+        $date = Carbon::now();
+
+        $incl_deptcode = ['40', '50', '60', '140'];
+        $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
+        foreach ($excl_itemcode as $e) {
+            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
+        };
+
+        $list = Powitheta::whereMonth('po_delivery_date', $date)
+            ->whereMonth('grpo_date', $date)
+            ->where('po_delivery_status', 'Delivered')
+            ->where('po_status', '!=', 'Cancelled')
+            ->whereIn('dept_code', $incl_deptcode)
+            ->where($excl_itemcode_arr)
+            ->get();
+
+        return datatables()->of($list)
+            ->editColumn('item_amount', function (Powitheta $model) {
+                return number_format($model->item_amount, 0);
+            })
+            ->addIndexColumn()
+            ->addColumn('action', 'powithetas.action')
+            ->toJson(); 
     }
 
     public function migis()

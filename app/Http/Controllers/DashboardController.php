@@ -135,123 +135,11 @@ class DashboardController extends Controller
         ));
     }
 
-    public function page_3()
-    {
-        $this_month = Carbon::now();
-        $last_month = Carbon::now()->subMonths(1);
-        $all_project = ['011C', '017C', 'APS'];
-
-        $npi_incoming_011 = $this->incoming_qty($last_month, ['011C']);
-        $npi_incoming_017 = $this->incoming_qty($last_month, ['017C']);
-        $npi_incoming_APS = $this->incoming_qty($last_month, ['APS']);
-        $npi_incoming_all = $this->incoming_qty($last_month, $all_project);
-
-        $npi_outgoing_011 = $this->outgoing_qty($last_month, ['011C']);
-        $npi_outgoing_017 = $this->outgoing_qty($last_month, ['017C']);
-        $npi_outgoing_APS = $this->outgoing_qty($last_month, ['APS']);
-        $npi_outgoing_all = $this->outgoing_qty($last_month, $all_project);
-
-        return view('dashboard.page_3', compact(
-            'npi_incoming_011',
-            'npi_incoming_017',
-            'npi_incoming_APS',
-            'npi_incoming_all',
-            'npi_outgoing_011',
-            'npi_outgoing_017',
-            'npi_outgoing_APS',
-            'npi_outgoing_all',
-        ));
-    }
-
-    public function yearly()
-    {
-        $this_year = Carbon::now();
-        $last_year = Carbon::now()->subYear();
-        $all_project = ['011C', '017C', 'APS'];
-
-        $po_sent_011_this_year = $this->po_sent_yearly($this_year, ['011C'], 'ty');
-        $po_sent_017_this_year = $this->po_sent_yearly($this_year, ['017C'], 'ty');
-        $po_sent_APS_this_year = $this->po_sent_yearly($this_year, ['APS'], 'ty');
-        $po_sent_all_this_year = $this->po_sent_yearly($this_year, $all_project, 'ty');
-
-        $plant_budget_011_this_year = $this->plant_budget_yearly($this_year, ['011C']);
-        $plant_budget_017_this_year = $this->plant_budget_yearly($this_year, ['017C']);
-        $plant_budget_APS_this_year = $this->plant_budget_yearly($this_year, ['APS']);
-        $plant_budget_all_this_year = $this->plant_budget_yearly($this_year, $all_project);
-
-        $po_sent_011_last_year = $this->po_sent_yearly($last_year, ['011C'], 'ly');
-        $po_sent_017_last_year = $this->po_sent_yearly($last_year, ['017C'], 'ly');
-        $po_sent_APS_last_year = $this->po_sent_yearly($last_year, ['APS'], 'ly');
-        $po_sent_all_last_year = $this->po_sent_yearly($last_year, $all_project, 'ly');
-
-        $plant_budget_011_last_year = $this->plant_budget_yearly($last_year, ['011C']);
-        $plant_budget_017_last_year = $this->plant_budget_yearly($last_year, ['017C']);
-        $plant_budget_APS_last_year = $this->plant_budget_yearly($last_year, ['APS']);
-        $plant_budget_all_last_year = $this->plant_budget_yearly($last_year, $all_project);
-
-        $npi_incoming_011_this_year = $this->incoming_qty_yearly($this_year, ['011C'], 'ty');
-        $npi_incoming_017_this_year = $this->incoming_qty_yearly($this_year, ['017C'], 'ty');
-        $npi_incoming_APS_this_year = $this->incoming_qty_yearly($this_year, ['APS'], 'ty');
-        $npi_incoming_all_this_year = $this->incoming_qty_yearly($this_year, $all_project, 'ty');
-
-        $npi_outgoing_011_this_year = $this->outgoing_qty_yearly($this_year, ['011C'], 'ty');
-        $npi_outgoing_017_this_year = $this->outgoing_qty_yearly($this_year, ['017C'], 'ty');
-        $npi_outgoing_APS_this_year = $this->outgoing_qty_yearly($this_year, ['APS'], 'ty');
-        $npi_outgoing_all_this_year = $this->outgoing_qty_yearly($this_year, $all_project, 'ty');
-
-        $npi_incoming_011_last_year = $this->incoming_qty_yearly($last_year, ['011C'], 'ly');
-        $npi_incoming_017_last_year = $this->incoming_qty_yearly($last_year, ['017C'], 'ly');
-        $npi_incoming_APS_last_year = $this->incoming_qty_yearly($last_year, ['APS'], 'ly');
-        $npi_incoming_all_last_year = $this->incoming_qty_yearly($last_year, $all_project, 'ly');
-
-        $npi_outgoing_011_last_year = $this->outgoing_qty_yearly($last_year, ['011C'], 'ly');
-        $npi_outgoing_017_last_year = $this->outgoing_qty_yearly($last_year, ['017C'], 'ly');
-        $npi_outgoing_APS_last_year = $this->outgoing_qty_yearly($last_year, ['APS'], 'ly');
-        $npi_outgoing_all_last_year = $this->outgoing_qty_yearly($last_year, $all_project, 'ly');
-
-        return view('dashboard.yearly', compact(
-            'this_year',
-            'last_year',
-            'po_sent_011_this_year',
-            'po_sent_017_this_year',
-            'po_sent_APS_this_year',
-            'po_sent_all_this_year',
-            'plant_budget_011_this_year',
-            'plant_budget_017_this_year',
-            'plant_budget_APS_this_year',
-            'plant_budget_all_this_year',
-            'po_sent_011_last_year',
-            'po_sent_017_last_year',
-            'po_sent_APS_last_year',
-            'po_sent_all_last_year',
-            'plant_budget_011_last_year',
-            'plant_budget_017_last_year',
-            'plant_budget_APS_last_year',
-            'plant_budget_all_last_year',
-            'npi_incoming_011_this_year',
-            'npi_incoming_017_this_year',
-            'npi_incoming_APS_this_year',
-            'npi_incoming_all_this_year',
-            'npi_outgoing_011_this_year',
-            'npi_outgoing_017_this_year',
-            'npi_outgoing_APS_this_year',
-            'npi_outgoing_all_this_year',
-            'npi_incoming_011_last_year',
-            'npi_incoming_017_last_year',
-            'npi_incoming_APS_last_year',
-            'npi_incoming_all_last_year',
-            'npi_outgoing_011_last_year',
-            'npi_outgoing_017_last_year',
-            'npi_outgoing_APS_last_year',
-            'npi_outgoing_all_last_year',
-        ));
-    }
-
     public function po_sent_amount($year, $month, $project)
     {
         $incl_deptcode = ['40', '50', '60', '140'];
 
-        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
+        $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
@@ -280,7 +168,7 @@ class DashboardController extends Controller
     public function grpo_amount($po_delivery_month, $grpo_month, $project)
     {
         $incl_deptcode = ['40', '50', '60', '140'];
-        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
+        $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
