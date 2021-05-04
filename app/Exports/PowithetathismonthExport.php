@@ -68,8 +68,8 @@ class PowithetathismonthExport implements FromCollection, WithHeadings
             ->whereMonth('po_delivery_date', $date)
             ->whereIn('project_code', $project)
             ->where('po_status', '!=', 'Cancelled')
-            ->where('po_delivery_status', '=', 'Delivered')
-            ->distinct('po_no');
+            ->where('po_delivery_status', '=', 'Delivered');
+            // ->distinct('po_no');
 
         return $list->get();
     }

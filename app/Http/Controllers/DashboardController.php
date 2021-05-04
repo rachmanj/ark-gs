@@ -23,10 +23,10 @@ class DashboardController extends Controller
         $all_project = ['011C', '017C', 'APS'];
         $data_date = $now->subDay();
 
-        $po_amount_011_this_month = $this->po_sent_amount($now->year, $now->month, ['011C']);
-        $po_amount_017_this_month = $this->po_sent_amount($now->year, $now->month, ['017C']);
-        $po_amount_APS_this_month = $this->po_sent_amount($now->year, $now->month, ['APS']);
-        $po_amount_all_this_month = $this->po_sent_amount($now->year, $now->month, $all_project);
+        $po_amount_011_this_month = $this->po_sent_amount($now, ['011C']);
+        $po_amount_017_this_month = $this->po_sent_amount($now, ['017C']);
+        $po_amount_APS_this_month = $this->po_sent_amount($now, ['APS']);
+        $po_amount_all_this_month = $this->po_sent_amount($now, $all_project);
 
         $plant_budget_011_this_month = $this->plant_budget($now, ['011C']);
         $plant_budget_017_this_month = $this->plant_budget($now, ['017C']);
@@ -135,7 +135,7 @@ class DashboardController extends Controller
         ));
     }
 
-    public function po_sent_amount($year, $month, $project)
+    public function po_sent_amount($date, $project)
     {
         $incl_deptcode = ['40', '50', '60', '140'];
 
@@ -145,16 +145,16 @@ class DashboardController extends Controller
         };
 
         $list = DB::table('powithetas')
+        // ->distinct('po_no')
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->whereYear('po_delivery_date', $year)
-            ->whereMonth('po_delivery_date', $month)
+            ->whereYear('po_delivery_date', $date)
+            ->whereMonth('po_delivery_date', $date)
             ->whereIn('project_code', $project)
             ->where('po_status', '!=', 'Cancelled')
-            ->where('po_delivery_status', '=', 'Delivered')
-            ->distinct('po_no');
+            ->where('po_delivery_status', '=', 'Delivered');
 
-        return $list->sum('total_po_price');
+        return $list->sum('item_amount');
     }
 
     public function plant_budget($month, $project)
@@ -315,33 +315,31 @@ class DashboardController extends Controller
 
     public function test()
     {
-        $last_month = Carbon::now()->subMonth();
-        // $year = $period->year;
-        // $month = $period->month;
-        // $report_date = $now->subDay();
-        // $report_date = $year . '-' . $month . '-' . $now->subDay()->day;
-        // $start_date = $year . '-' . $month . '-' . '1';
-        // $rangeDate = [$start_date, $report_date];
-
-
-        // $po_amount = $this->po_sent_amount($year, $now, ['APS']);
-        // $amount = $this->grpo_amount($now, $now, ['APS']);
+        $date = Carbon::now();
         $all_project = ['011C', '017C', 'APS'];
 
-        $npi_incoming_011 = $this->incoming_qty($last_month, ['011C']);
-        $npi_incoming_017 = $this->incoming_qty($last_month, ['017C']);
-        $npi_incoming_APS = $this->incoming_qty($last_month, ['APS']);
-        $npi_incoming_all = $this->incoming_qty($last_month, $all_project);
+        $incl_deptcode = ['40', '50', '60', '140'];
 
-        $npi_outgoing_011 = $this->outgoing_qty($last_month, ['011C']);
-        $npi_outgoing_017 = $this->outgoing_qty($last_month, ['017C']);
-        $npi_outgoing_APS = $this->outgoing_qty($last_month, ['APS']);
-        $npi_outgoing_all = $this->outgoing_qty($last_month, $all_project);
+        $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
+        foreach ($excl_itemcode as $e) {
+            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
+        };
 
-        $list = Incoming::whereMonth('posting_date', $last_month)->get();
+        $list = DB::table('powithetas')
+            // ->distinct('po_no')
+            ->whereIn('dept_code', $incl_deptcode)
+            ->where($excl_itemcode_arr)
+            ->whereYear('po_delivery_date', $date)
+            ->whereMonth('po_delivery_date', $date)
+            ->whereIn('project_code', ['017C'])
+            ->where('po_status', '!=', 'Cancelled')
+            ->where('po_delivery_status', '=', 'Delivered');
 
-        return $npi_incoming_011;
+        // $list = DB::table('powithetas')->where('po_no', '21022093');
 
+        // return $list->get();
+        return $list->sum('item_amount');
+        // return $list->sum('total_po_price');
 
         die;
     }
