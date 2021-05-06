@@ -185,11 +185,6 @@ class DashboardController extends Controller
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
 
-        $excl_uom = ['%L%', '%M%', '%CM%'];
-        foreach ($excl_uom as $e) {
-            $excl_uom_arr[] = ['uom', 'not like', $e];
-        }
-
         $list = DB::table('incomings');
 
         $in_qty = $list->whereMonth('posting_date', $date)
@@ -209,11 +204,6 @@ class DashboardController extends Controller
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
-
-        $excl_uom = ['%L%', '%M%', '%CM%'];
-        foreach ($excl_uom as $e) {
-            $excl_uom_arr[] = ['uom', 'not like', $e];
-        }
 
         $list = DB::table('migis');
 

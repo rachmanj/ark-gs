@@ -107,7 +107,7 @@ class DashboardyearlyController extends Controller
         }
         $incl_deptcode = ['40', '50', '60', '140'];
 
-        $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
+        $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
@@ -142,11 +142,6 @@ class DashboardyearlyController extends Controller
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
 
-        $excl_uom = ['%L%', '%M%', '%CM%'];
-        foreach ($excl_uom as $e) {
-            $excl_uom_arr[] = ['uom', 'not like', $e];
-        }
-
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
@@ -166,11 +161,6 @@ class DashboardyearlyController extends Controller
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
-
-        $excl_uom = ['%L%', '%M%', '%CM%'];
-        foreach ($excl_uom as $e) {
-            $excl_uom_arr[] = ['uom', 'not like', $e];
-        }
 
         return $list->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
