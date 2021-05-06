@@ -7,6 +7,7 @@ use App\Imports\PowithetaImport;
 use App\Exports\PowithetaExport;
 use App\Exports\PowithetathismonthExport;
 use App\Exports\GrpothismonthExport;
+use App\Grpo;
 use App\Powitheta;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Traits\FlashAlert;
@@ -41,8 +42,9 @@ class PowithetaController extends Controller
     {
         try {
             $powitheta = Powitheta::findOrFail($id);
+            $grpo = Grpo::where('po_no', $powitheta->po_no)->first();
 
-            return view('powithetas.show', compact('powitheta'));
+            return view('powithetas.show', compact('powitheta', 'grpo'));
         } catch (ModelNotFoundException $e) {
             return redirect()->route('powithetas.index')->with($this->alertNotFound());
         }
@@ -71,14 +73,21 @@ class PowithetaController extends Controller
         // Session::flash('sukses', 'Data Berhasil Diimport!');
 
         // alihkan halaman kembali
-        return redirect()->route('powithetas.index')->with($this->alertImport());
+        return redirect()->route('powithetas.this_month_index')->with($this->alertImport());
     }
 
     public function truncate()
     {
         Powitheta::truncate();
 
-        return redirect()->route('powithetas.index')->with($this->alertTruncated());
+        return redirect()->route('powithetas.this_month_index')->with($this->alertTruncated());
+    }
+
+    public function grpo_truncate()
+    {
+        Grpo::truncate();
+
+        return redirect()->route('powithetas.this_month_index')->with($this->alertTruncated());
     }
 
     public function export_excel()

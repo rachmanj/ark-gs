@@ -33,6 +33,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/powithetas/data', 'DataController@powithetas')->name('powithetas.data');
     Route::get('/powithetas/this_month/data', 'DataController@powithetas_this_month')->name('powithetas_this_month.data');
     Route::get('/powithetas/grpo/data', 'DataController@grpo_this_month')->name('grpo_this_month.data');
+    Route::get('/grpos/data', 'DataController@grpos')->name('grpos.data');
+    Route::get('/grpos/this_month/data', 'DataController@grpos_this_month')->name('grpos_this_month.data');
     Route::get('/po20withetas/data', 'DataController@po20withetas')->name('po20withetas.data');  //yearly
     Route::get('/migis/data', 'DataController@migis')->name('migis.data');
     Route::get('/migi20s/data', 'DataController@migi20s')->name('migi20s.data'); // yearly
@@ -44,13 +46,21 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/powithetas/export_excel', 'PowithetaController@export_excel')->name('powithetas.export_excel');
     Route::get('/powithetas/export_excel_this_month', 'PowithetaController@export_excel_this_month')->name('powithetas.export_excel_this_month');
-    Route::get('/powithetas/export_grpo_this_month', 'PowithetaController@export_grpo_this_month')->name('powithetas.export_grpo_this_month');
+    // Route::get('/powithetas/export_grpo_this_month', 'PowithetaController@export_grpo_this_month')->name('powithetas.export_grpo_this_month');
     Route::get('/powithetas', 'PowithetaController@index')->name('powithetas.index');
     Route::get('/powithetas/this_month', 'PowithetaController@this_month_index')->name('powithetas.this_month_index');
     Route::get('/powithetas/grpo', 'PowithetaController@grpo_this_month')->name('powithetas.grpo_this_month');
     Route::get('/powithetas/truncate', 'PowithetaController@truncate')->name('powithetas.truncate');
+    Route::get('/powithetas/grpo_truncate', 'PowithetaController@grpo_truncate')->name('powithetas.grpo_truncate');
     Route::post('/powithetas/import_excel', 'PowithetaController@import_excel')->name('powithetas.import_excel');
     Route::get('/powithetas/{powithetas}', 'PowithetaController@show')->name('powithetas.show');
+
+    Route::get('/grpos', 'GrpoController@index')->name('grpos.index');
+    Route::get('/grpos/this_month', 'GrpoController@this_month_index')->name('grpos.this_month_index');
+    Route::get('/grpos/export_this_month', 'GrpoController@export_this_month')->name('grpos.export_this_month');
+    Route::get('/grpos/{grpo}', 'GrpoController@show')->name('grpos.show');
+    Route::get('/grpos/export_excel', 'GrpoController@export_excel')->name('grpos.export_excel');
+    Route::post('/grpos/import_excel', 'GrpoController@import_excel')->name('grpos.import_excel');
 
     Route::get('/po20withetas', 'Po20withetaController@index')->name('po20withetas.index');
     Route::get('/po20withetas/truncate', 'Po20withetaController@truncate')->name('po20withetas.truncate');

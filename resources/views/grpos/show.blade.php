@@ -34,92 +34,81 @@
              <table class="table table-striped">
                 <tbody>
                   <tr>
-                    <th class="text-right">PO No</th>
-                    <td>{{ $powitheta->po_no }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">PO Posting Date</th>
-                    <td>{{ date('d M Y', strtotime($powitheta->posting_date)) }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Unit No</th>
-                    <td>{{ $powitheta->unit_no }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Vendor Code</th>
-                    <td>{{ $powitheta->vendor_code }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Item Code</th>
-                    <td>{{ $powitheta->item_code }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Description</th>
-                    <td>{{ $powitheta->description }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">UOM</th>
-                    <td>{{ $powitheta->uom }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Qty</th>
-                    <td>{{ $powitheta->qty }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Project Code</th>
-                    <td>{{ $powitheta->project_code }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Dept Code</th>
-                    <td>{{ $powitheta->dept_code }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">PO Currency</th>
-                    <td>{{ $powitheta->po_currency }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Unit Price</th>
-                    <td>{{ number_format($powitheta->unit_price, 2) }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Item Amount</th>
-                    <td>{{ number_format($powitheta->item_amount, 2) }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">PO Amount</th>
-                    <td>{{ number_format($powitheta->total_po_price, 2) }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">PO Status</th>
-                    <td>{{ $powitheta->po_status }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">PO Delivery Status</th>
-                    <td>{{ $powitheta->po_delivery_status }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">PO Delivery Date</th>
-                    <td>{{ date('d M Y', strtotime($powitheta->po_delivery_date)) }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">PO ETA</th>
-                    <td>{{ date('d M Y', strtotime($powitheta->po_eta)) }}</td>
-                  </tr>
-                  <tr>
-                    <th class="text-right">Remark</th>
-                    <td>{{ $grpo ? $grpo->remarks : '' }}</td>
-                  </tr>
-                  <tr>
                     <th class="text-right">GRPO No</th>
-                    <td>{{ $grpo ? $grpo->grpo_no : '' }}</td>
+                    <td>{{ $grpo->grpo_no }}</td>
                   </tr>
                   <tr>
                     <th class="text-right">GRPO Date</th>
-                    <td>{{ $grpo ? date('d M Y', strtotime($grpo->grpo_date)) : '' }}</td>
+                    <td>{{ $grpo->grpo_date ? date('d M Y', strtotime($grpo->grpo_date)) : '' }}</td>
                   </tr>
+                  <tr>
+                    <th class="text-right">PO No</th>
+                    <td>{{ $grpo->po_no }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">PO Date</th>
+                    <td>{{ date('d M Y', strtotime($grpo->po_date)) }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Unit No</th>
+                    <td>{{ $grpo->unit_no }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Vendor Code</th>
+                    <td>{{ $grpo->vendor_code }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Item Code</th>
+                    <td>{{ $grpo->item_code }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Description</th>
+                    <td>{{ $grpo->description }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">UOM</th>
+                    <td>{{ $grpo->uom }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Qty</th>
+                    <td>{{ $grpo->qty }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Project Code</th>
+                    <td>{{ $grpo->project_code }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Dept Code</th>
+                    <td>{{ $grpo->dept_code }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">PO Currency</th>
+                    <td>{{ $grpo->grpo_currency }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Unit Price</th>
+                    <td>{{ number_format($grpo->unit_price, 2) }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Item Amount</th>
+                    <td>{{ number_format($grpo->item_amount, 2) }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">PO Delivery Status</th>
+                    <td>{{ $grpo->po_delivery_status }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">PO Delivery Date</th>
+                    <td>{{ date('d M Y', strtotime($grpo->po_delivery_date)) }}</td>
+                  </tr>
+                  <tr>
+                    <th class="text-right">Remark</th>
+                    <td>{{ $grpo->remarks }}</td>
+                  </tr>
+                  
                   {{-- <tr>
                     <th class="text-right">Upload at</th>
-                    <td>{{ date('d M Y H:i:s', strtotime($powitheta->created_at)) }}</td>
+                    <td>{{ date('d M Y H:i:s', strtotime($grpo->created_at)) }}</td>
                   </tr> --}}
                 </tbody>
               </table>

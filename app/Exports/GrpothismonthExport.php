@@ -2,7 +2,7 @@
 
 namespace App\Exports;
 
-use App\Powitheta;
+use App\Grpo;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Carbon\Carbon;
@@ -44,34 +44,25 @@ class GrpothismonthExport implements FromCollection, WithHeadings
      */
     public function collection()
     {
-        $report_date = Carbon::now()->subDays(1);
-        $month = Carbon::now()->subMonth()->format('m'); //->month;
-        $year = Carbon::now()->submonth()->format('Y');
-        $start_date = $year . '-' . $month . '-' . '15';
-        $po_post_rangeDate = [$start_date, $report_date];
-        $this_month = Carbon::now();
-        $all_project = ['011C', '017C', 'APS'];
-
-        return $this->grpo_amount($po_post_rangeDate, $this_month, $all_project);
+        return $this->grpo_this_month();
     }
 
-    public function grpo_amount($po_rangeDate, $grpo_month, $project)
+    public function grpo_this_month()
     {
-        $list = Powitheta::whereBetween('posting_date', $po_rangeDate)
-            ->whereMonth('grpo_date', $grpo_month);
+        $date = Carbon::now();
         $incl_deptcode = ['40', '50', '60', '140'];
-
         $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
         foreach ($excl_itemcode as $e) {
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
 
-        return $list->whereIn('project_code', $project)
+        $grpos = Grpo::whereMonth('po_delivery_date', $date)
+            ->whereMonth('grpo_date', $date)
+            ->where('po_delivery_status', 'Delivered')
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->where('po_delivery_status', 'Delivered')
-            ->where('po_status', '!=', 'Cancelled')
-            ->whereNotNull('grpo_no')
             ->get();
+
+        return $grpos;
     }
 }

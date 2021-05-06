@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Budget;
+use App\Grpo;
 use App\Incoming;
 use App\Incoming20;
 use App\Migi;
@@ -52,6 +53,43 @@ class DataController extends Controller
             })
             ->addIndexColumn()
             ->addColumn('action', 'powithetas.action')
+            ->toJson();
+    }
+
+    public function grpos()
+    {
+        $grpos = Grpo::orderBy('grpo_date', 'desc')->get();
+
+        return datatables()->of($grpos)
+            ->editColumn('item_amount', function (Grpo $model) {
+                return number_format($model->item_amount, 0);
+            })
+            ->addIndexColumn()
+            ->addColumn('action', 'grpos.action')
+            ->toJson();
+    }
+
+    public function grpos_this_month()
+    {   
+        $date = Carbon::now();
+        $incl_deptcode = ['40', '50', '60', '140'];
+        $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
+        foreach ($excl_itemcode as $e) {
+            $excl_itemcode_arr[] = ['item_code', 'not like', $e];
+        };
+
+        $grpos = Grpo::whereMonth('po_delivery_date', $date)
+            ->whereMonth('grpo_date', $date)
+            ->where('po_delivery_status', 'Delivered')
+            ->whereIn('dept_code', $incl_deptcode)
+            ->where($excl_itemcode_arr);
+
+        return datatables()->of($grpos)
+            ->editColumn('item_amount', function (Grpo $model) {
+                return number_format($model->item_amount, 0);
+            })
+            ->addIndexColumn()
+            ->addColumn('action', 'grpos.action')
             ->toJson();
     }
 

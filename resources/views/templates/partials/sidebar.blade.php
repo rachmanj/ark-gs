@@ -27,7 +27,8 @@
           <i class="fa fa-angle-left float-right"></i>
         </a>
        <ul class="sidebar-submenu">
-          <li><a href="{{ route('powithetas.index') }}"><i class="fa fa-circle-o"></i> PO With ETA</a></li>
+          <li><a href="{{ route('powithetas.this_month_index') }}"><i class="fa fa-circle-o"></i> PO With ETA</a></li>
+          <li><a href="{{ route('grpos.this_month_index') }}"><i class="fa fa-circle-o"></i> GRPO</a></li>
           <li><a href="{{ route('migis.index') }}"><i class="fa fa-circle-o"></i> MI GI</a></li>
           <li><a href="{{ route('incomings.index') }}"><i class="fa fa-circle-o"></i> Incoming</a></li>
           <li><a href="{{ route('progresmrs.index') }}"><i class="fa fa-circle-o"></i> Progres MR</a></li>

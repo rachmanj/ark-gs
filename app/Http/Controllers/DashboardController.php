@@ -3,14 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Budget;
-use App\Incoming;
-use App\Incoming20;
-use App\Migi;
-use App\Migi20;
+use App\Grpo;
 use App\Powitheta;
-use App\Po20witheta;
-use App\History;
-use App\Progresmr;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
@@ -18,35 +12,34 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $now = Carbon::now();
-        $last_month = Carbon::now()->subMonth();
+        $date = Carbon::now();
         $all_project = ['011C', '017C', 'APS'];
-        $data_date = $now->subDay();
+        $data_date = $date->subDay();
 
-        $po_amount_011_this_month = $this->po_sent_amount($now, ['011C']);
-        $po_amount_017_this_month = $this->po_sent_amount($now, ['017C']);
-        $po_amount_APS_this_month = $this->po_sent_amount($now, ['APS']);
-        $po_amount_all_this_month = $this->po_sent_amount($now, $all_project);
+        $po_amount_011_this_month = $this->po_sent_amount($date, ['011C']);
+        $po_amount_017_this_month = $this->po_sent_amount($date, ['017C']);
+        $po_amount_APS_this_month = $this->po_sent_amount($date, ['APS']);
+        $po_amount_all_this_month = $this->po_sent_amount($date, $all_project);
 
-        $plant_budget_011_this_month = $this->plant_budget($now, ['011C']);
-        $plant_budget_017_this_month = $this->plant_budget($now, ['017C']);
-        $plant_budget_APS_this_month = $this->plant_budget($now, ['APS']);
-        $plant_budget_all_this_month = $this->plant_budget($now, $all_project);
+        $plant_budget_011_this_month = $this->plant_budget($date, ['011C']);
+        $plant_budget_017_this_month = $this->plant_budget($date, ['017C']);
+        $plant_budget_APS_this_month = $this->plant_budget($date, ['APS']);
+        $plant_budget_all_this_month = $this->plant_budget($date, $all_project);
 
-        $grpo_011_amount = $this->grpo_amount($now, $now, ['011C']);
-        $grpo_017_amount = $this->grpo_amount($now, $now, ['017C']);
-        $grpo_APS_amount = $this->grpo_amount($now, $now, ['APS']);
-        $grpo_all_amount = $this->grpo_amount($now, $now, $all_project);
+        $grpo_011_amount = $this->grpo_amount($date, ['011C']);
+        $grpo_017_amount = $this->grpo_amount($date, ['017C']);
+        $grpo_APS_amount = $this->grpo_amount($date, ['APS']);
+        $grpo_all_amount = $this->grpo_amount($date, $all_project);
 
-        $npi_in_011 = $this->incoming_qty(['011C']);
-        $npi_in_017 = $this->incoming_qty(['017C']);
-        $npi_in_APS = $this->incoming_qty(['APS']);
-        $npi_in_all = $this->incoming_qty($all_project);
+        $npi_in_011 = $this->incoming_qty($date, ['011C']);
+        $npi_in_017 = $this->incoming_qty($date, ['017C']);
+        $npi_in_APS = $this->incoming_qty($date, ['APS']);
+        $npi_in_all = $this->incoming_qty($date, $all_project);
 
-        $npi_out_011 = $this->outgoing_qty(['011C']);
-        $npi_out_017 = $this->outgoing_qty(['017C']);
-        $npi_out_APS = $this->outgoing_qty(['APS']);
-        $npi_out_all = $this->outgoing_qty($all_project);
+        $npi_out_011 = $this->outgoing_qty($date, ['011C']);
+        $npi_out_017 = $this->outgoing_qty($date, ['017C']);
+        $npi_out_APS = $this->outgoing_qty($date, ['APS']);
+        $npi_out_all = $this->outgoing_qty($date, $all_project);
 
         $mr_to_mi_all = $this->mr_to_mi($all_project);
 
@@ -148,7 +141,6 @@ class DashboardController extends Controller
         // ->distinct('po_no')
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr)
-            ->whereYear('po_delivery_date', $date)
             ->whereMonth('po_delivery_date', $date)
             ->whereIn('project_code', $project)
             ->where('po_status', '!=', 'Cancelled')
@@ -157,15 +149,15 @@ class DashboardController extends Controller
         return $list->sum('item_amount');
     }
 
-    public function plant_budget($month, $project)
+    public function plant_budget($date, $project)
     {
         return Budget::whereIn('project_code', $project)
             ->where('budgettype_id', 2)
-            ->whereMonth('date', $month)
+            ->whereMonth('date', $date)
             ->sum('amount');
     }
 
-    public function grpo_amount($po_delivery_month, $grpo_month, $project)
+    public function grpo_amount($date, $project)
     {
         $incl_deptcode = ['40', '50', '60', '140'];
         $excl_itemcode = ['EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
@@ -173,10 +165,9 @@ class DashboardController extends Controller
             $excl_itemcode_arr[] = ['item_code', 'not like', $e];
         };
 
-        $list = Powitheta::whereMonth('po_delivery_date', $po_delivery_month)
-            ->whereMonth('grpo_date', $grpo_month)
+        $list = Grpo::whereMonth('po_delivery_date', $date)
+            ->whereMonth('grpo_date', $date)
             ->where('po_delivery_status', 'Delivered')
-            ->where('po_status', '!=', 'Cancelled')
             ->whereIn('project_code', $project)
             ->whereIn('dept_code', $incl_deptcode)
             ->where($excl_itemcode_arr);
@@ -185,12 +176,8 @@ class DashboardController extends Controller
         // return $list->get();
     }
 
-    public function incoming_qty($project)
+    public function incoming_qty($date, $project)
     {
-        $date = Carbon::now();
-
-        $list = DB::table('incomings');
-
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
@@ -203,7 +190,9 @@ class DashboardController extends Controller
             $excl_uom_arr[] = ['uom', 'not like', $e];
         }
 
-        $in_qty = $list->whereYear('posting_date', $date->year)->whereMonth('posting_date', $date->month)
+        $list = DB::table('incomings');
+
+        $in_qty = $list->whereMonth('posting_date', $date)
                     ->whereIn('project_code', $project)
                     ->whereIn('dept_code', $incl_deptcode)
                     ->where($excl_itemcode_arr)
@@ -212,11 +201,8 @@ class DashboardController extends Controller
         return $in_qty;
     }
 
-    public function outgoing_qty($project)
+    public function outgoing_qty($date, $project)
     {
-        $date = Carbon::now();
-
-        $list = DB::table('migis');
         $incl_deptcode = ['40', '50', '60', '140'];
 
         $excl_itemcode = ['CO%', 'EX%', 'FU%', 'PB%', 'Pp%', 'SA%', 'SO%', 'SV%']; // , 
@@ -229,7 +215,9 @@ class DashboardController extends Controller
             $excl_uom_arr[] = ['uom', 'not like', $e];
         }
 
-        $out_qty = $list->whereYear('posting_date', $date->year)->whereMonth('posting_date', $date->month)
+        $list = DB::table('migis');
+
+        $out_qty = $list->whereMonth('posting_date', $date)
                     ->whereIn('project_code', $project)
                     ->whereIn('dept_code', $incl_deptcode)
                     ->where($excl_itemcode_arr)
@@ -315,7 +303,7 @@ class DashboardController extends Controller
 
     public function test()
     {
-        $date = Carbon::now();
+        $date = Carbon::now()->subMonth();
         $all_project = ['011C', '017C', 'APS'];
 
         $incl_deptcode = ['40', '50', '60', '140'];
@@ -331,15 +319,17 @@ class DashboardController extends Controller
             ->where($excl_itemcode_arr)
             ->whereYear('po_delivery_date', $date)
             ->whereMonth('po_delivery_date', $date)
-            ->whereIn('project_code', ['017C'])
+            ->whereIn('project_code', ['011C'])
             ->where('po_status', '!=', 'Cancelled')
             ->where('po_delivery_status', '=', 'Delivered');
 
         // $list = DB::table('powithetas')->where('po_no', '21022093');
 
         // return $list->get();
-        return $list->sum('item_amount');
+        // return $list->sum('item_amount');
         // return $list->sum('total_po_price');
+        $amount = $this->grpo_amount($date, ['APS']);
+        return $date;
 
         die;
     }

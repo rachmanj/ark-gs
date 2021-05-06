@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePowithetasTable extends Migration
+class CreateGrposTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,14 @@ class CreatePowithetasTable extends Migration
      */
     public function up()
     {
-        Schema::create('powithetas', function (Blueprint $table) {
+        Schema::create('grpos', function (Blueprint $table) {
             $table->id();
             $table->string('po_no')->nullable();
-            $table->date('create_date')->nullable();
-            $table->date('posting_date')->nullable();
+            $table->date('po_date')->nullable();
+            $table->date('po_delivery_date')->nullable();
+            $table->string('po_delivery_status')->nullable();
+            $table->string('grpo_no')->nullable();
+            $table->date('grpo_date')->nullable();
             $table->string('vendor_code')->nullable();
             $table->string('item_code')->nullable();
             $table->string('description')->nullable();
@@ -26,15 +29,9 @@ class CreatePowithetasTable extends Migration
             $table->string('unit_no')->nullable();
             $table->string('project_code')->nullable();
             $table->string('dept_code')->nullable();
-            $table->string('po_currency')->nullable();
+            $table->string('grpo_currency')->nullable();
             $table->double('unit_price')->nullable();
             $table->double('item_amount')->nullable();
-            $table->double('total_po_price')->nullable();
-            $table->double('po_with_vat')->nullable();
-            $table->string('po_status')->nullable();
-            $table->string('po_delivery_status')->nullable();
-            $table->date('po_delivery_date')->nullable();
-            $table->date('po_eta')->nullable();
             $table->text('remarks')->nullable();
             $table->timestamps();
         });
@@ -47,6 +44,6 @@ class CreatePowithetasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('powithetas');
+        Schema::dropIfExists('grpos');
     }
 }
