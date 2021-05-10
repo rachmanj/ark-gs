@@ -34,10 +34,10 @@
                       <tr>
                           <th>#</th>
                           <th>PostingD</th>
-                          <th>Doc No</th>
                           <th>Doc Type</th>
-                          <th>Item Code</th>
+                          <th>Doc No</th>
                           <th>Project</th>
+                          <th>Item Code</th>
                           <th>Qty</th>
                       </tr>
                   </thead>
