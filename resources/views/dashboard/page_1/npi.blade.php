@@ -43,6 +43,30 @@
               </tr>
               <tr>
                 <th scope="row">3</th>
+                <td>021C</td>
+                <td class="text-right">{{ number_format($npi_in_021, 2) }}</td>
+                <td class="text-right">{{ number_format($npi_out_021, 2) }}</td>
+                @if ($npi_in_021 && $npi_out_021)
+                <td class="text-right">{{ number_format($npi_in_021 / $npi_out_021, 2) }}</td>
+                @else
+                <td class="text-right">na</td>
+                @endif
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>022C</td>
+                <td class="text-right">{{ number_format($npi_in_022, 2) }}</td>
+                <td class="text-right">{{ number_format($npi_out_022, 2) }}</td>
+                @if ($npi_in_022 && $npi_out_022)
+                <td class="text-right">{{ number_format($npi_in_022 / $npi_out_022, 2) }}</td>
+                @else
+                <td class="text-right">na</td>
+                @endif
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
                 <td>APS</td>
                 <td class="text-right">{{ number_format($npi_in_APS, 2) }}</td>
                 <td class="text-right">{{ number_format($npi_out_APS, 2) }}</td>

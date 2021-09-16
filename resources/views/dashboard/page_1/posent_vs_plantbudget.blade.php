@@ -33,6 +33,20 @@
                 </tr>
                 <tr>
                   <td>3</td>
+                  <td>021C</td>
+                  <td class="text-right">{{ number_format($po_amount_021_this_month / 1000, 2) }}</td>
+                  <td class="text-right">{{ number_format($plant_budget_021_this_month / 1000, 2) }}</td>
+                  <td class="text-right">{{ ($plant_budget_021_this_month == 0 ? ' - ' : number_format($po_amount_021_this_month / $plant_budget_021_this_month * 100, 2)) }}</td>
+                </tr>
+                <tr>
+                  <td>4</td>
+                  <td>022C</td>
+                  <td class="text-right">{{ number_format($po_amount_022_this_month / 1000, 2) }}</td>
+                  <td class="text-right">{{ number_format($plant_budget_022_this_month / 1000, 2) }}</td>
+                  <td class="text-right">{{ ($plant_budget_022_this_month == 0 ? ' - ' : number_format($po_amount_022_this_month / $plant_budget_022_this_month * 100, 2)) }}</td>
+                </tr>
+                <tr>
+                  <td>5</td>
                   <td>APS</td>
                   <td class="text-right">{{ number_format($po_amount_APS_this_month / 1000, 2) }}</td>
                   <td class="text-right">{{ number_format($plant_budget_APS_this_month / 1000, 2) }}</td>

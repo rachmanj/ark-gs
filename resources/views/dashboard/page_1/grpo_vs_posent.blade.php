@@ -36,6 +36,24 @@
               </tr>
               <tr>
                 <th scope="row">3</th>
+                <td>021C</td>
+                <td class="text-right">{{ number_format($po_amount_021_this_month / 1000, 2) }}</td>
+                <td class="text-right">{{ number_format($grpo_021_amount / 1000, 2) }}</td>
+                @if ($po_amount_021_this_month && $grpo_021_amount)
+                <td class="text-center">{{ number_format( $grpo_021_amount / $po_amount_021_this_month * 100, 2) }}</td>
+                @endif
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>022C</td>
+                <td class="text-right">{{ number_format($po_amount_022_this_month / 1000, 2) }}</td>
+                <td class="text-right">{{ number_format($grpo_022_amount / 1000, 2) }}</td>
+                @if ($po_amount_022_this_month && $grpo_022_amount)
+                <td class="text-center">{{ number_format( $grpo_022_amount / $po_amount_022_this_month * 100, 2) }}</td>
+                @endif
+              </tr>
+              <tr>
+                <th scope="row">5</th>
                 <td>APS</td>
                 <td class="text-right">{{ number_format($po_amount_APS_this_month / 1000, 2) }}</td>
                 <td class="text-right">{{ number_format($grpo_APS_amount / 1000, 2) }}</td>

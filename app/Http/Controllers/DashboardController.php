@@ -13,31 +13,41 @@ class DashboardController extends Controller
     public function index()
     {
         $date = Carbon::now();
-        $all_project = ['011C', '017C', 'APS'];
+        $all_project = ['011C', '017C', 'APS', '021C', '022C'];
         $data_date = $date->subDay();
 
         $po_amount_011_this_month = $this->po_sent_amount($date, ['011C']);
         $po_amount_017_this_month = $this->po_sent_amount($date, ['017C']);
+        $po_amount_021_this_month = $this->po_sent_amount($date, ['021C']);
+        $po_amount_022_this_month = $this->po_sent_amount($date, ['022C']);
         $po_amount_APS_this_month = $this->po_sent_amount($date, ['APS']);
         $po_amount_all_this_month = $this->po_sent_amount($date, $all_project);
 
         $plant_budget_011_this_month = $this->plant_budget($date, ['011C']);
         $plant_budget_017_this_month = $this->plant_budget($date, ['017C']);
+        $plant_budget_021_this_month = $po_amount_021_this_month;
+        $plant_budget_022_this_month = $po_amount_022_this_month;
         $plant_budget_APS_this_month = $this->plant_budget($date, ['APS']);
         $plant_budget_all_this_month = $this->plant_budget($date, $all_project);
 
         $grpo_011_amount = $this->grpo_amount($date, ['011C']);
         $grpo_017_amount = $this->grpo_amount($date, ['017C']);
+        $grpo_021_amount = $this->grpo_amount($date, ['021C']);
+        $grpo_022_amount = $this->grpo_amount($date, ['022C']);
         $grpo_APS_amount = $this->grpo_amount($date, ['APS']);
         $grpo_all_amount = $this->grpo_amount($date, $all_project);
 
         $npi_in_011 = $this->incoming_qty($date, ['011C']);
         $npi_in_017 = $this->incoming_qty($date, ['017C']);
+        $npi_in_021 = $this->incoming_qty($date, ['021C']);
+        $npi_in_022 = $this->incoming_qty($date, ['022C']);
         $npi_in_APS = $this->incoming_qty($date, ['APS']);
         $npi_in_all = $this->incoming_qty($date, $all_project);
 
         $npi_out_011 = $this->outgoing_qty($date, ['011C']);
         $npi_out_017 = $this->outgoing_qty($date, ['017C']);
+        $npi_out_021 = $this->outgoing_qty($date, ['021C']);
+        $npi_out_022 = $this->outgoing_qty($date, ['022C']);
         $npi_out_APS = $this->outgoing_qty($date, ['APS']);
         $npi_out_all = $this->outgoing_qty($date, $all_project);
 
@@ -47,22 +57,32 @@ class DashboardController extends Controller
             'data_date',
             'po_amount_011_this_month',
             'po_amount_017_this_month',
+            'po_amount_021_this_month',
+            'po_amount_022_this_month',
             'po_amount_APS_this_month',
             'po_amount_all_this_month',
             'plant_budget_011_this_month',
             'plant_budget_017_this_month',
+            'plant_budget_021_this_month',
+            'plant_budget_022_this_month',
             'plant_budget_APS_this_month',
             'plant_budget_all_this_month',
             'grpo_011_amount',
             'grpo_017_amount',
+            'grpo_021_amount',
+            'grpo_022_amount',
             'grpo_APS_amount',
             'grpo_all_amount',
             'npi_in_011',
             'npi_in_017',
+            'npi_in_021',
+            'npi_in_022',
             'npi_in_APS',
             'npi_in_all',
             'npi_out_011',
             'npi_out_017',
+            'npi_out_021',
+            'npi_out_022',
             'npi_out_APS',
             'npi_out_all',
             'mr_to_mi_all',
@@ -153,6 +173,7 @@ class DashboardController extends Controller
     {
         return Budget::whereIn('project_code', $project)
             ->where('budgettype_id', 2)
+            ->whereYear('date', $date)
             ->whereMonth('date', $date)
             ->sum('amount');
     }
