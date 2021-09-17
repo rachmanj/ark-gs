@@ -41,6 +41,30 @@
               </tr>
               <tr>
                 <th scope="row">3</th>
+                <td>021C</td>
+                <td class="text-right">{{ number_format($npi_incoming_021_this_year, 0) }}</td>
+                <td class="text-right">{{ number_format($npi_outgoing_021_this_year, 0) }}</td>
+                @if ($npi_incoming_021_this_year && $npi_outgoing_021_this_year)
+                <td class="text-right">{{ number_format($npi_incoming_021_this_year / $npi_outgoing_021_this_year, 2) }}</td>
+                @else
+                <td class="text-right">na</td>
+                @endif
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">4</th>
+                <td>022C</td>
+                <td class="text-right">{{ number_format($npi_incoming_022_this_year, 0) }}</td>
+                <td class="text-right">{{ number_format($npi_outgoing_022_this_year, 0) }}</td>
+                @if ($npi_incoming_022_this_year && $npi_outgoing_022_this_year)
+                <td class="text-right">{{ number_format($npi_incoming_022_this_year / $npi_outgoing_021_this_year, 2) }}</td>
+                @else
+                <td class="text-right">na</td>
+                @endif
+                <td></td>
+              </tr>
+              <tr>
+                <th scope="row">5</th>
                 <td>APS</td>
                 <td class="text-right">{{ number_format($npi_incoming_APS_this_year, 0) }}</td>
                 <td class="text-right">{{ number_format($npi_outgoing_APS_this_year, 0) }}</td>

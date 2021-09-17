@@ -22,11 +22,15 @@ class DashboardyearlyController extends Controller
 
         $po_sent_011_this_year = $this->po_sent_yearly($this_year->year, ['011C'], 'ty');
         $po_sent_017_this_year = $this->po_sent_yearly($this_year->year, ['017C'], 'ty');
+        $po_sent_021_this_year = $this->po_sent_yearly($this_year->year, ['021C'], 'ty');
+        $po_sent_022_this_year = $this->po_sent_yearly($this_year->year, ['022C'], 'ty');
         $po_sent_APS_this_year = $this->po_sent_yearly($this_year->year, ['APS'], 'ty');
         $po_sent_all_this_year = $this->po_sent_yearly($this_year->year, $all_project, 'ty');
 
         $plant_budget_011_this_year = $this->plant_budget_yearly($this_year->year, ['011C']);
         $plant_budget_017_this_year = $this->plant_budget_yearly($this_year->year, ['017C']);
+        $plant_budget_021_this_year = $po_sent_021_this_year;
+        $plant_budget_022_this_year = $po_sent_022_this_year;
         $plant_budget_APS_this_year = $this->plant_budget_yearly($this_year->year, ['APS']);
         $plant_budget_all_this_year = $this->plant_budget_yearly($this_year->year, $all_project);
 
@@ -42,11 +46,15 @@ class DashboardyearlyController extends Controller
 
         $npi_incoming_011_this_year = $this->incoming_qty_yearly($this_year, ['011C'], 'ty');
         $npi_incoming_017_this_year = $this->incoming_qty_yearly($this_year, ['017C'], 'ty');
+        $npi_incoming_021_this_year = $this->incoming_qty_yearly($this_year, ['021C'], 'ty');
+        $npi_incoming_022_this_year = $this->incoming_qty_yearly($this_year, ['022C'], 'ty');
         $npi_incoming_APS_this_year = $this->incoming_qty_yearly($this_year, ['APS'], 'ty');
         $npi_incoming_all_this_year = $this->incoming_qty_yearly($this_year, $all_project, 'ty');
 
         $npi_outgoing_011_this_year = $this->outgoing_qty_yearly($this_year, ['011C'], 'ty');
         $npi_outgoing_017_this_year = $this->outgoing_qty_yearly($this_year, ['017C'], 'ty');
+        $npi_outgoing_021_this_year = $this->outgoing_qty_yearly($this_year, ['021C'], 'ty');
+        $npi_outgoing_022_this_year = $this->outgoing_qty_yearly($this_year, ['022C'], 'ty');
         $npi_outgoing_APS_this_year = $this->outgoing_qty_yearly($this_year, ['APS'], 'ty');
         $npi_outgoing_all_this_year = $this->outgoing_qty_yearly($this_year, $all_project, 'ty');
 
@@ -65,10 +73,14 @@ class DashboardyearlyController extends Controller
             'last_year',
             'po_sent_011_this_year',
             'po_sent_017_this_year',
+            'po_sent_021_this_year',
+            'po_sent_022_this_year',
             'po_sent_APS_this_year',
             'po_sent_all_this_year',
             'plant_budget_011_this_year',
             'plant_budget_017_this_year',
+            'plant_budget_021_this_year',
+            'plant_budget_022_this_year',
             'plant_budget_APS_this_year',
             'plant_budget_all_this_year',
             'po_sent_011_last_year',
@@ -81,10 +93,14 @@ class DashboardyearlyController extends Controller
             'plant_budget_all_last_year',
             'npi_incoming_011_this_year',
             'npi_incoming_017_this_year',
+            'npi_incoming_021_this_year',
+            'npi_incoming_022_this_year',
             'npi_incoming_APS_this_year',
             'npi_incoming_all_this_year',
             'npi_outgoing_011_this_year',
             'npi_outgoing_017_this_year',
+            'npi_outgoing_021_this_year',
+            'npi_outgoing_022_this_year',
             'npi_outgoing_APS_this_year',
             'npi_outgoing_all_this_year',
             'npi_incoming_011_last_year',
