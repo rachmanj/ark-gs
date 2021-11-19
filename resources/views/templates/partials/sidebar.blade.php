@@ -17,7 +17,8 @@
          <li><a href="{{ route('dashboard.index') }}"><i class="fa fa-circle-o"></i> Dashboard 1</a></li>
          <li><a href="{{ route('dashboard.page_2') }}"><i class="fa fa-circle-o"></i> Dashboard 2</a></li>
          {{-- <li><a href="{{ route('dashboard.page_3') }}"><i class="fa fa-circle-o"></i> Last Month</a></li> --}}
-         <li><a href="{{ route('dashboard.last_month') }}"><i class="fa fa-circle-o"></i> Last Month</a></li>
+         {{-- <li><a href="{{ route('dashboard.last_month') }}"><i class="fa fa-circle-o"></i> Last Month</a></li> --}}
+         <li><a href="{{ route('dashboard.monthly_index') }}"><i class="fa fa-circle-o"></i> Monthly</a></li>
          <li><a href="{{ route('dashboard.yearly.index') }}"><i class="fa fa-circle-o"></i> Yearly</a></li>
        </ul>
       </li>   

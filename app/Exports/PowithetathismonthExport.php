@@ -47,7 +47,7 @@ class PowithetathismonthExport implements FromCollection, WithHeadings
     public function collection()
     {
         $date = Carbon::now();
-        $all_project = ['011C', '017C', 'APS'];
+        $all_project = ['011C', '017C', '021C', '022C', 'APS'];
 
         return $this->po_sent_amount($date, $all_project);
     }

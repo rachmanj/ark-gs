@@ -28,6 +28,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/yearly', 'DashboardyearlyController@index')->name('dashboard.yearly.index');
     Route::get('/dashboard/po_sent_by_project', 'DashboardController@po_sent_by_project')->name('dashboard.po_sent_by_project');
     Route::get('/dashboard/test', 'DashboardController@test')->name('dashboard.test');
+    Route::get('/dashboard/monthly', 'DashboardMonthlyController@index')->name('dashboard.monthly_index');
+    Route::post('/dashboard/monthly', 'DashboardMonthlyController@display')->name('dashboard.monthly_display');
 
     // data ajax
     Route::get('/powithetas/data', 'DataController@powithetas')->name('powithetas.data');

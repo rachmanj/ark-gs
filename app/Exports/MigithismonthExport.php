@@ -32,7 +32,7 @@ class MigithismonthExport implements FromCollection, WithHeadings
     public function collection()
     {
         $this_month = Carbon::now();
-        $all_project = ['011C', '017C', 'APS'];
+        $all_project = ['011C', '017C', '021C', '022C', 'APS'];
 
         return $this->outgoing_qty($this_month, $all_project);
     }
