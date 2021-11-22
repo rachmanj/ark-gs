@@ -25,7 +25,7 @@ class DashboardController extends Controller
 
         $plant_budget_011_this_month = $this->plant_budget($date, ['011C']);
         $plant_budget_017_this_month = $this->plant_budget($date, ['017C']);
-        $plant_budget_021_this_month = $po_amount_021_this_month;
+        $plant_budget_021_this_month = $this->plant_budget($date, ['021C']);
         $plant_budget_022_this_month = $po_amount_022_this_month;
         $plant_budget_APS_this_month = $this->plant_budget($date, ['APS']);
         $plant_budget_all_this_month = $this->plant_budget($date, $all_project);
