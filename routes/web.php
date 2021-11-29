@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard/page_2', 'DashboardController@page_2')->name('dashboard.page_2');
     Route::get('/dashboard/last_month', 'DashboardlastmonthController@index')->name('dashboard.last_month');
     Route::get('/dashboard/yearly', 'DashboardyearlyController@index')->name('dashboard.yearly.index');
+    Route::post('/dashboard/yearly', 'DashboardyearlyController@display')->name('dashboard.yearly_display');
     Route::get('/dashboard/po_sent_by_project', 'DashboardController@po_sent_by_project')->name('dashboard.po_sent_by_project');
     Route::get('/dashboard/test', 'DashboardController@test')->name('dashboard.test');
     Route::get('/dashboard/monthly', 'DashboardMonthlyController@index')->name('dashboard.monthly_index');

@@ -14,20 +14,34 @@
             <div class="col-sm-3">
             <div class="input-group mb-3">
               <select name="year" id="year" class="form-control">
-                <option value="">-- select year --</option>
-                <option value="this_year">This Year</option>
+                <option value="">-- Select Year --</option>
                 @foreach ($years as $year)
+                <option value="this_year">This Year</option>
                     <option value="{{ $year->date }}">{{ date('Y', strtotime($year->date)) }}</option>
                 @endforeach
               </select>
               <div class="input-group-append">
-              <button class="btn btn-outline-primary" type="submit">Submit</button>
+                <button class="btn btn-outline-primary" type="submit">Submit</button>
               </div>
             </div>
             </div>
           </div>
         </form>
         </div>
+
+      </div>
+
+      <div class="row col-lg-12">
+        <h4>{{ $year_title === 'This Year' ? 'This Year' : $year_title }}</h4>
+      </div>
+
+      <div class="row">
+        @include('dashboard.yearly.posent')
+        @include('dashboard.yearly.grpo_vs_posent')
+      </div>
+      
+      <div class="row">
+        @include('dashboard.yearly.npi')
       </div>
     </div>
 </div>
