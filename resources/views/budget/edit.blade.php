@@ -39,6 +39,8 @@
                   <select name="project_code" id="project_code" class="form-control single-select">
                     <option value="011C" @if ($budget->project_code == '011C') selected @endif>011C</option>
                     <option value="017C" @if ($budget->project_code == '017C') selected @endif>017C</option>
+                    <option value="021C" @if ($budget->project_code == '021C') selected @endif>021C</option>
+                    <option value="022C" @if ($budget->project_code == '022C') selected @endif>022C</option>
                     <option value="APS" @if ($budget->project_code == 'APS') selected @endif>APS</option>
                   </select>
                 </div>
