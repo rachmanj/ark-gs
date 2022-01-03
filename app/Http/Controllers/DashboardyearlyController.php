@@ -42,7 +42,38 @@ class DashboardyearlyController extends Controller
         $all_projects = ['011C', '017C', '021C', '022C', 'APS'];
 
         if ($request->year !== 'this_year') {
-            return 'not this year';
+            
+            $year_title = substr($request->year, 0, 4);
+            $po_sent_011 = $this->history_amount(['011C'], $request->year, 'po_sent');
+            $po_sent_017 = $this->history_amount(['017C'], $request->year, 'po_sent');
+            $po_sent_021 = $this->history_amount(['021C'], $request->year, 'po_sent');
+            $po_sent_022 = $this->history_amount(['022C'], $request->year, 'po_sent');
+            $po_sent_APS = $this->history_amount(['APS'], $request->year, 'po_sent');
+            $po_sent_all = $this->history_amount($all_projects, $request->year, 'po_sent');
+            $grpo_amount_011 = $this->history_amount(['011C'], $request->year, 'grpo_amount');
+            $grpo_amount_017 = $this->history_amount(['017C'], $request->year, 'grpo_amount');
+            $grpo_amount_021 = $this->history_amount(['021C'], $request->year, 'grpo_amount');
+            $grpo_amount_022 = $this->history_amount(['022C'], $request->year, 'grpo_amount');
+            $grpo_amount_APS = $this->history_amount(['APS'], $request->year, 'grpo_amount');
+            $grpo_amount_all = $this->history_amount($all_projects, $request->year, 'grpo_amount');
+            $incoming_qty_011 = $this->history_amount(['011C'], $request->year, 'incoming_qty');
+            $incoming_qty_017 = $this->history_amount(['017C'], $request->year, 'incoming_qty');
+            $incoming_qty_021 = $this->history_amount(['021C'], $request->year, 'incoming_qty');
+            $incoming_qty_022 = $this->history_amount(['022C'], $request->year, 'incoming_qty');
+            $incoming_qty_APS = $this->history_amount(['APS'], $request->year, 'incoming_qty');
+            $incoming_qty_all = $this->history_amount($all_projects, $request->year, 'incoming_qty');
+            $outgoing_qty_011 = $this->history_amount(['011C'], $request->year, 'outgoing_qty');
+            $outgoing_qty_017 = $this->history_amount(['017C'], $request->year, 'outgoing_qty');
+            $outgoing_qty_021 = $this->history_amount(['021C'], $request->year, 'outgoing_qty');
+            $outgoing_qty_022 = $this->history_amount(['022C'], $request->year, 'outgoing_qty');
+            $outgoing_qty_APS = $this->history_amount(['APS'], $request->year, 'outgoing_qty');
+            $outgoing_qty_all = $this->history_amount($all_projects, $request->year, 'outgoing_qty');
+            $plant_budget_011 = $this->plant_budget_yearly($request->year, ['011C']);
+            $plant_budget_017 = $this->plant_budget_yearly($request->year, ['017C']);
+            $plant_budget_021 = $this->plant_budget_yearly($request->year, ['021C']);
+            $plant_budget_022 = $po_sent_022;
+            $plant_budget_APS = $this->plant_budget_yearly($request->year, ['APS']);
+            $plant_budget_all = $this->plant_budget_yearly($request->year, $all_projects);
         } else {
             $year_title = 'This Year';
             $po_sent_011 = $this->po_sent_this_year(['011C']);
@@ -69,14 +100,15 @@ class DashboardyearlyController extends Controller
             $outgoing_qty_022 = $this->outgoing_qty_this_year(['022C']);
             $outgoing_qty_APS = $this->outgoing_qty_this_year(['APS']);
             $outgoing_qty_all = $this->outgoing_qty_this_year($all_projects);
+            $plant_budget_011 = $this->plant_budget_yearly($now, ['011C']);
+            $plant_budget_017 = $this->plant_budget_yearly($now, ['017C']);
+            $plant_budget_021 = $this->plant_budget_yearly($now, ['021C']);
+            $plant_budget_022 = $po_sent_022;
+            $plant_budget_APS = $this->plant_budget_yearly($now, ['APS']);
+            $plant_budget_all = $this->plant_budget_yearly($now, $all_projects);
         }
 
-        $plant_budget_011 = $this->plant_budget_yearly($now, ['011C']);
-        $plant_budget_017 = $this->plant_budget_yearly($now, ['017C']);
-        $plant_budget_021 = $this->plant_budget_yearly($now, ['021C']);
-        $plant_budget_022 = $po_sent_022;
-        $plant_budget_APS = $this->plant_budget_yearly($now, ['APS']);
-        $plant_budget_all = $this->plant_budget_yearly($now, $all_projects);
+        
 
         return view('dashboard.yearly.display', compact(
             'year_title',
@@ -185,5 +217,17 @@ class DashboardyearlyController extends Controller
             ->where($excl_itemcode_arr);
 
         return $list->sum('item_amount');
+    }
+
+    public function history_amount($project, $year, $gs_type)
+    {
+        $list = History::where('periode', 'yearly')
+                ->whereYear('date', $year)
+                ->whereIn('project_code', $project)
+                ->where('gs_type', $gs_type);
+                
+
+        return $list->sum('amount');
+        
     }
 }

@@ -15,8 +15,8 @@
             <div class="input-group mb-3">
               <select name="year" id="year" class="form-control">
                 <option value="">-- Select Year --</option>
-                @foreach ($years as $year)
                 <option value="this_year">This Year</option>
+                @foreach ($years as $year)
                     <option value="{{ $year->date }}">{{ date('Y', strtotime($year->date)) }}</option>
                 @endforeach
               </select>
