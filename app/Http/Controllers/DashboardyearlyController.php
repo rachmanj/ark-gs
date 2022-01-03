@@ -31,7 +31,7 @@ class DashboardyearlyController extends Controller
         $this->validate($request, [
             'year' => ['required']
         ]);
-        
+
         $now = Carbon::now();
         $years = DB::table('histories')->select('periode', 'date')
                 ->where('periode', 'yearly')
@@ -74,6 +74,13 @@ class DashboardyearlyController extends Controller
             $plant_budget_022 = $po_sent_022;
             $plant_budget_APS = $this->plant_budget_yearly($request->year, ['APS']);
             $plant_budget_all = $this->plant_budget_yearly($request->year, $all_projects);
+            // $plant_budgetnov21_011 = $this->budget_ytd_nov2021(['011C']);
+            // $plant_budgetnov21_017 = $this->budget_ytd_nov2021(['017C']);
+            // $plant_budgetnov21_021 = $this->budget_ytd_nov2021(['021C']);
+            // $plant_budgetnov21_022 = $po_sent_022;
+            // $plant_budgetnov21_APS = $this->budget_ytd_nov2021(['APS']);
+            // $plant_budgetnov21_all = $this->budget_ytd_nov2021($all_projects);
+
         } else {
             $year_title = 'This Year';
             $po_sent_011 = $this->po_sent_this_year(['011C']);
@@ -143,6 +150,12 @@ class DashboardyearlyController extends Controller
             'outgoing_qty_022',
             'outgoing_qty_APS', 
             'outgoing_qty_all',
+            // 'plant_budgetnov21_011',
+            // 'plant_budgetnov21_017',
+            // 'plant_budgetnov21_021',
+            // 'plant_budgetnov21_022',
+            // 'plant_budgetnov21_APS',
+            // 'plant_budgetnov21_all',
         ));
     }
 
@@ -229,5 +242,17 @@ class DashboardyearlyController extends Controller
 
         return $list->sum('amount');
         
+    }
+
+    public function budget_ytd_nov2021($project)
+    {
+        // $budget = Budget::whereBetween('date', ['2020-12-31', '2021-12-01'])
+        $budget = Budget::where('date', '>=', '2021-01-01')
+                  ->where('date', '<=', '2021-11-30')
+                  ->where('budgettype_id', 2)
+                  ->whereIn('project_code', $project)
+                  ->sum('amount');
+
+        return $budget;
     }
 }
