@@ -40,6 +40,7 @@ class DashboardyearlyController extends Controller
                 ->get();
 
         $all_projects = ['011C', '017C', '021C', '022C', 'APS'];
+        $three_projects = ['011C', '017C', 'APS'];
 
         if ($request->year !== 'this_year') {
             
@@ -50,30 +51,35 @@ class DashboardyearlyController extends Controller
             $po_sent_022 = $this->history_amount(['022C'], $request->year, 'po_sent');
             $po_sent_APS = $this->history_amount(['APS'], $request->year, 'po_sent');
             $po_sent_all = $this->history_amount($all_projects, $request->year, 'po_sent');
+            // $po_sent_three = $this->history_amount($three_projects, $request->year, 'po_sent');
             $grpo_amount_011 = $this->history_amount(['011C'], $request->year, 'grpo_amount');
             $grpo_amount_017 = $this->history_amount(['017C'], $request->year, 'grpo_amount');
             $grpo_amount_021 = $this->history_amount(['021C'], $request->year, 'grpo_amount');
             $grpo_amount_022 = $this->history_amount(['022C'], $request->year, 'grpo_amount');
             $grpo_amount_APS = $this->history_amount(['APS'], $request->year, 'grpo_amount');
             $grpo_amount_all = $this->history_amount($all_projects, $request->year, 'grpo_amount');
+            // $grpo_amount_three = $this->history_amount($three_projects, $request->year, 'grpo_amount');
             $incoming_qty_011 = $this->history_amount(['011C'], $request->year, 'incoming_qty');
             $incoming_qty_017 = $this->history_amount(['017C'], $request->year, 'incoming_qty');
             $incoming_qty_021 = $this->history_amount(['021C'], $request->year, 'incoming_qty');
             $incoming_qty_022 = $this->history_amount(['022C'], $request->year, 'incoming_qty');
             $incoming_qty_APS = $this->history_amount(['APS'], $request->year, 'incoming_qty');
             $incoming_qty_all = $this->history_amount($all_projects, $request->year, 'incoming_qty');
+            // $incoming_qty_three = $this->history_amount($three_projects, $request->year, 'incoming_qty');
             $outgoing_qty_011 = $this->history_amount(['011C'], $request->year, 'outgoing_qty');
             $outgoing_qty_017 = $this->history_amount(['017C'], $request->year, 'outgoing_qty');
             $outgoing_qty_021 = $this->history_amount(['021C'], $request->year, 'outgoing_qty');
             $outgoing_qty_022 = $this->history_amount(['022C'], $request->year, 'outgoing_qty');
             $outgoing_qty_APS = $this->history_amount(['APS'], $request->year, 'outgoing_qty');
             $outgoing_qty_all = $this->history_amount($all_projects, $request->year, 'outgoing_qty');
+            // $outgoing_qty_three = $this->history_amount($three_projects, $request->year, 'outgoing_qty');
             $plant_budget_011 = $this->plant_budget_yearly($request->year, ['011C']);
             $plant_budget_017 = $this->plant_budget_yearly($request->year, ['017C']);
             $plant_budget_021 = $this->plant_budget_yearly($request->year, ['021C']);
             $plant_budget_022 = $po_sent_022;
             $plant_budget_APS = $this->plant_budget_yearly($request->year, ['APS']);
             $plant_budget_all = $this->plant_budget_yearly($request->year, $all_projects);
+            // $plant_budget_three = $this->plant_budget_yearly($request->year, $three_projects);
             // $plant_budgetnov21_011 = $this->budget_ytd_nov2021(['011C']);
             // $plant_budgetnov21_017 = $this->budget_ytd_nov2021(['017C']);
             // $plant_budgetnov21_021 = $this->budget_ytd_nov2021(['021C']);
@@ -126,30 +132,35 @@ class DashboardyearlyController extends Controller
             'po_sent_022',
             'po_sent_APS', 
             'po_sent_all',
+            // 'po_sent_three',
             'plant_budget_011',
             'plant_budget_017',
             'plant_budget_021',
             'plant_budget_022',
             'plant_budget_APS',
             'plant_budget_all',
+            // 'plant_budget_three',
             'grpo_amount_011',
             'grpo_amount_017',
             'grpo_amount_021',
             'grpo_amount_022',
             'grpo_amount_APS', 
             'grpo_amount_all',
+            // 'grpo_amount_three',
             'incoming_qty_011', 
             'incoming_qty_017', 
             'incoming_qty_021', 
             'incoming_qty_022', 
             'incoming_qty_APS', 
             'incoming_qty_all',
+            // 'incoming_qty_three',
             'outgoing_qty_011',
             'outgoing_qty_017',
             'outgoing_qty_021',
             'outgoing_qty_022',
             'outgoing_qty_APS', 
             'outgoing_qty_all',
+            // 'outgoing_qty_three',
             // 'plant_budgetnov21_011',
             // 'plant_budgetnov21_017',
             // 'plant_budgetnov21_021',

@@ -37,11 +37,14 @@
 
       <div class="row">
         @include('dashboard.yearly.posent')
+        {{-- @include('dashboard.yearly.posent_3projects') --}}
         @include('dashboard.yearly.grpo_vs_posent')
+        {{-- @include('dashboard.yearly.grpo_vs_posent_3projects') --}}
       </div>
       
       <div class="row">
         @include('dashboard.yearly.npi')
+        {{-- @include('dashboard.yearly.npi_3projects') --}}
         {{-- @include('dashboard.yearly.budget_nov21') --}}
       </div>
     </div>
