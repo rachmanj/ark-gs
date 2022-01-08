@@ -19,7 +19,7 @@
                   <td>011C</td>
                   <td class="text-right">{{ number_format($po_sent_011 / 1000, 2) }}</td>
                   <td class="text-right">{{ number_format($plant_budget_011 / 1000, 2) }}</td>
-                  <td class="text-right">{{ number_format($po_sent_011 / $plant_budget_011 * 100, 2) }}</td>
+                  <td class="text-right">{{ ($po_sent_011 == 0 || $plant_budget_011 == 0 ? ' - ' : number_format($po_sent_011 / $plant_budget_011 * 100, 2) ) }}</td>
                 </tr>
                 <tr>
                   <td>2</td>
