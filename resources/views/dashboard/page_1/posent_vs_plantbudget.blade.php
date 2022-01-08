@@ -22,7 +22,7 @@
                   <td>011C</td>
                   <td class="text-right">{{ number_format($po_amount_011_this_month / 1000, 2) }}</td>
                   <td class="text-right">{{ number_format($plant_budget_011_this_month / 1000, 2) }}</td>
-                  <td class="text-right">{{ number_format($po_amount_011_this_month / $plant_budget_011_this_month * 100, 2) }}</td>
+                  <td class="text-right">{{ ( $po_amount_011_this_month == 0 || $plant_budget_011_this_month == 0 ? ' - ' : number_format($po_amount_011_this_month / $plant_budget_011_this_month * 100, 2)) }}</td>
                 </tr>
                 <tr>
                   <td>2</td>
