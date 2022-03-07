@@ -36,7 +36,10 @@
                         <h1 class="error-title text-primary"> 404</h1>
                         <h2 class="error-sub-title text-dark">404 not found</h2>
 
-                        <p class="error-message text-dark text-uppercase">Sorry, ARKA - GoalSetting Apps has moved to <a href="http://192.168.33.18:8080/new-ark-gs">http://192.168.33.18:8080/new-ark-gs</a></p>
+                        <p class="error-message text-dark">ARKA - GoalSetting Apps has moved to <a href="http://192.168.33.18:8080/new-ark-gs">http://192.168.33.18:8080/new-ark-gs</a></p>
+                        <p>You can login with your current username and password</p>
+                        <p>Sorry for the Inconvenience</p>
+                        <p>Click link bellow</p>
                         
                         <div class="mt-4">
                           <a href="http://192.168.33.18:8080/new-ark-gs" class="btn btn-primary btn-round shadow-primary m-1">Go To New ARK-GS </a>
